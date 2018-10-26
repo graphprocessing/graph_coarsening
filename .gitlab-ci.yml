@@ -1,8 +1,5 @@
 before_script:
-  - apt-get -qq update &> log_update
-  - apt-get -qq upgrade &> log_upgrade
-  - apt-get -qq install -y cppcheck &> log_install_cppcheck
-  - apt-get -qq install -y cmake &> log_install_cmake
+  - apt-get -qq install -y cppcheck cmake &> log_install_cmake
 
 stages:
   - coding_style
