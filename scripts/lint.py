@@ -13,7 +13,7 @@ def StartTests(command):
     if len(res_succ) != 0: return True
     else:                  return False
 
-pattern_filename = r'(\w+\.h|\w+\.cpp|\w+\.hpp)$'
+pattern_filename = r'(\w+\.h|\w+\.cpp)$'
 
 project_directory = sys.argv[1]
 home_directory = sys.argv[1]
@@ -25,9 +25,8 @@ exit_flag = True
 for dirs, node, files in os.walk(project_directory):
     for file in files:
         if re.search(pattern_filename, file) != None:
-            if re.search("build", dirs) == None:
+            if re.search(r'build', dirs) == None:
                 os.chdir(dirs)
-                print("gfhjkl")
                 print(dirs + " -> " + file)
                 command = sys.executable + ' ' + cpplint_path + ' ' + file
                 status = StartTests(command)
