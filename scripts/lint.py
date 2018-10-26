@@ -31,9 +31,9 @@ for dirs, node, files in os.walk(project_directory):
                 command = sys.executable + ' ' + cpplint_path + ' ' + file
                 status = StartTests(command)
                 if status:
-                    print("\033[0;32mSuccess: " + file + "\033[0;0m");
+                    print("Success: " + file);
                 else:
-                    print("\033[0;31mFailed: "  + file + "\033[0;0m");
+                    print("Failed: "  + file);
                     exit_flag = False
 os.chdir(home_directory)
 print("################ END FOUND LINT ERROR   ################")
