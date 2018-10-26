@@ -1,5 +1,6 @@
 before_script:
-  - apt-get -qq install -y cppcheck cmake &> log_install_cmake
+  - apt-get -qq install -y cppcheck &> log_install_cppcheck
+  - apt-get -qq install -y cmake &> log_install_cmake
 
 stages:
   - coding_style
