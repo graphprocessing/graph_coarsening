@@ -7,11 +7,11 @@ stages:
 build_and_run:
   stage: build_and_run
   script:
-    - python3 scripts/lint.py $CI_PROJECT_DIR
+    - python scripts/lint.py $CI_PROJECT_DIR
     - mkdir build
     - cd build
     - cmake -D CMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..
     - cppcheck -j4 --project=compile_commands.json &> log_cppcheck
-    - python3 ../scripts/static_analysis.py log_cppcheck
+    - python ../scripts/static_analysis.py log_cppcheck
     - make -j4
     - ./modules/application/Graph_Partition
