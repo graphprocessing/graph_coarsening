@@ -35,7 +35,9 @@ modules\application\Graph_Partition.exe   or   ./modules/application/Graph_Parti
 1) Реализовать хранение графов (для информации на Google drive директория storage)
 
     a) Adj. list
+
     b) CRS
+
     c) JDF
 
 2) Реализовать бинарное представление больших графов
@@ -43,11 +45,15 @@ modules\application\Graph_Partition.exe   or   ./modules/application/Graph_Parti
 3) Реализовать определенные структуры графов (для информации на Google drive директория generator)
 
     a) zadeh_test
+
     b) washington_test
+
     c) grid_3d
 
 4) Реализовать графовые алгоритмы на этих графах в этих формах хранения:
 
     a) bfs
+
     b) dfs
+    
     c) dijkstra
