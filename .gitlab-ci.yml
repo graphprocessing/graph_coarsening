@@ -6,15 +6,19 @@ before_script:
 
 stages:
   - coding_style
-  - build_and_run
+  - build
+  - run
 
 coding_style:
   stage: coding_style
   script:
     - python scripts/lint.py $CI_PROJECT_DIR
 
-build_and_run:
-  stage: build_and_run
+build:
+  stage: build
+  artifacts:
+    paths:
+      - $CI_PROJECT_DIR/build
   script:
     - mkdir build
     - cd build
@@ -22,4 +26,8 @@ build_and_run:
     - cppcheck -j4 --project=compile_commands.json &> log_cppcheck
     - python ../scripts/static_analysis.py log_cppcheck
     - make -j4
-    - ./modules/application/Graph_Partition
+
+run:
+  stage: run
+  script:
+    - .$CI_PROJECT_DIR/build/modules/application/Graph_Partition
