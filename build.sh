@@ -1,4 +1,4 @@
-python scripts/lint.py
+python scripts/lint.py ${PWD}
 
 if [ ! -d "build" ]; then
     mkdir build

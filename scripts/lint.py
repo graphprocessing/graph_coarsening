@@ -15,8 +15,8 @@ def StartTests(command):
 
 pattern_filename = r'(\w+\.h|\w+\.cpp|\w+\.hpp)$'
 
-project_directory = os.getcwd();
-home_directory = os.getcwd();
+project_directory = sys.argv[1]
+home_directory = sys.argv[1]
 
 cpplint_path = project_directory + '/3rdparty/cpplint.py'
 cpplint_path = os.path.abspath(cpplint_path)
