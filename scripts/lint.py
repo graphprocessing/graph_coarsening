@@ -24,6 +24,7 @@ project_directory = os.path.abspath(project_directory)
 exit_flag = True
 for dirs, node, files in os.walk(project_directory):
     for file in files:
+        print(dirs + " -> " + file)
         if re.search(pattern_filename, file) != None:
             if re.search(r'build', dirs) == None:
                 os.chdir(dirs)
