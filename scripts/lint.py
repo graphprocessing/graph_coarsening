@@ -27,13 +27,14 @@ for dirs, node, files in os.walk(project_directory):
         if re.search(pattern_filename, file) != None:
             if re.search("build", dirs) == None:
                 os.chdir(dirs)
+                print("gfhjkl")
                 print(dirs + " -> " + file)
                 command = sys.executable + ' ' + cpplint_path + ' ' + file
                 status = StartTests(command)
                 if status:
-                    print("Success: " + file);
+                    print("\033[0;32mSuccess: " + file + "\033[0;0m");
                 else:
-                    print("Failed: "  + file);
+                    print("\033[0;31mFailed: "  + file + "\033[0;0m");
                     exit_flag = False
 os.chdir(home_directory)
 print("################ END FOUND LINT ERROR   ################")
