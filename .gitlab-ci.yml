@@ -1,16 +1,22 @@
 before_script:
-  - apt-get -qq update
-  - apt-get -qq upgrade
-  - apt-get -qq install -y cppcheck
-  - apt-get -qq install -y cmake
+  - apt-get -qq install -y apt-utils &> log_install_apt_utils
+  - apt-get -qq update &> log_update
+  - apt-get -qq upgrade &> log_upgrade
+  - apt-get -qq install -y cppcheck &> log_install_cppcheck
+  - apt-get -qq install -y cmake &> log_install_cmake
 
 stages:
+  - coding_style
   - build_and_run
+
+coding_style:
+  stage: coding_style
+  script:
+    - python scripts/lint.py $CI_PROJECT_DIR
 
 build_and_run:
   stage: build_and_run
   script:
-    - python scripts/lint.py $CI_PROJECT_DIR
     - mkdir build
     - cd build
     - cmake -D CMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..
