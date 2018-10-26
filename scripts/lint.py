@@ -25,8 +25,7 @@ exit_flag = True
 for dirs, node, files in os.walk(project_directory):
     for file in files:
         if re.search(pattern_filename, file) != None:
-            print(dirs + " -> " + file)
-            if re.search(r'build', dirs) == None:
+            if re.search(r'/build/', dirs) == None:
                 os.chdir(dirs)
                 print(dirs + " -> " + file)
                 command = sys.executable + ' ' + cpplint_path + ' ' + file
