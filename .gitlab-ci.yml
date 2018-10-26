@@ -1,5 +1,5 @@
 before_script:
-  - apt-get -qq update && apt-get -qq install -y cppcheck
+  - apt-get -qq update && apt-get -qq install -y cppcheck cmake
 
 stages:
   - coding_style
@@ -8,19 +8,19 @@ stages:
 
 coding_style:
   stage: coding_style
-  variables:
   script:
     - python scripts/lint.py
 
 build:
   stage: build
   variables:
-    MAXFLOWLIB_BUILD_PATH:  $CI_PROJECT_DIR/build
+    GRAPH_PARTITION_BUILD_PATH:  $CI_PROJECT_DIR/build
   artifacts:
     paths:
-      - $MAXFLOWLIB_BUILD_PATH
+      - $GRAPH_PARTITION_BUILD_PATH
   script:
     - mkdir build
+    - cd build
     - cmake -D CMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..
     - cppcheck -j4 --project=compile_commands.json &> log_cppcheck
     - python ../scripts/static_analysis.py log_cppcheck
@@ -30,4 +30,4 @@ run_application:
   stage: run_application
   variables:
   script:
-    - ./$MAXFLOWLIB_BUILD_PATH/modules/application/Graph_Partition
+    - .$GRAPH_PARTITION_BUILD_PATH/modules/application/Graph_Partition
