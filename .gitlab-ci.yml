@@ -1,5 +1,8 @@
 before_script:
-  - apt-get -qq update && apt-get -qq install -y cppcheck cmake
+  - apt-get -qq update
+  - apt-get -qq upgrade
+  - apt-get -qq install -y cppcheck
+  - apt-get -qq install -y cmake
 
 stages:
   - build_and_run
