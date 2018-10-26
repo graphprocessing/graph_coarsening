@@ -1,3 +1,4 @@
+// Copyright [year] <Copyright Owner>
 #include <iostream>
 
 int main(int argc, char** argv) {
