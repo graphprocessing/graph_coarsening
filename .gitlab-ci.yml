@@ -15,7 +15,7 @@ build:
   stage: build
   artifacts:
     paths:
-      - $CI_PROJECT_DIR/build
+      - $CI_PROJECT_DIR/build/
   script:
     - mkdir $CI_PROJECT_DIR/build
     - cd $CI_PROJECT_DIR/build
@@ -28,3 +28,5 @@ run:
   stage: run
   script:
     - .$CI_PROJECT_DIR/build/modules/application/Graph_Partition
+  dependencies:
+    - build
