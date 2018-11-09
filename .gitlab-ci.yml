@@ -4,6 +4,7 @@ before_script:
 stages:
   - coding_style
   - build
+  - tests
   - run
 
 coding_style:
@@ -23,6 +24,14 @@ build:
     - cppcheck -j4 --project=compile_commands.json &> log_cppcheck
     - python ../scripts/static_analysis.py log_cppcheck
     - make -j4
+
+tests:
+  stage: tests
+  script:
+    - cd build/tests
+    - ./Test_Target
+  dependencies:
+    - build
 
 run:
   stage: run
