@@ -1,3 +1,5 @@
+[![pipeline status](https://gitlab.com/allnes/graph_partition/badges/master/pipeline.svg)](https://gitlab.com/allnes/graph_partition/commits/master)
+
 # ITLab 2018
 ## <b><i>Тема</i></b>: Огрубление графов
 ### Студенты:
