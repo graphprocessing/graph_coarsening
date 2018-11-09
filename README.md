@@ -26,6 +26,7 @@ mkdir build
 cd build
 cmake ..
 msbuild ALL_BUILD.vcxproj   or   make -j4
+tests\Test_Target.exe   or   ./tests/Test_Target
 modules\application\Graph_Partition.exe   or   ./modules/application/Graph_Partition
 ```
 
