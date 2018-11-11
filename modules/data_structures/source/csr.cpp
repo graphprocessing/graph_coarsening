@@ -9,8 +9,8 @@
 
 CSR::CSR(const AL& al, ...) {
     offset.push_back(0);
-    for (int i = 0; i < (int)al.edges.size(); ++i) {
-        for (int j = 0; j < (int)al.edges[i].size(); ++j) {
+    for (int i = 0; i < static_cast<int>(al.edges.size()); ++i) {
+        for (int j = 0; j < static_cast<int>(al.edges[i].size()); ++j) {
             edges.emplace_back(al.edges[i][j]);
         }
         offset.push_back(edges.size());
