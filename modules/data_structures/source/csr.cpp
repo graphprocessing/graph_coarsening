@@ -18,7 +18,7 @@ CSR::CSR(const AL& al, ...) {
 
 CSR::CSR(const JDS& jds, ...) {
     offset.push_back(0);
-    //TODO
+    // TO DO
 }
 
 bool CSR::get_neighbours(std::vector <std::pair <int, int>>* neighbours,
