@@ -15,7 +15,7 @@ struct Graph {
  public:
     int n;
     int bfs(int from, int to);
-    void dfs(int root);
+    std::vector <int> dfs(int root);
     int Dijkstra(int from, int to);
     virtual bool get_neighbours(std::vector <std::pair<int, int>>* neighbours,
         int vertex, int anc) = 0;

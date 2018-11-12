@@ -4,6 +4,7 @@
 #include <vector>
 #include <queue>
 #include <set>
+#include <iostream>
 
 int Graph::bfs(int from, int to) {
     std::vector <int> d(n, -1);
@@ -32,16 +33,18 @@ void Graph::dfs_recursion(std::vector <int>* pd,
     was[x] = 1;
     d[x] = d[anc] + 1;
     std::vector <std::pair <int, int>> neighbours;
+    get_neighbours(&neighbours, x, anc);
     for (auto y : neighbours) {
         if (!was[y.first])
             dfs_recursion(&d, &was, y.first, x);
     }
 }
 
-void Graph::dfs(int root) {
+std::vector <int> Graph::dfs(int root) {
     std::vector <int> d(n, 0);
     std::vector <char> was(n, 0);
     dfs_recursion(&d, &was, root, root);
+    return d;
 }
 
 int Graph::Dijkstra(int from, int to) {
