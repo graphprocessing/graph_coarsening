@@ -8,11 +8,12 @@
 
 struct CSR : public Graph {
  public:
-    std::vector <int> edges;
+    std::vector <std::pair <int, int>> edges;
     std::vector <int> offset;
+    CSR() = default;
     CSR(const AL& al, ...);
     CSR(const JDS& jds, ...);
-    bool get_neighbours(std::vector <std::pair<int, int>>& neighbours,
+    bool get_neighbours(std::vector <std::pair <int, int>>* neighbours,
         int vertex, int anc) override;
     bool read(const std::string& path) override;
     bool write(const std::string& path) override;
