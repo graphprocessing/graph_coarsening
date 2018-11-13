@@ -10,6 +10,7 @@ struct AL : public Graph {
  public:
     std::vector <std::vector <std::pair <int, int>>> edges;
     AL(const CSR& csr, ...);
+    AL() = default;
     bool get_neighbours(std::vector <std::pair<int, int>>* neighbours,
         int vertex, int anc) override;
     bool read(const std::string& path) override;

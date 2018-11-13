@@ -4,6 +4,7 @@
 #include "../data_structures/include/graph.h"
 #include "../data_structures/include/csr.h"
 #include "../generators/include/generator.h"
+#include "../data_structures/include/adjacency_list.h"
 
 int main(int argc, char** argv) {
     // CSR sample
@@ -37,5 +38,25 @@ int main(int argc, char** argv) {
     std::cout << std::endl;
     // End of CSR
 
+    // AL sample
+    AL al(csr_graph);
+    al.write("al.bin");
+    AL al1;
+    al1.read("al.bin");
+    for (unsigned i = 0; i < al1.edges.size(); i++) {
+        std::cout << i << ": ";
+        for (unsigned j = 0; j < al1.edges[i].size(); j++) {
+            std::cout << al1.edges[i][j].first << " ";
+        }
+        std::cout << std::endl;
+    }
+    std::cout << "BFS 0-2: " << al1.bfs(0, 2) << std::endl;
+    std::cout << "BFS 0-8: " << al1.bfs(0, 8) << std::endl;
+    std::cout << "Dijkstra 0-2: " << al1.Dijkstra(0, 2) << std::endl;
+    dfs_res = al1.dfs(0);
+    for (int i = 0; i < al1.n; i++)
+        std::cout << "vertex " << i << ", depth " << dfs_res[i] << std::endl;
+    std::cout << std::endl;
+    // End of AL
     return 0;
 }
