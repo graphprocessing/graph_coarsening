@@ -5,6 +5,7 @@
 #include "../data_structures/include/csr.h"
 #include "../generators/include/generator.h"
 #include "../data_structures/include/adjacency_list.h"
+#include "../algorithms/include/random_matching.h"
 
 int main(int argc, char** argv) {
     // CSR sample
@@ -58,5 +59,15 @@ int main(int argc, char** argv) {
         std::cout << "vertex " << i << ", depth " << dfs_res[i] << std::endl;
     std::cout << std::endl;
     // End of AL
+
+    std::cout << std::endl << std::endl << "Matching: " << std::endl;
+    AL mtch = random_matching(al1);
+    for (unsigned i = 0; i < mtch.edges.size(); i++) {
+        std::cout << i << ": ";
+        for (unsigned j = 0; j < mtch.edges[i].size(); j++) {
+            std::cout << mtch.edges[i][j].first << " ";
+        }
+        std::cout << std::endl;
+    }
     return 0;
 }
