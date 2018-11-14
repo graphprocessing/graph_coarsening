@@ -1,17 +1,16 @@
 // Copyright [year] <Copyright Owner>
 #include <random>
-#include <iostream>
+#include <utility>
 #include <vector>
 #include <algorithm>
 #include "../../data_structures/include/adjacency_list.h"
 #include "../../data_structures/include/csr.h"
 
-AL random_matching(AL graph) {
+std::vector <std::pair <int, int>> random_matching(AL graph) {
     int n = graph.n;
     std::random_device rd;
     std::mt19937 generator(rd());
-    AL matching;
-    matching.edges.resize(n);
+    std::vector <std::pair <int, int>> matching;
     std::vector <char> used(n, 0);
     std::vector <int> permutation(n);
     for (int i = 0; i < n; ++i)
@@ -42,8 +41,7 @@ AL random_matching(AL graph) {
             }
             used[vertex] = true;
             used[next] = true;
-            matching.edges[vertex].emplace_back
-                (next, graph.edges[vertex][next].second);
+            matching.emplace_back(vertex, next);
             vertex = next;
         }
     }

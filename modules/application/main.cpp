@@ -60,14 +60,10 @@ int main(int argc, char** argv) {
     std::cout << std::endl;
     // End of AL
 
-    std::cout << std::endl << std::endl << "Matching: " << std::endl;
-    AL mtch = random_matching(al1);
-    for (unsigned i = 0; i < mtch.edges.size(); i++) {
-        std::cout << i << ": ";
-        for (unsigned j = 0; j < mtch.edges[i].size(); j++) {
-            std::cout << mtch.edges[i][j].first << " ";
-        }
-        std::cout << std::endl;
+    std::cout << "Matching: " << std::endl;
+    auto matching = random_matching(al1);
+    for (auto edge : matching) {
+        std::cout << edge.first << " " << edge.second << std::endl;
     }
     return 0;
 }
