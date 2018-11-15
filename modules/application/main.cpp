@@ -10,7 +10,7 @@
 int main(int argc, char** argv) {
     // CSR sample
     std::cout << "Started washington_test" << std::endl;
-    CSR csr_graph = washington_test(53, false);
+    CSR csr_graph = washington_test(20, true);
     std::cout << "Strated writing to file" << std::endl;
     if (csr_graph.write("csr.bin")) {
         std::cout << "Graph is written to the file successfully" << std::endl;
@@ -69,7 +69,6 @@ int main(int argc, char** argv) {
     // End of AL
 
     // Random matching sample
-    while (1) {
     std::cout << "Random matching on AL: " << std::endl;
     auto matching = random_matching(al1);
     for (int i = 0; i < matching.n; ++i)
@@ -80,7 +79,6 @@ int main(int argc, char** argv) {
     for (int i = 0; i < matching.n; ++i)
         std::cout << matching.edge_b[i] <<
                     " " << matching.edge_e[i] << std::endl;
-    }
     // End of random matching sample
     return 0;
 }
