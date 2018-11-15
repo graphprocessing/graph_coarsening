@@ -5,7 +5,8 @@
 #include <vector>
 #include "../../data_structures/include/adjacency_list.h"
 #include "../../data_structures/include/csr.h"
+#include "../../data_structures/include/matching.h"
 
-std::vector <std::pair <int, int>> random_matching(AL graph);
+Matching random_matching(const AL& graph);
 
 #endif  // MODULES_ALGORITHMS_INCLUDE_RANDOM_MATCHING_H_

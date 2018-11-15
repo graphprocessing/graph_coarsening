@@ -9,20 +9,25 @@
 
 int main(int argc, char** argv) {
     // CSR sample
+    std::cout << "Started washington_test" << std::endl;
     CSR csr_graph = washington_test(2);
+    std::cout << "Strated writing to file" << std::endl;
     if (csr_graph.write("csr.bin")) {
         std::cout << "Graph is written to the file successfully" << std::endl;
     } else {
         std::cout << "Error with writing graph to file" << std::endl;
         return 1;
     }
+    std::cout << "Finished writing to file" << std::endl;
     CSR csr;
+    std::cout << "Started reading from file" << std::endl;
     if (csr.read("csr.bin")) {
         std::cout << "Graph is read from the file successfully" << std::endl;
     } else {
         std::cout << "Error with reading graph from file" << std::endl;
         return 1;
     }
+    std::cout << "Graph is successfully read from file" << std::endl;
     for (unsigned i = 0; i < csr.offset.size(); ++i)
         std::cout << csr.offset[i] << " ";
     std::cout << std::endl;
@@ -62,8 +67,8 @@ int main(int argc, char** argv) {
 
     std::cout << "Matching: " << std::endl;
     auto matching = random_matching(al1);
-    for (auto edge : matching) {
-        std::cout << edge.first << " " << edge.second << std::endl;
-    }
+    for (int i = 0; i < matching.n; ++i)
+        std::cout << matching.edge_b[i] <<
+                    " " << matching.edge_e[i] << std::endl;
     return 0;
 }

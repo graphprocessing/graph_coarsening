@@ -5,12 +5,13 @@
 #include <algorithm>
 #include "../../data_structures/include/adjacency_list.h"
 #include "../../data_structures/include/csr.h"
+#include "../../data_structures/include/matching.h"
 
-std::vector <std::pair <int, int>> random_matching(AL graph) {
+Matching random_matching(const AL& graph) {
     int n = graph.n;
     std::random_device rd;
     std::mt19937 generator(rd());
-    std::vector <std::pair <int, int>> matching;
+    Matching matching;
     std::vector <char> used(n, 0);
     std::vector <int> permutation(n);
     for (int i = 0; i < n; ++i)
@@ -41,7 +42,9 @@ std::vector <std::pair <int, int>> random_matching(AL graph) {
             }
             used[vertex] = true;
             used[next] = true;
-            matching.emplace_back(vertex, next);
+            matching.edge_b.push_back(vertex);
+            matching.edge_e.push_back(next);
+            ++matching.n;
             vertex = next;
         }
     }
