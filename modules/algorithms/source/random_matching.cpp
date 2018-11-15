@@ -3,6 +3,7 @@
 #include <utility>
 #include <vector>
 #include <algorithm>
+#include <iostream>
 #include "../../data_structures/include/adjacency_list.h"
 #include "../../data_structures/include/csr.h"
 #include "../../data_structures/include/matching.h"
@@ -17,13 +18,15 @@ Matching random_matching(const AL& graph) {
     for (int i = 0; i < n; ++i)
         permutation[i] = i;
     std::random_shuffle(permutation.begin(), permutation.end(), [&](int a) {
-        std::uniform_int_distribution<int> sort_dist(0, a);
+        std::uniform_int_distribution<int> sort_dist(0, a - 1);
         return sort_dist(generator);
     });
     for (int i : permutation) {
         if (!used[i]) {
             int vertex = i;
             int sz = graph.edges[vertex].size();
+            if (!sz)
+                continue;
             int next = -2;
             for (int i = 0; i < sz; ++i) {
                 if (!used[graph.edges[vertex][i].first]) {
@@ -45,7 +48,6 @@ Matching random_matching(const AL& graph) {
             matching.edge_b.push_back(vertex);
             matching.edge_e.push_back(next);
             ++matching.n;
-            vertex = next;
         }
     }
     return matching;
@@ -61,7 +63,7 @@ Matching random_matching(const CSR& graph) {
     for (int i = 0; i < n; ++i)
         permutation[i] = i;
     std::random_shuffle(permutation.begin(), permutation.end(), [&](int a) {
-        std::uniform_int_distribution<int> sort_dist(0, a);
+        std::uniform_int_distribution<int> sort_dist(0, a - 1);
         return sort_dist(generator);
     });
     for (int i : permutation) {
@@ -70,6 +72,8 @@ Matching random_matching(const CSR& graph) {
             int next = -2;
             const int& begin = graph.offset[vertex];
             const int& end = graph.offset[vertex+1];
+            if (begin == end)
+                continue;
             for (int i = begin; i < end; ++i) {
                 if (!used[graph.edges[i].first]) {
                     next = -1;
@@ -90,7 +94,6 @@ Matching random_matching(const CSR& graph) {
             matching.edge_b.push_back(vertex);
             matching.edge_e.push_back(next);
             ++matching.n;
-            vertex = next;
         }
     }
     return matching;
