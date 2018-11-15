@@ -65,10 +65,17 @@ int main(int argc, char** argv) {
     std::cout << std::endl;
     // End of AL
 
-    std::cout << "Matching: " << std::endl;
+    // Random matching sample
+    std::cout << "Random matching on AL: " << std::endl;
     auto matching = random_matching(al1);
     for (int i = 0; i < matching.n; ++i)
         std::cout << matching.edge_b[i] <<
                     " " << matching.edge_e[i] << std::endl;
+    std::cout << "Random matching on CSR: " << std::endl;
+    matching = random_matching(csr);
+    for (int i = 0; i < matching.n; ++i)
+        std::cout << matching.edge_b[i] <<
+                    " " << matching.edge_e[i] << std::endl;
+    // End of random matching sample
     return 0;
 }
