@@ -8,5 +8,6 @@
 #include "../../data_structures/include/matching.h"
 
 Matching random_matching(const AL& graph);
+Matching random_matching(const CSR& graph);
 
 #endif  // MODULES_ALGORITHMS_INCLUDE_RANDOM_MATCHING_H_

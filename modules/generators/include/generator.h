@@ -4,6 +4,6 @@
 #include "../../data_structures/include/graph.h"
 #include "../../data_structures/include/csr.h"
 
-CSR washington_test(int n);
+CSR washington_test(int n, bool weighted = false);
 
 #endif  // MODULES_GENERATORS_INCLUDE_GENERATOR_H_
