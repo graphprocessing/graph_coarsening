@@ -7,6 +7,7 @@
 #include "../../data_structures/include/adjacency_list.h"
 #include "../../data_structures/include/csr.h"
 #include "../../data_structures/include/matching.h"
+#include "../../common/include/randomize.h"
 
 Matching random_matching(const AL& graph) {
     int n = graph.n;
@@ -17,10 +18,7 @@ Matching random_matching(const AL& graph) {
     std::vector <int> permutation(n);
     for (int i = 0; i < n; ++i)
         permutation[i] = i;
-    std::random_shuffle(permutation.begin(), permutation.end(), [&](int a) {
-        std::uniform_int_distribution<int> sort_dist(0, a - 1);
-        return sort_dist(generator);
-    });
+    randomize_permutation(&permutation, 0);
     for (int i : permutation) {
         if (!used[i]) {
             int vertex = i;
@@ -62,10 +60,7 @@ Matching random_matching(const CSR& graph) {
     std::vector <int> permutation(n);
     for (int i = 0; i < n; ++i)
         permutation[i] = i;
-    std::random_shuffle(permutation.begin(), permutation.end(), [&](int a) {
-        std::uniform_int_distribution<int> sort_dist(0, a - 1);
-        return sort_dist(generator);
-    });
+    randomize_permutation(&permutation, 0);
     for (int i : permutation) {
         if (!used[i]) {
             int vertex = i;
