@@ -8,7 +8,8 @@
 static std::random_device rd;
 static std::mt19937 generator(rd());
 
-static std::function <int (int)> randomize_distribution[] = {
+static std::function <int
+                        (int)> randomize_distribution[] = {
     [&](int a) {
         return std::uniform_int_distribution<int>(0, a - 1)(generator);
     },
