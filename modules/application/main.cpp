@@ -6,6 +6,7 @@
 #include "../generators/include/generator.h"
 #include "../data_structures/include/adjacency_list.h"
 #include "../algorithms/include/random_matching.h"
+#include "../algorithms/include/hard_matching.h"
 
 int main(int argc, char** argv) {
     // CSR sample
