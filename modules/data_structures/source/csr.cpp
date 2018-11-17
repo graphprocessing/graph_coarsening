@@ -3,6 +3,7 @@
 #include <utility>
 #include <string>
 #include <fstream>
+#include <iostream>
 #include "../include/graph.h"
 #include "../include/csr.h"
 #include "../include/adjacency_list.h"
@@ -15,6 +16,7 @@ CSR::CSR(const AL& al, ...) {
         }
         offset.push_back(edges.size());
     }
+    offset.push_back(edges.size());
 }
 
 CSR::CSR(const JDS& jds, ...) {
@@ -24,9 +26,8 @@ CSR::CSR(const JDS& jds, ...) {
 
 bool CSR::get_neighbours(std::vector <std::pair <int, int>>* neighbours,
     int vertex, int anc) {
-    std::vector <std::pair <int, int>>& vectorOfNeighbours = *neighbours;
     for (int i = offset[vertex]; i < offset[vertex+1]; ++i)
-        vectorOfNeighbours.emplace_back(edges[i]);
+        neighbours->emplace_back(edges[i]);
     return true;
 }
 

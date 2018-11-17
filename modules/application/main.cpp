@@ -10,7 +10,7 @@
 int main(int argc, char** argv) {
     // CSR sample
     std::cout << "Started washington_test" << std::endl;
-    CSR csr_graph = washington_test(2);
+    CSR csr_graph = washington_test(20, true);
     std::cout << "Strated writing to file" << std::endl;
     if (csr_graph.write("csr.bin")) {
         std::cout << "Graph is written to the file successfully" << std::endl;
@@ -32,7 +32,10 @@ int main(int argc, char** argv) {
         std::cout << csr.offset[i] << " ";
     std::cout << std::endl;
     for (unsigned i = 0; i < csr.edges.size(); ++i)
-        std::cout << csr.edges[i].first << " ";
+        std::cout << i << " : " << csr.edges[i].first << " ";
+    std::cout << std::endl;
+    for (unsigned i = 0; i < csr.edges.size(); ++i)
+        std::cout << i << " : " << csr.edges[i].second << " ";
     std::cout << std::endl;
     std::cout << "BFS 0-2: " << csr.bfs(0, 2) << std::endl;
     std::cout << "BFS 0-8: " << csr.bfs(0, 8) << std::endl;
@@ -65,10 +68,17 @@ int main(int argc, char** argv) {
     std::cout << std::endl;
     // End of AL
 
-    std::cout << "Matching: " << std::endl;
+    // Random matching sample
+    std::cout << "Random matching on AL: " << std::endl;
     auto matching = random_matching(al1);
     for (int i = 0; i < matching.n; ++i)
         std::cout << matching.edge_b[i] <<
                     " " << matching.edge_e[i] << std::endl;
+    std::cout << "Random matching on CSR: " << std::endl;
+    matching = random_matching(csr);
+    for (int i = 0; i < matching.n; ++i)
+        std::cout << matching.edge_b[i] <<
+                    " " << matching.edge_e[i] << std::endl;
+    // End of random matching sample
     return 0;
 }
