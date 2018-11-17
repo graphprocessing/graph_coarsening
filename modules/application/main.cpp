@@ -84,8 +84,8 @@ int main(int argc, char** argv) {
 
     std::cout << "Hard matching: " << std::endl;
     matching = hard_matching(al1);
-    for (int i = 0; i < matching1.n; ++i)
-        std::cout << matching1.edge_b[i] <<
-                    " " << matching1.edge_e[i] << std::endl;
+    for (int i = 0; i < matching.n; ++i)
+        std::cout << matching.edge_b[i] <<
+                    " " << matching.edge_e[i] << std::endl;
     return 0;
 }
