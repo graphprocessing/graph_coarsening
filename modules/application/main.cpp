@@ -6,6 +6,7 @@
 #include "../generators/include/generator.h"
 #include "../data_structures/include/adjacency_list.h"
 #include "../algorithms/include/random_matching.h"
+#include "../algorithms/include/hard_matching.h"
 
 int main(int argc, char** argv) {
     // CSR sample
@@ -70,5 +71,11 @@ int main(int argc, char** argv) {
     for (int i = 0; i < matching.n; ++i)
         std::cout << matching.edge_b[i] <<
                     " " << matching.edge_e[i] << std::endl;
+
+    std::cout << "Matching: " << std::endl;
+    auto matching1 = hard_matching(al1);
+    for (int i = 0; i < matching1.n; ++i)
+        std::cout << matching1.edge_b[i] <<
+                    " " << matching1.edge_e[i] << std::endl;
     return 0;
 }
