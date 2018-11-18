@@ -13,6 +13,36 @@
 static std::random_device rd;
 static std::mt19937 generator(rd());
 
+TEST(csr_test, basic_washington_test_generates) {
+    ASSERT_NO_THROW(washington_test(20));
+}
+
+TEST(al_test, basic_washington_test_generates_and_converts_to_al) {
+    ASSERT_NO_THROW(AL al = washington_test(20));
+}
+
+TEST(csr_test, random_washington_test_generates) {
+    int n = std::uniform_int_distribution<int>(1, 1e5)(generator);
+    ASSERT_NO_THROW(washington_test(n, true));
+}
+
+TEST(al_test, random_washington_test_generates_and_converts_to_al) {
+    int n = std::uniform_int_distribution<int>(1, 1e5)(generator);
+    ASSERT_NO_THROW(AL al = washington_test(n, true));
+}
+
+TEST(csr_test, graph_file_operations) {
+    CSR graph = washington_test(20);
+    ASSERT_NO_THROW(ASSERT_EQ(true, graph.write("csr.bin")));
+    ASSERT_NO_THROW(ASSERT_EQ(true, graph.read("csr.bin")));
+}
+
+TEST(al_test, graph_file_operations) {
+    AL graph = washington_test(20);
+    ASSERT_NO_THROW(ASSERT_EQ(true, graph.write("al.bin")));
+    ASSERT_NO_THROW(ASSERT_EQ(true, graph.read("al.bin")));
+}
+
 TEST(csr_test, run_bfs_on_basic_washington_test) {
     CSR csr = washington_test(2);
     ASSERT_EQ(6, csr.bfs(0, csr.n - 1));
