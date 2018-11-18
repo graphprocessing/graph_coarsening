@@ -1,6 +1,7 @@
 // Copyright [year] <Copyright Owner>
 #include <iostream>
 #include <vector>
+#include <utility>
 #include "../data_structures/include/graph.h"
 #include "../data_structures/include/csr.h"
 #include "../generators/include/generator.h"
@@ -104,11 +105,5 @@ int main(int argc, char** argv) {
         std::cout << "vertex " << i << ", depth " << dfs_res[i] << std::endl;
     std::cout << std::endl;
     // End of JDS
-
-    std::cout << "Hard matching: " << std::endl;
-    matching = hard_matching(al1);
-    for (int i = 0; i < matching.n; ++i)
-        std::cout << matching.edge_b[i] <<
-                    " " << matching.edge_e[i] << std::endl;
     return 0;
 }
