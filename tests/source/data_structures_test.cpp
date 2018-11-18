@@ -8,6 +8,7 @@
 #include "../../modules/generators/include/generator.h"
 #include "../../modules/data_structures/include/adjacency_list.h"
 #include "../../modules/algorithms/include/random_matching.h"
+#include "../../modules/algorithms/include/hard_matching.h"
 
 static std::random_device rd;
 static std::mt19937 generator(rd());
@@ -74,6 +75,21 @@ TEST(al_test, correct_random_matching_on_basic_washington_test) {
                 for (unsigned j = 0; j < al.edges[i].size(); ++j) {
                     ASSERT_EQ(true, used[al.edges[i][j].first]);
                 }
+            }
+        }
+    }
+}
+
+TEST(al_test, correct_hard_matching_on_basic_washington_test) {
+    AL al = washington_test(2);
+    std::vector <char> used(al.n, 0);
+    auto matching = hard_matching(al);
+    for (int i = 0; i < matching.n; ++i)
+        used[matching.edge_b[i]] = used[matching.edge_e[i]] = true;
+    for (int i = 0; i < al.n; ++i) {
+        if (!used[i]) {
+            for (unsigned j = 0; j < al.edges[i].size(); ++j) {
+                ASSERT_EQ(true, used[al.edges[i][j].first]);
             }
         }
     }
