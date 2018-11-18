@@ -8,7 +8,7 @@
 #include "../include/csr.h"
 
 AL::AL(const CSR& csr, ...) {
-    int n = csr.n;
+    n = csr.n;
     edges.resize(n);
     for (unsigned i = 0; i < csr.offset.size() - 1; i++) {
         for (int j = csr.offset[i]; j < csr.offset[i + 1]; j++) {
