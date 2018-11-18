@@ -9,6 +9,7 @@
 #include "../include/adjacency_list.h"
 
 CSR::CSR(const AL& al, ...) {
+    n = al.n;
     offset.push_back(0);
     for (unsigned i = 0; i < al.edges.size(); ++i) {
         for (unsigned j = 0; j < al.edges[i].size(); ++j) {

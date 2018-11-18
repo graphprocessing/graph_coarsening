@@ -13,7 +13,7 @@ struct AL;
 
 struct Graph {
  public:
-    int n;
+    int n = 0;
     int bfs(int from, int to);
     std::vector <int> dfs(int root);
     int Dijkstra(int from, int to);
