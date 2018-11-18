@@ -7,6 +7,7 @@
 #include "../data_structures/include/adjacency_list.h"
 #include "../data_structures/include/jds.h"
 #include "../algorithms/include/random_matching.h"
+#include "../algorithms/include/hard_matching.h"
 
 int main(int argc, char** argv) {
     // CSR sample
@@ -103,5 +104,11 @@ int main(int argc, char** argv) {
         std::cout << "vertex " << i << ", depth " << dfs_res[i] << std::endl;
     std::cout << std::endl;
     // End of JDS
+
+    std::cout << "Hard matching: " << std::endl;
+    matching = hard_matching(al1);
+    for (int i = 0; i < matching.n; ++i)
+        std::cout << matching.edge_b[i] <<
+                    " " << matching.edge_e[i] << std::endl;
     return 0;
 }
