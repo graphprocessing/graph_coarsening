@@ -12,13 +12,13 @@
 static std::random_device rd;
 static std::mt19937 generator(rd());
 
-TEST(csr_test, basic_washington_test_generates) {
-    ASSERT_NO_THROW(washington_test(20));
+TEST(csr_test, basic_washington_test_generates_and_converts_to_csr) {
+    ASSERT_NO_THROW(CSR csr = washington_test(20));
 }
 
-TEST(csr_test, random_washington_test_generates) {
+TEST(csr_test, random_washington_test_generates_and_converts_to_csr) {
     int n = std::uniform_int_distribution<int>(1, 1e5)(generator);
-    ASSERT_NO_THROW(washington_test(n, true));
+    ASSERT_NO_THROW(CSR csr = washington_test(n, true));
 }
 
 TEST(csr_test, basic_zadeh_test_generates_and_converts_to_csr) {

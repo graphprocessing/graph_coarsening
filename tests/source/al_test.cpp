@@ -13,11 +13,11 @@
 static std::random_device rd;
 static std::mt19937 generator(rd());
 
-TEST(al_test, basic_washington_test_generates_and_converts_to_al) {
+TEST(al_test, basic_washington_test_generates) {
     ASSERT_NO_THROW(AL al = washington_test(20));
 }
 
-TEST(al_test, random_washington_test_generates_and_converts_to_al) {
+TEST(al_test, random_washington_test_generates) {
     int n = std::uniform_int_distribution<int>(1, 1e4)(generator);
     ASSERT_NO_THROW(AL al = washington_test(n, true));
 }
