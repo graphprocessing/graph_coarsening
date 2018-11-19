@@ -1,10 +1,12 @@
 // Copyright [year] <Copyright Owner>
 #include <iostream>
 #include <vector>
+#include <utility>
 #include "../data_structures/include/graph.h"
 #include "../data_structures/include/csr.h"
 #include "../generators/include/generator.h"
 #include "../data_structures/include/adjacency_list.h"
+#include "../data_structures/include/jds.h"
 #include "../algorithms/include/random_matching.h"
 #include "../algorithms/include/hard_matching.h"
 
@@ -68,6 +70,29 @@ int main(int argc, char** argv) {
         std::cout << "vertex " << i << ", depth " << dfs_res[i] << std::endl;
     std::cout << std::endl;
     // End of AL
+
+    // JDS sample
+    JDS jds_g(csr_graph);
+    jds_g.write("jds.bin");
+    JDS jds;
+    jds.read("jds.bin");
+    for (unsigned i = 0; i < jds.parm.size() - 1; i++) {
+        std::cout << i << ": ";
+        std::vector <std::pair<int, int>> neighbours;
+        jds.get_neighbours(&neighbours, i, 0);
+        for (unsigned j = 0; j < neighbours.size(); j++) {
+            std::cout << neighbours[j].first << " ";
+        }
+        std::cout << std::endl;
+    }
+    std::cout << "BFS 0-2: " << jds.bfs(0, 2) << std::endl;
+    std::cout << "BFS 0-8: " << jds.bfs(0, 8) << std::endl;
+    std::cout << "Dijkstra 0-2: " << jds.Dijkstra(0, 2) << std::endl;
+    dfs_res = jds.dfs(0);
+    for (int i = 0; i < jds.n; i++)
+        std::cout << "vertex " << i << ", depth " << dfs_res[i] << std::endl;
+    std::cout << std::endl;
+    // End of JDS
 
     // Random matching sample
     std::cout << "Random matching on AL: " << std::endl;
