@@ -11,7 +11,9 @@ struct JDS : public Graph {
     std::vector <int> val;
     std::vector <int> col_ind;
     std::vector <int> offset;
+    std::vector <int> parm;
     JDS(const CSR& csr, ...);
+    JDS() = default;
     bool get_neighbours(std::vector <std::pair<int, int>>* neighbours,
         int vertex, int anc) override;
     bool read(const std::string& path) override;
