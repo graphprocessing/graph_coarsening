@@ -18,7 +18,7 @@ AL::AL(const CSR& csr, ...) {
     }
 }
 bool AL::get_neighbours(std::vector <std::pair<int, int>>* neighbours,
-        int vertex, int anc) {
+        int vertex, int anc) const {
     for (unsigned i = 0; i < edges[vertex].size(); i++) {
         std::pair<int, int> to = edges[vertex][i];
         neighbours->push_back(to);

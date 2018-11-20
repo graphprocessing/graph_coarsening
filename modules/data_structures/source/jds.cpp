@@ -43,7 +43,7 @@ JDS::JDS(const CSR& csr, ...) {
     }
 }
 bool JDS::get_neighbours(std::vector <std::pair<int, int>>* neighbours,
-        int vertex, int anc) {
+        int vertex, int anc) const {
     int j = 0;
     while (parm[j] != vertex) {
         j++;

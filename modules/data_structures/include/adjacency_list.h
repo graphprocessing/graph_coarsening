@@ -12,7 +12,7 @@ struct AL : public Graph {
     AL(const CSR& csr, ...);
     AL() = default;
     bool get_neighbours(std::vector <std::pair<int, int>>* neighbours,
-        int vertex, int anc) override;
+        int vertex, int anc) const override;
     bool read(const std::string& path) override;
     bool write(const std::string& path) override;
 };
