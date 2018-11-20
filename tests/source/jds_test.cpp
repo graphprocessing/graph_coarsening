@@ -6,7 +6,8 @@
 #include "../../modules/data_structures/include/graph.h"
 #include "../../modules/data_structures/include/csr.h"
 #include "../../modules/data_structures/include/jds.h"
-#include "../../modules/generators/include/generator.h"
+#include "../../modules/generators/include/washington_test.h"
+#include "../../modules/generators/include/zadeh_test.h"
 #include "../../modules/algorithms/include/random_matching.h"
 #include "../../modules/algorithms/include/hard_matching.h"
 
