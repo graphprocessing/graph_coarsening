@@ -11,13 +11,14 @@ Matching hard_matching(const AL& graph) {
     Matching matching;
     int size = graph.n;
     std::vector <int> ed(size);
+    std::vector <int> ed1(size);
     for (int i = 0; i < size; i++) {
-        ed[i] = i;
+        ed1[i] = i;
     }
     std::random_device rd;
     std::mt19937 g(rd());
-    std::shuffle(ed.begin(), ed.end(), g);
-    std::copy(ed.begin(), ed.end(), ed.begin());
+    std::shuffle(ed1.begin(), ed1.end(), g);
+    std::copy(ed1.begin(), ed1.end(), ed.begin());
     std::vector<int>al_id(size);
     for (int i = 0; i < size; i++) {
         al_id[i] = i + 1;
