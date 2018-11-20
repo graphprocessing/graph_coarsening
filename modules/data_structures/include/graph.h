@@ -18,7 +18,7 @@ struct Graph {
     std::vector <int> dfs(int root);
     int Dijkstra(int from, int to);
     virtual bool get_neighbours(std::vector <std::pair<int, int>>* neighbours,
-        int vertex, int anc) = 0;
+        int vertex, int anc) const = 0;
     virtual bool read(const std::string& path) = 0;
     virtual bool write(const std::string& path) = 0;
  private:
