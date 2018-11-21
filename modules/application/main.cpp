@@ -13,7 +13,9 @@
 
 int main(int argc, char** argv) {
     std::cout << "main" << std::endl;
-    CSR g1 = washington_test(20, true);
+    CSR g1 = washington_test(2);
+    auto match = random_matching(g1);
+    std::cout << "Done" << std::endl;
     // CSR g2 = zadeh_test(20, true);
     return 0;
 }
