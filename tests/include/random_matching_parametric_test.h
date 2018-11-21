@@ -46,10 +46,6 @@ class random_matching_parametric_test : public testing::TestWithParam<int> {
         }
     }
 
-    void do_test_3() {
-        
-    }
-
  private:
     int value;
 };
@@ -59,7 +55,8 @@ std::vector <int> generate_samples(int n) {
     std::mt19937 generator(rd());
     std::vector <int> result;
     for (int i = 0; i < n; ++i)
-        result.push_back(std::uniform_int_distribution<int>(1e5, 1e6)(generator));
+        result.push_back(std::uniform_int_distribution<int>(1e5, 1e6)
+                                (generator));
     return result;
 }
 
