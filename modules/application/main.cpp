@@ -6,6 +6,7 @@
 #include "../data_structures/include/csr.h"
 #include "../generators/include/washington_test.h"
 #include "../generators/include/zadeh_test.h"
+#include "../generators/include/cube_test.h"
 #include "../data_structures/include/adjacency_list.h"
 #include "../data_structures/include/jds.h"
 #include "../algorithms/include/random_matching.h"
@@ -17,5 +18,13 @@ int main(int argc, char** argv) {
     auto match = random_matching(g1);
     std::cout << "Done" << std::endl;
     // CSR g2 = zadeh_test(20, true);
+    AL g = cube_test(2, true);
+    for (unsigned i = 0; i < g.edges.size(); ++i) {
+        std::cout << i << " : ";
+        for (unsigned j = 0; j < g.edges[i].size(); ++j) {
+            std::cout << g.edges[i][j].first << " ";
+        }
+        std::cout << std::endl;
+    }
     return 0;
 }
