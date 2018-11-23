@@ -22,8 +22,12 @@ class random_matching_parametric_test : public testing::TestWithParam<int> {
         CSR csr = washington_test(value);
         std::vector <char> used(csr.n, 0);
         auto matching = random_matching(csr);
-        for (int i = 0; i < matching.n; ++i)
-            used[matching.edge_b[i]] = used[matching.edge_e[i]] = true;
+        for (int i = 0; i < matching.n; ++i) {
+            ++used[matching.edge_b[i]];
+            ++used[matching.edge_e[i]];
+        }
+        for (int i = 0; i < csr.n; ++i)
+            ASSERT_TRUE((used[i] == 0) || (used[i] == 1));
         for (int i = 0; i < csr.n; ++i) {
             if (!used[i]) {
                 for (int j = csr.offset[i]; j < csr.offset[i+1]; ++j)
@@ -36,8 +40,12 @@ class random_matching_parametric_test : public testing::TestWithParam<int> {
         AL al = washington_test(value);
         std::vector <char> used(al.n, 0);
         auto matching = random_matching(al);
-        for (int i = 0; i < matching.n; ++i)
-            used[matching.edge_b[i]] = used[matching.edge_e[i]] = true;
+        for (int i = 0; i < matching.n; ++i) {
+            ++used[matching.edge_b[i]];
+            ++used[matching.edge_e[i]];
+        }
+        for (int i = 0; i < al.n; ++i)
+            ASSERT_TRUE((used[i] == 0) || (used[i] == 1));
         for (int i = 0; i < al.n; ++i) {
             if (!used[i]) {
                 for (unsigned j = 0; j < al.edges[i].size(); ++j)
@@ -50,8 +58,12 @@ class random_matching_parametric_test : public testing::TestWithParam<int> {
         CSR csr = zadeh_test(value);
         std::vector <char> used(csr.n, 0);
         auto matching = random_matching(csr);
-        for (int i = 0; i < matching.n; ++i)
-            used[matching.edge_b[i]] = used[matching.edge_e[i]] = 2;
+        for (int i = 0; i < matching.n; ++i) {
+            ++used[matching.edge_b[i]];
+            ++used[matching.edge_e[i]];
+        }
+        for (int i = 0; i < csr.n; ++i)
+            ASSERT_TRUE((used[i] == 0) || (used[i] == 1));
         for (int i = 0; i < csr.n; ++i) {
             if (!used[i]) {
                 for (int j = csr.offset[i]; j < csr.offset[i+1]; ++j)
@@ -64,8 +76,12 @@ class random_matching_parametric_test : public testing::TestWithParam<int> {
         AL al = zadeh_test(value);
         std::vector <char> used(al.n, 0);
         auto matching = random_matching(al);
-        for (int i = 0; i < matching.n; ++i)
-            used[matching.edge_b[i]] = used[matching.edge_e[i]] = 3;
+        for (int i = 0; i < matching.n; ++i) {
+            ++used[matching.edge_b[i]];
+            ++used[matching.edge_e[i]];
+        }
+        for (int i = 0; i < al.n; ++i)
+            ASSERT_TRUE((used[i] == 0) || (used[i] == 1));
         for (int i = 0; i < al.n; ++i) {
             if (!used[i]) {
                 for (unsigned j = 0; j < al.edges[i].size(); ++j)
@@ -88,7 +104,7 @@ std::vector <int> generate_samples(int n) {
     return result;
 }
 
-std::vector <int> samples = generate_samples(10);
+std::vector <int> samples = generate_samples(20);
 
 TEST_P(random_matching_parametric_test,
                     correct_random_matching_on_csr_washington_test) {
