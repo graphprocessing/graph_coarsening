@@ -1,6 +1,5 @@
 // Copyright [year] <Copyright Owner>
 #include "../include/example_parametric_test.h"
-#include "../include/random_matching_parametric_test.h"
 #include "../include/hard_matching_parametric_test.h"
 
 int main(int argc, char **argv) {

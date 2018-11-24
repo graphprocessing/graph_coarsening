@@ -62,13 +62,13 @@ Matching hard_matching(const CSR& graph) {
     for (int i = 0; i < size; i++) {
         al_id[i] = i + 1;
     }
-    for (unsigned i = 0; i < graph.offset.size() - 1; i++) {
+    for (int i = 0; i < size; i++) {
         int v = ed[i];
         int max_len = 0, e = -1;
         if (al_id[v] > 0) {
             for (int j = graph.offset[v]; j < graph.offset[v + 1]; ++j) {
-                int to = graph.edges[i].first,
-                    len = graph.edges[i].second;
+                int to = graph.edges[j].first,
+                    len = graph.edges[j].second;
                 if (len > max_len && al_id[to] > 0) {
                     max_len = len;
                     e = to;
