@@ -7,6 +7,7 @@
 #include "../include/graph.h"
 #include "../include/csr.h"
 #include "../include/adjacency_list.h"
+#include "../include/jds.h"
 
 CSR::CSR(const AL& al, ...) {
     n = al.n;
@@ -21,12 +22,21 @@ CSR::CSR(const AL& al, ...) {
 }
 
 CSR::CSR(const JDS& jds, ...) {
+    n = jds.n;
     offset.push_back(0);
-    // TO DO
+    std::vector <std::pair <int, int>> neighbours;
+    for (int i = 0; i < n; ++i) {
+        neighbours.clear();
+        jds.get_neighbours(&neighbours, i, i);
+        for (auto& y : neighbours)
+            edges.push_back(y);
+        offset.push_back(edges.size());
+    }
+    offset.push_back(edges.size());
 }
 
 bool CSR::get_neighbours(std::vector <std::pair <int, int>>* neighbours,
-    int vertex, int anc) {
+    int vertex, int anc) const {
     for (int i = offset[vertex]; i < offset[vertex+1]; ++i)
         neighbours->emplace_back(edges[i]);
     return true;
