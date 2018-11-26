@@ -50,23 +50,6 @@ TEST(al_test, run_dfs_on_basic_washington_test) {
     ASSERT_EQ(expected_dfs_result, dfs_result);
 }
 
-TEST(al_test, correct_random_matching_on_basic_washington_test) {
-    for (int counter = 0; counter < 1000; ++counter) {
-        AL al = washington_test(2);
-        std::vector <char> used(al.n, 0);
-        auto matching = random_matching(al);
-        for (int i = 0; i < matching.n; ++i)
-            used[matching.edge_b[i]] = used[matching.edge_e[i]] = true;
-        for (int i = 0; i < al.n; ++i) {
-            if (!used[i]) {
-                for (unsigned j = 0; j < al.edges[i].size(); ++j) {
-                    ASSERT_EQ(true, used[al.edges[i][j].first]);
-                }
-            }
-        }
-    }
-}
-
 TEST(al_test, correct_hard_matching_on_basic_washington_test) {
     AL al = washington_test(2);
     std::vector <char> used(al.n, 0);

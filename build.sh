@@ -37,11 +37,20 @@ if [ "$1" == "graph" ]; then
     cd ..
 fi
 
+if [ "$1" == "all" ]; then
+    source build.sh lint
+    source build.sh build
+    source build.sh test
+    source build.sh run 
+fi
+
 if [ "$1" != "lint" -a  "$1" != "build" -a "$1" != "run" -a "$1" != "test" -a \
-     "$1" != "graph" ]; then
+     "$1" != "graph" -a "$1" != "all" ]; then
     echo "source build.sh lint  (check code style)"
     echo "source build.sh build (build project)"
     echo "source build.sh run   (run main)"
     echo "source build.sh test  (run gtests)"
     echo "source build.sh graph (generate graph project)"
+    echo "source build.sh all   (check code style, build, run main and tests)"
 fi
+
