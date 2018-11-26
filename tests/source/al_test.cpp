@@ -6,7 +6,8 @@
 #include "../../modules/data_structures/include/graph.h"
 #include "../../modules/data_structures/include/csr.h"
 #include "../../modules/data_structures/include/adjacency_list.h"
-#include "../../modules/generators/include/generator.h"
+#include "../../modules/generators/include/washington_test.h"
+#include "../../modules/generators/include/zadeh_test.h"
 #include "../../modules/algorithms/include/random_matching.h"
 #include "../../modules/algorithms/include/hard_matching.h"
 
@@ -47,23 +48,6 @@ TEST(al_test, run_dfs_on_basic_washington_test) {
     std::vector <int> dfs_result = al.dfs(0);
     std::vector <int> expected_dfs_result = {1, 2, 3, 3, 4, 4, 5, 6, 7};
     ASSERT_EQ(expected_dfs_result, dfs_result);
-}
-
-TEST(al_test, correct_random_matching_on_basic_washington_test) {
-    for (int counter = 0; counter < 1000; ++counter) {
-        AL al = washington_test(2);
-        std::vector <char> used(al.n, 0);
-        auto matching = random_matching(al);
-        for (int i = 0; i < matching.n; ++i)
-            used[matching.edge_b[i]] = used[matching.edge_e[i]] = true;
-        for (int i = 0; i < al.n; ++i) {
-            if (!used[i]) {
-                for (unsigned j = 0; j < al.edges[i].size(); ++j) {
-                    ASSERT_EQ(true, used[al.edges[i][j].first]);
-                }
-            }
-        }
-    }
 }
 
 TEST(al_test, correct_hard_matching_on_basic_washington_test) {

@@ -5,7 +5,8 @@
 #include "../../3rdparty/gtest/gtest.h"
 #include "../../modules/data_structures/include/graph.h"
 #include "../../modules/data_structures/include/csr.h"
-#include "../../modules/generators/include/generator.h"
+#include "../../modules/generators/include/washington_test.h"
+#include "../../modules/generators/include/zadeh_test.h"
 #include "../../modules/algorithms/include/random_matching.h"
 #include "../../modules/algorithms/include/hard_matching.h"
 
@@ -56,22 +57,6 @@ TEST(csr_test, run_Dijkstra_on_not_weighted_basic_washington_test) {
 TEST(al_test, run_Dijkstra_on_not_weighted_basic_washington_test) {
     AL al = washington_test(2);
     ASSERT_EQ(al.Dijkstra(0, al.n - 1), al.bfs(0, al.n - 1));
-}
-
-TEST(csr_test, correct_random_matching_on_basic_washington_test) {
-    for (int counter = 0; counter < 1000; ++counter) {
-        CSR csr = washington_test(2);
-        std::vector <char> used(csr.n, 0);
-        auto matching = random_matching(csr);
-        for (int i = 0; i < matching.n; ++i)
-            used[matching.edge_b[i]] = used[matching.edge_e[i]] = true;
-        for (int i = 0; i < csr.n; ++i) {
-            if (!used[i]) {
-                for (int j = csr.offset[i]; j < csr.offset[i+1]; ++j)
-                    ASSERT_EQ(true, used[csr.edges[j].first]);
-            }
-        }
-    }
 }
 
 TEST(csr_test, run_dfs_on_random_washington_test) {
