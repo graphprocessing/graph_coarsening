@@ -12,12 +12,12 @@ CSR graph_coarsening(const CSR& graph, const Matching& match) {
     std::map <int, int> Map;
     std::map <int, std::pair<int, int>> Map1;
     int sz = static_cast<int>(graph.n);
-    std::vector <int> new_vertex(sz);
+    std::vector <int> new_vertex(sz, 0);
     for (int i = 0; i < match.n; i++) {
         Map[match.edge_b[i]] = i;
         Map[match.edge_e[i]] = i;
         Map1[i] = std::make_pair(match.edge_b[i], match.edge_e[i]);
-        int weight;
+        int weight = 0;
         graph.offset[match.edge_b[i]];
         for (int j = graph.offset[match.edge_b[i]];
             j < graph.offset[match.edge_b[i] + 1]; j++) {
