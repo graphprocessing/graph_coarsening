@@ -51,5 +51,6 @@ if [ "$1" != "lint" -a  "$1" != "build" -a "$1" != "run" -a "$1" != "test" -a \
     echo "source build.sh run   (run main)"
     echo "source build.sh test  (run gtests)"
     echo "source build.sh graph (generate graph project)"
+    echo "source build.sh all   (check code style, build, run main and tests)"
 fi
 
