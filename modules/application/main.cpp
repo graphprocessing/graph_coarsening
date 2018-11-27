@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <utility>
+#include <functional>
 #include "../data_structures/include/graph.h"
 #include "../data_structures/include/csr.h"
 #include "../generators/include/washington_test.h"
@@ -11,20 +12,17 @@
 #include "../data_structures/include/jds.h"
 #include "../algorithms/include/random_matching.h"
 #include "../algorithms/include/hard_matching.h"
+#include "../common/include/timer.h"
 
 int main(int argc, char** argv) {
     std::cout << "main" << std::endl;
-    CSR g1 = washington_test(2);
-    auto match = random_matching(g1);
-    std::cout << "Done" << std::endl;
-    // CSR g2 = zadeh_test(20, true);
-    AL g = cube_test(2, true);
-    for (unsigned i = 0; i < g.edges.size(); ++i) {
-        std::cout << i << " : ";
-        for (unsigned j = 0; j < g.edges[i].size(); ++j) {
-            std::cout << g.edges[i][j].first << " ";
-        }
-        std::cout << std::endl;
-    }
+    // Timer sample
+    std::cout << std::fixed;
+    std::cout << "Execution time for washington_test (n = 2): "
+                << Timer::calculate(washington_test, 2, false)
+                << " s" << std::endl << std::endl;
+    std::cout << "Execution time for washington_test (n = 1e6): "
+                << Timer::calculate(washington_test, 1e6, false)
+                << " s" << std::endl << std::endl;
     return 0;
 }
