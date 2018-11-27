@@ -26,7 +26,4 @@ if ( OPENMP_FOUND )
 endif( OPENMP_FOUND )
 
 add_subdirectory(modules)
-
-include_directories(3rdparty/gtest)
-add_subdirectory(3rdparty/gtest)
 add_subdirectory(tests)

@@ -1,10 +1,10 @@
 // Copyright [year] <Copyright Owner>
 #ifndef TESTS_INCLUDE_HARD_MATCHING_PARAMETRIC_TEST_H_
 #define TESTS_INCLUDE_HARD_MATCHING_PARAMETRIC_TEST_H_
+#include <gtest/gtest.h>
 #include <vector>
 #include <random>
 #include <map>
-#include "../../3rdparty/gtest/gtest.h"
 #include "../../modules/data_structures/include/graph.h"
 #include "../../modules/data_structures/include/csr.h"
 #include "../../modules/data_structures/include/jds.h"

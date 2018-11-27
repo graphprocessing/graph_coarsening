@@ -2,11 +2,11 @@
 #ifndef TESTS_INCLUDE_EXAMPLE_PARAMETRIC_TEST_H_
 #define TESTS_INCLUDE_EXAMPLE_PARAMETRIC_TEST_H_
 
+#include <gtest/gtest.h>
 #include <string>
 #include <vector>
-
-#include "../../3rdparty/gtest/gtest.h"
 #include "../../modules/data_structures/include/graph.h"
+
 
 class ExampleParametricTest : public testing::TestWithParam<std::string> {
  public:

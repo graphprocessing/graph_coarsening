@@ -9,7 +9,7 @@ if [ "$1" == "build" ]; then
 
     cd build
     cmake -D CMAKE_BUILD_TYPE=Release \
-          -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..
+          -D CMAKE_EXPORT_COMPILE_COMMANDS=ON ..
     cppcheck -j4 --project=compile_commands.json &> log_cppcheck
     python ../scripts/static_analysis.py log_cppcheck
     make -j4
@@ -41,7 +41,7 @@ if [ "$1" == "all" ]; then
     source build.sh lint
     source build.sh build
     source build.sh test
-    source build.sh run 
+    source build.sh run
 fi
 
 if [ "$1" != "lint" -a  "$1" != "build" -a "$1" != "run" -a "$1" != "test" -a \
@@ -53,4 +53,3 @@ if [ "$1" != "lint" -a  "$1" != "build" -a "$1" != "run" -a "$1" != "test" -a \
     echo "source build.sh graph (generate graph project)"
     echo "source build.sh all   (check code style, build, run main and tests)"
 fi
-
