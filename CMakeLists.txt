@@ -1,5 +1,14 @@
 cmake_minimum_required( VERSION 2.8 )
 
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Release)
+endif()
+
+if(CMAKE_BUILD_TYPE STREQUAL "Release")
+    set(CMAKE_CXX_FLAGS_DEBUG "-g")
+    set(CMAKE_CXX_FLAGS_RELEASE "-O3")
+endif()
+
 if(CMAKE_VERSION VERSION_LESS "3.1")
     if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11")
@@ -27,3 +36,4 @@ endif( OPENMP_FOUND )
 
 add_subdirectory(modules)
 add_subdirectory(tests)
+add_subdirectory(benchmark)
