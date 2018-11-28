@@ -5,6 +5,7 @@ stages:
   - coding_style
   - build
   - tests
+  - benchmark
   - run
 
 coding_style:
@@ -21,8 +22,12 @@ build:
     - mkdir build
     - cd build
     - cmake -D CMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..
-    - cppcheck -j4 --project=compile_commands.json &> log_cppcheck
-    - python ../scripts/static_analysis.py log_cppcheck
+    ###############################################################
+    # Temporarily disabled due to experiments
+    ###############################################################
+    # - cppcheck -j4 --project=compile_commands.json &> log_cppcheck
+    # - python ../scripts/static_analysis.py log_cppcheck
+    ###############################################################
     - make -j4
 
 tests:
@@ -30,6 +35,14 @@ tests:
   script:
     - cd build/tests
     - ./Test_Target
+  dependencies:
+    - build
+
+benchmark:
+  stage: benchmark
+  script:
+    - cd build/benchmark
+    - ./Benchmark_Target
   dependencies:
     - build
 
