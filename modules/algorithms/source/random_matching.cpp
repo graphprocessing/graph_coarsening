@@ -9,7 +9,8 @@
 #include "../../data_structures/include/matching.h"
 #include "../../common/include/randomize.h"
 
-Matching random_matching(const AL& graph) {
+Matching random_matching(const AL& graph, int distribution,
+                            int vertexes_in_matching) {
     int n = graph.n;
     std::random_device rd;
     std::mt19937 generator(rd());
@@ -18,10 +19,10 @@ Matching random_matching(const AL& graph) {
     std::vector <int> permutation(n);
     for (int i = 0; i < n; ++i)
         permutation[i] = i;
-    randomize_permutation(&permutation, 0);
-    for (int i : permutation) {
-        if (!used[i]) {
-            int vertex = i;
+    randomize_permutation(&permutation, distribution);
+    for (int i = 0; i < n; ++i) {
+        if (!used[permutation[i]]) {
+            int vertex = permutation[i];
             int sz = graph.edges[vertex].size();
             if (!sz)
                 continue;
@@ -46,12 +47,15 @@ Matching random_matching(const AL& graph) {
             matching.edge_b.push_back(vertex);
             matching.edge_e.push_back(next);
             ++matching.n;
+            if (matching.n >= static_cast<int>(vertexes_in_matching))
+                break;
         }
     }
     return matching;
 }
 
-Matching random_matching(const CSR& graph) {
+Matching random_matching(const CSR& graph, int distribution,
+                            int vertexes_in_matching) {
     int n = graph.n;
     std::random_device rd;
     std::mt19937 generator(rd());
@@ -60,10 +64,10 @@ Matching random_matching(const CSR& graph) {
     std::vector <int> permutation(n);
     for (int i = 0; i < n; ++i)
         permutation[i] = i;
-    randomize_permutation(&permutation, 0);
-    for (int i : permutation) {
-        if (!used[i]) {
-            int vertex = i;
+    randomize_permutation(&permutation, distribution);
+    for (int i = 0; i < n; ++i) {
+        if (!used[permutation[i]]) {
+            int vertex = permutation[i];
             int next = -2;
             const int& begin = graph.offset[vertex];
             const int& end = graph.offset[vertex+1];
@@ -89,6 +93,8 @@ Matching random_matching(const CSR& graph) {
             matching.edge_b.push_back(vertex);
             matching.edge_e.push_back(next);
             ++matching.n;
+            if (matching.n >= static_cast<int>(vertexes_in_matching))
+                break;
         }
     }
     return matching;

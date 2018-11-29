@@ -1,8 +1,8 @@
 // Copyright [year] <Copyright Owner>
+#include <gtest/gtest.h>
 #include <iostream>
 #include <vector>
 #include <random>
-#include "../../3rdparty/gtest/gtest.h"
 #include "../../modules/data_structures/include/graph.h"
 #include "../../modules/data_structures/include/csr.h"
 #include "../../modules/data_structures/include/jds.h"

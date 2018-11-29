@@ -5,6 +5,7 @@ stages:
   - coding_style
   - build
   - tests
+  - benchmark
   - run
 
 coding_style:
@@ -30,6 +31,14 @@ tests:
   script:
     - cd build/tests
     - ./Test_Target
+  dependencies:
+    - build
+
+benchmark:
+  stage: benchmark
+  script:
+    - cd build/benchmark
+    - ./Benchmark_Target
   dependencies:
     - build
 
