@@ -1,51 +1,35 @@
 before_script:
-  - apt-get -qq update && apt-get -qq install -y cppcheck cmake &> log_install
+  - apt-get -qq update && apt-get -qq install -y cppcheck cmake clang python3-pip libiomp-dev &> log_install
+  - python3 --version
+  - pip3 install cpplint
 
 stages:
   - coding_style
-  - build
-  - tests
+  - clang_build
+  - gnu_build
   - benchmark
-  - run
 
 coding_style:
   stage: coding_style
   script:
-    - python scripts/lint.py $CI_PROJECT_DIR
+    - python3 build.py lint
 
-build:
-  stage: build
-  artifacts:
-    paths:
-      - $CI_PROJECT_DIR/build/
+clang_build:
+  stage: clang_build
   script:
-    - mkdir build
-    - cd build
-    - cmake -D CMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..
-    - cppcheck -j4 --project=compile_commands.json &> log_cppcheck
-    - python ../scripts/static_analysis.py log_cppcheck
-    - make -j4
+    - python3 build.py build clang
+    - python3 build.py test
+    - python3 build.py run
 
-tests:
-  stage: tests
+gnu_build:
+  stage: gnu_build
   script:
-    - cd build/tests
-    - ./Test_Target
-  dependencies:
-    - build
+    - python3 build.py build g++
+    - python3 build.py test
+    - python3 build.py run
 
 benchmark:
   stage: benchmark
   script:
-    - cd build/benchmark
-    - ./Benchmark_Target
-  dependencies:
-    - build
-
-run:
-  stage: run
-  script:
-    - cd build/modules/application
-    - ./Graph_Partition
-  dependencies:
-    - build
+    - python3 build.py build
+    - python3 build.py benchmark
