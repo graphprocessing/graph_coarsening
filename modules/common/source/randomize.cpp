@@ -10,10 +10,10 @@ static std::mt19937 generator(rd());
 
 static std::function <int
                         (int)> randomize_distribution[] = {
-    [&](int a) {
+    [](int a) {
         return std::uniform_int_distribution<int>(0, a - 1)(generator);
     },
-    [&](int a) {
+    [](int a) {
         return std::normal_distribution<float>(0, a - 1)(generator);
     }
 };
