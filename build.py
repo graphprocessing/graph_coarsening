@@ -13,12 +13,13 @@ build_directory = os.getcwd()
 os.chdir(project_directory)
 
 def lint_walk(subdirectory):
+    return_code = 0
     for path, _, files in os.walk(os.path.join(project_directory, subdirectory)):
         for file in files:
             if (file.endswith(".h") or file.endswith(".cpp")):
                 print("Checking: " + os.path.join(path, file))
                 if not os.path.exists(os.path.join(build_directory, "lint.log")):
-                    open(os.path.join(build_directory, "lint.log"), "tw").close()
+                    open(os.path.join(build_directory, "lint.log"), "w").close()
                 os.system("cpplint " + os.path.join(path, file) + " 2> " + os.path.join(build_directory, "lint.log"))
                 verdict = ""
                 ingored_errors = 0
@@ -43,14 +44,15 @@ def lint_walk(subdirectory):
                         f.close()
                         print("\033[31mFailed: "  + file + "\033[0m")
                         return_code = 1
+    return return_code
 
 def lint():
     return_code = 0
     if not os.path.exists(build_directory):
         os.mkdir(build_directory)
-    lint_walk("modules")
-    lint_walk("tests")
-    lint_walk("benchmark")
+    return_code += lint_walk("modules")
+    return_code += lint_walk("tests")
+    return_code += lint_walk("benchmark")
     return return_code
 
 
@@ -112,8 +114,9 @@ def cmake_graph():
     if not os.path.exists(build_directory):
         return -1
     os.chdir(build_directory)
-    subprocess.call("cmake --graphviz=graph_project/graph_cmake ..", shell=True)
+    return_code = subprocess.call("cmake --graphviz=graph_project/graph_cmake ..", shell=True)
     os.chdir(project_directory)
+    return return_code
 
 def help():
     print("python3 build.py lint             (check code style)")
@@ -125,6 +128,7 @@ def help():
     print("python3 build.py all <compiler>   (check code style, build, run main and tests)")
     print("compilers: g++ (default), clang")
     print("Compler choice temporary works only on linux-like OS")
+    print("Use python instead of python3 on Windows")
 
 if (len(sys.argv) < 2):
     help()
@@ -138,22 +142,26 @@ elif (sys.argv[1] == "all"):
     if result['build'] == 0:
         result['tests'] = run_tests()
         result['main'] = run_main()
+    return_code = 0
     for stage in result:
+        if result[stage] != 0:
+            return_code = 1
         print("Stage " + stage + " returned exit code " + str(result[stage]))
+    exit(return_code)
 elif (sys.argv[1] == "lint"):
-    lint()
+    exit(lint())
 elif (sys.argv[1] == "build"):
     if len(sys.argv) == 2:
-        build()
+        exit(build())
     else:
-        build(sys.argv[2])
+        exit(build(sys.argv[2]))
 elif (sys.argv[1] == "run"):
-    run_main()
+    exit(run_main())
 elif (sys.argv[1] == "benchmark"):
-    benchmark()
+    exit(benchmark())
 elif (sys.argv[1] == "test"):
-    run_tests()
+    exit(run_tests())
 elif (sys.argv[1] == "graph"):
-    cmake_graph()
+    exit(cmake_graph())
 else:
     help()
