@@ -10,7 +10,7 @@
 #include "../../common/include/randomize.h"
 
 Matching random_matching(const AL& graph, int distribution,
-                            int vertexes_in_matching) {
+            int vertexes_in_matching, int random_seed) {
     int n = graph.n;
     std::random_device rd;
     std::mt19937 generator(rd());
@@ -19,7 +19,8 @@ Matching random_matching(const AL& graph, int distribution,
     std::vector <int> permutation(n);
     for (int i = 0; i < n; ++i)
         permutation[i] = i;
-    randomize_permutation(&permutation, distribution);
+    randomize_permutation(&permutation, distribution, random_seed);
+    int seed = random_seed;
     for (int i = 0; i < n; ++i) {
         if (!used[permutation[i]]) {
             int vertex = permutation[i];
@@ -37,7 +38,13 @@ Matching random_matching(const AL& graph, int distribution,
                 continue;
             std::uniform_int_distribution<int> dist(0, sz - 1);
             while (next == -1) {
-                int res = dist(generator);
+                int res;
+                if (seed == -1) {
+                    res = dist(generator);
+                } else {
+                    std::mt19937 fixed_generator(seed++);
+                    res = dist(fixed_generator);
+                }
                 if (!used[graph.edges[vertex][res].first]) {
                     next = graph.edges[vertex][res].first;
                 }
@@ -55,7 +62,7 @@ Matching random_matching(const AL& graph, int distribution,
 }
 
 Matching random_matching(const CSR& graph, int distribution,
-                            int vertexes_in_matching) {
+            int vertexes_in_matching, int random_seed) {
     int n = graph.n;
     std::random_device rd;
     std::mt19937 generator(rd());
@@ -64,7 +71,8 @@ Matching random_matching(const CSR& graph, int distribution,
     std::vector <int> permutation(n);
     for (int i = 0; i < n; ++i)
         permutation[i] = i;
-    randomize_permutation(&permutation, distribution);
+    randomize_permutation(&permutation, distribution, random_seed);
+    int seed = random_seed;
     for (int i = 0; i < n; ++i) {
         if (!used[permutation[i]]) {
             int vertex = permutation[i];
@@ -83,7 +91,13 @@ Matching random_matching(const CSR& graph, int distribution,
                 continue;
             std::uniform_int_distribution<int> dist(0, end - begin - 1);
             while (next == -1) {
-                int res = dist(generator);
+                int res;
+                if (seed == -1) {
+                    res = dist(generator);
+                } else {
+                    std::mt19937 fixed_generator(seed++);
+                    res = dist(fixed_generator);
+                }
                 if (!used[graph.edges[begin + res].first]) {
                     next = graph.edges[begin + res].first;
                 }
