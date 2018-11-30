@@ -36,6 +36,11 @@ if ( UNIX )
             set ( CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${OpenMP_EXE_LINKER_FLAGS}" )
         endif( OPENMP_FOUND )
     endif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+
+    if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+        set ( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fopenmp=libiomp5" )
+        set ( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fopenmp=libiomp5" )
+    endif(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
 endif ( UNIX )
 
 add_subdirectory(modules)
