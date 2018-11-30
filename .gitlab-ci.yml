@@ -18,15 +18,15 @@ clang_build:
   stage: clang_build
   script:
     - python3 build.py build clang
-    - python3 build.py test
-    - python3 build.py run
+    - python3 build.py test clang
+    - python3 build.py run clang
 
 gnu_build:
   stage: gnu_build
   script:
     - python3 build.py build g++
-    - python3 build.py test
-    - python3 build.py run
+    - python3 build.py test g++
+    - python3 build.py run g++
 
 benchmark:
   stage: benchmark
