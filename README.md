@@ -1,5 +1,5 @@
 [![pipeline status](https://gitlab.com/allnes/graph_partition/badges/master/pipeline.svg)](https://gitlab.com/allnes/graph_partition/commits/master)
-https://app.codeship.com/projects/b835dd10-d719-0136-841e-264e52b87e69/status?branch=master
+[ ![Codeship Status for allnes/graph_partition](https://app.codeship.com/projects/b835dd10-d719-0136-841e-264e52b87e69/status?branch=master)](https://app.codeship.com/projects/317102)
 
 # ITLab 2018
 ## <b><i>Тема</i></b>: Огрубление графов
