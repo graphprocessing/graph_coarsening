@@ -1,16 +1,16 @@
 stages:
-  # - coding_style
+  - coding_style
   - build
   - tests
 
-# coding_style:
-#   before_script:
-#     - apt-get -qq update && apt-get -qq install -y python3-pip &> log_install
-#     - python3 --version
-#     - pip3 install cpplint
-#   stage: coding_style
-#   script:
-#     - python3 build.py lint
+coding_style:
+  before_script:
+    - apt-get -qq update && apt-get -qq install -y python3-pip &> log_install
+    - python3 --version
+    - pip3 install cpplint
+  stage: coding_style
+  script:
+    - python3 build.py lint
 
 clang_build:
   before_script:
