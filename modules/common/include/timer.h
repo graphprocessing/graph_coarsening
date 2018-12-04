@@ -1,15 +1,14 @@
 // Copyright [year] <Copyright Owner>
 #ifndef MODULES_COMMON_INCLUDE_TIMER_H_
 #define MODULES_COMMON_INCLUDE_TIMER_H_
-#include <bits/stdc++.h>
+#include <omp.h>
 
 namespace Timer {
     template <typename T, typename... Args>
     double calculate(T func, Args... args) {
-        auto start = std::chrono::high_resolution_clock::now();
+        double start = omp_get_wtime();
         func(args...);
-        return std::chrono::duration_cast<std::chrono::duration<double>>
-                (std::chrono::high_resolution_clock::now() - start).count();
+        return omp_get_wtime() - start;
     }
 }
 
