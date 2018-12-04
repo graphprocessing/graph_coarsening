@@ -18,7 +18,6 @@ CSR::CSR(const AL& al, ...) {
         }
         offset.push_back(edges.size());
     }
-    offset.push_back(edges.size());
 }
 
 CSR::CSR(const JDS& jds, ...) {
@@ -32,7 +31,6 @@ CSR::CSR(const JDS& jds, ...) {
             edges.push_back(y);
         offset.push_back(edges.size());
     }
-    offset.push_back(edges.size());
 }
 
 bool CSR::get_neighbours(std::vector <std::pair <int, int>>* neighbours,
