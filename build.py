@@ -163,10 +163,12 @@ if __name__ == "__main__":
         result = {'lint' : -1,
                 'build' : -1,
                 'tests' : -1,
+                'benchmark' : -1,
                 'main' : -1}
         result['lint'] = lint()
         result['build'] = build()
         if result['build'] == 0:
+            result['benchmark'] = benchmark()
             result['tests'] = run_tests()
             result['main'] = run_main()
         return_code = 0
