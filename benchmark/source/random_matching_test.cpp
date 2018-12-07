@@ -6,7 +6,8 @@ void random_matching_on_washington_test_csr(benchmark::State& state) {
     while (state.KeepRunning()) {
         benchmark::DoNotOptimize(random_matching(graph));
     }
-    state.SetComplexityN(3 * state.range(0) + 3);
+    unsigned m = graph.edges.size();
+    state.SetComplexityN(m);
 }
 
 void random_matching_on_washington_test_al(benchmark::State& state) {
@@ -14,7 +15,11 @@ void random_matching_on_washington_test_al(benchmark::State& state) {
     while (state.KeepRunning()) {
         benchmark::DoNotOptimize(random_matching(graph));
     }
-    state.SetComplexityN(3 * state.range(0) + 3);
+    int m = 0;
+    for (unsigned i = 0; i < graph.edges.size(); ++i)
+        for (unsigned j = 0; j < graph.edges[i].size(); ++j)
+            ++m;
+    state.SetComplexityN(m);
 }
 
 void random_matching_on_zadeh_test_csr(benchmark::State& state) {
@@ -22,7 +27,8 @@ void random_matching_on_zadeh_test_csr(benchmark::State& state) {
     while (state.KeepRunning()) {
         benchmark::DoNotOptimize(random_matching(graph));
     }
-    state.SetComplexityN(6 * state.range(0));
+    unsigned m = graph.edges.size();
+    state.SetComplexityN(m);
 }
 
 void random_matching_on_zadeh_test_al(benchmark::State& state) {
@@ -30,7 +36,11 @@ void random_matching_on_zadeh_test_al(benchmark::State& state) {
     while (state.KeepRunning()) {
         benchmark::DoNotOptimize(random_matching(graph));
     }
-    state.SetComplexityN(6 * state.range(0));
+    int m = 0;
+    for (unsigned i = 0; i < graph.edges.size(); ++i)
+        for (unsigned j = 0; j < graph.edges[i].size(); ++j)
+            ++m;
+    state.SetComplexityN(m);
 }
 
 void random_matching_on_cube_test_csr(benchmark::State& state) {
@@ -38,7 +48,8 @@ void random_matching_on_cube_test_csr(benchmark::State& state) {
     while (state.KeepRunning()) {
         benchmark::DoNotOptimize(random_matching(graph));
     }
-    state.SetComplexityN(state.range(0) * state.range(0) * state.range(0));
+    unsigned m = graph.edges.size();
+    state.SetComplexityN(m);
 }
 
 void random_matching_on_cube_test_al(benchmark::State& state) {
@@ -46,5 +57,9 @@ void random_matching_on_cube_test_al(benchmark::State& state) {
     while (state.KeepRunning()) {
         benchmark::DoNotOptimize(random_matching(graph));
     }
-    state.SetComplexityN(state.range(0) * state.range(0) * state.range(0));
+    int m = 0;
+    for (unsigned i = 0; i < graph.edges.size(); ++i)
+        for (unsigned j = 0; j < graph.edges[i].size(); ++j)
+            ++m;
+    state.SetComplexityN(m);
 }
