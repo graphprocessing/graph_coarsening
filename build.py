@@ -3,7 +3,9 @@ import os, sys, subprocess
 project_directory = os.getcwd()
 compiler = {
     "g++" : ("gcc", "g++"),
-    "clang" : ("clang", "clang++")
+    "clang" : ("clang", "clang++"),
+    "msvc" : ("msvc", "msvc"),
+    "icc" : ("icc", "icpc")
 }
 build_directories = {}
 
@@ -64,6 +66,11 @@ def lint():
 
 
 def build():
+    if ((os.name == "posix" and compiler_name == "msvc") or
+        (os.name == "nt" and compiler_name == "clang")):
+        print("This compiler is not supported by script on this OS")
+        exit(1)
+    return_code = 0
     if not os.path.exists(build_directories[compiler_name]):
         os.mkdir(build_directories[compiler_name])
     os.chdir(build_directories[compiler_name])
@@ -71,7 +78,10 @@ def build():
         subprocess.call('cmake -D CMAKE_C_COMPILER=' + compiler[compiler_name][0] + ' -D CMAKE_CXX_COMPILER=' + compiler[compiler_name][1]
         + ' CMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ' + project_directory, shell=True)
     elif os.name == "nt":
-        subprocess.call('cmake -G "MinGW Makefiles" -D CMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ' + project_directory, shell=True)
+        if compiler_name == "msvc":
+            subprocess.call('cmake -D CMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ' + project_directory, shell=True)
+        elif compiler_name == "g++":
+            subprocess.call('cmake -G "MinGW Makefiles" -D CMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ' + project_directory, shell=True)
     if os.name == "posix":
         subprocess.call("cppcheck -j4 --project=compile_commands.json > log_cppcheck", shell=True)
     elif os.name == "nt":
@@ -80,7 +90,10 @@ def build():
     if os.name == "posix":
         return_code = subprocess.call("make -j4", shell=True)
     elif os.name == "nt":
-        return_code = subprocess.call("mingw32-make")
+        if compiler_name == "msvc":
+            subprocess.call("msbuild ALL_BUILD.vcxproj", shell=True)
+        elif compiler_name == "g++":
+            return_code = subprocess.call("mingw32-make", shell=True)
     os.chdir(project_directory)
     return return_code
 
@@ -133,7 +146,7 @@ def help():
     print("python3 build.py benchmark <compiler>  (run benchmark)")
     print("python3 build.py graph <compiler>      (generate graph project)")
     print("python3 build.py all <compiler>        (check code style, build, run main and tests)")
-    print("compilers: g++ (default), clang")
+    print("compilers: g++ (default), clang (Linux, macOS), msvc (Windows)")
     print("Compler choice temporary works only on linux-like OS")
     print("Use python instead of python3 on Windows")
 
@@ -151,10 +164,12 @@ if __name__ == "__main__":
         result = {'lint' : -1,
                 'build' : -1,
                 'tests' : -1,
+                'benchmark' : -1,
                 'main' : -1}
         result['lint'] = lint()
         result['build'] = build()
         if result['build'] == 0:
+            result['benchmark'] = benchmark()
             result['tests'] = run_tests()
             result['main'] = run_main()
         return_code = 0
