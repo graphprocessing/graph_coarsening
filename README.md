@@ -12,7 +12,7 @@
 | application    | Модуль запуска проекта (main.cpp)                                        |
 | common         | Модуль функций общего назначения (чтение/запись файла ...)               |
 | data_structure | Модуль структур данных (в том числе структур хранения графов)            |
-| generators     | Модуль алгоритмов генерации графов определнной структуры                 |
+| generators     | Модуль алгоритмов генерации графов определенной структуры                |
 | tests          | Модуль google tests                                                      |
 | benchmark      | Модуль google benchmark                                                  |
 | pipelines      | Модуль самописных тестовых пайплайнов                                    |
@@ -25,12 +25,12 @@ Note:
   Windows: https://www.python.org/  
 - для построения компилятором clang нужно установить следующую библиотеку:  
   Linux: `sudo apt-get install libiomp-dev`  
-- для проверки стиля кодирования нужно устновить python библиотеку:  
-  Linux: `pip3 install cpplint` (установка pip: `sudo apt install python3-pip`)  
-  Windows: `pip install cpplint`  
-- для проверки стиля кодирования нужно устновить python библиотеку:  
-  Linux: `pip3 install matplotlib`  
-  Windows: `pip install matplotlib`  
+- Необходимые библиотеки для python: (установка pip : `sudo apt install python3-pip`)  
+  Для Windows используется pip вместо pip3  
+  - проверка стиля кодирования:  
+  `pip3 install cpplint`  
+  - построение графиков асимптотики:  
+  `pip3 install matplotlib`  
 - для использования статического анализатора:  
   Linux: `sudo apt install cppcheck`  
   Windows:  
