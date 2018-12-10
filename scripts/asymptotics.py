@@ -2,7 +2,7 @@ from matplotlib import pyplot as plt
 from datetime import datetime
 import math, sys
 
-system_time = str(datetime.now())
+system_time = datetime.now().strftime("%Y-%m-%d %H-%M-%S")
 begin_index = 0
 png_scale = 4
 scale = 100
