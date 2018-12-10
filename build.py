@@ -97,14 +97,14 @@ def build():
     os.chdir(project_directory)
     return return_code
 
-def run_main():
+def run_main(output = None):
     if not os.path.exists(build_directories[compiler_name]):
         return -1
     os.chdir(build_directories[compiler_name])
     if os.name == "posix":
-        return_code = subprocess.call("./modules/application/Graph_Partition", shell=True)
+        return_code = subprocess.call("./modules/application/Graph_Partition" + ((" > " + output) if output else ""), shell=True)
     elif os.name == "nt":
-        return_code = subprocess.call("modules\\application\\Graph_Partition", shell=True)
+        return_code = subprocess.call("modules\\application\\Graph_Partition" + ((" > " + output) if output else ""), shell=True)
     os.chdir(project_directory)
     return return_code
 
@@ -130,6 +130,20 @@ def benchmark():
     os.chdir(project_directory)
     return return_code
 
+def asymp(args):
+    if not os.path.exists(os.path.join(build_directories[compiler_name], "asymp.log")):
+        run_main(os.path.join(build_directories[compiler_name], "asymp.log"))
+    if os.name == "posix":
+        script_call_command = ("python3 " + os.path.join(project_directory, "scripts/asymptotics.py")+
+                            " " + os.path.join(build_directories[compiler_name], "asymp.log"))
+    elif os.name == "nt":
+        script_call_command = ("python " + os.path.join(project_directory, "scripts/asymptotics.py")+
+                            " " + os.path.join(build_directories[compiler_name], "asymp.log"))
+    for arg in args:
+        script_call_command += " " + arg
+    return_code = subprocess.call(script_call_command, shell=True)
+    return return_code
+
 def cmake_graph():
     if not os.path.exists(build_directories[compiler_name]):
         return -1
@@ -139,16 +153,18 @@ def cmake_graph():
     return return_code
 
 def help():
-    print("python3 build.py lint <compiler>       (check code style)")
-    print("python3 build.py build <compiler>      (build project)")
-    print("python3 build.py run <compiler>        (run main)")
-    print("python3 build.py test <compiler>       (run gtests)")
-    print("python3 build.py benchmark <compiler>  (run benchmark)")
-    print("python3 build.py graph <compiler>      (generate graph project)")
-    print("python3 build.py all <compiler>        (check code style, build, run main and tests)")
+    print("python3 build.py lint <compiler>             (check code style)")
+    print("python3 build.py build <compiler>            (build project)")
+    print("python3 build.py run <compiler>              (run main)")
+    print("python3 build.py test <compiler>             (run gtests)")
+    print("python3 build.py benchmark <compiler>        (run benchmark)")
+    print("python3 build.py graph <compiler>            (generate graph project)")
+    print("python3 build.py all <compiler>              (check code style, build, run main and tests)")
+    print("python3 build.py asymp <compiler> <args>     (make asymptotics figures)")
     print("compilers: g++ (default), clang (Linux, macOS), msvc (Windows)")
     print("Compler choice temporary works only on linux-like OS")
     print("Use python instead of python3 on Windows")
+    exit(0)
 
 if __name__ == "__main__":
     try:
@@ -158,7 +174,7 @@ if __name__ == "__main__":
         exit(1)
     global compiler_name
     compiler_name = sys.argv[2] if len(sys.argv) > 2 else "g++"
-    if (len(sys.argv) < 2):
+    if len(sys.argv) < 2:
         help()
     elif (sys.argv[1] == "all"):
         result = {'lint' : -1,
@@ -177,18 +193,27 @@ if __name__ == "__main__":
             if result[stage] != 0:
                 return_code = 1
             print("Stage " + stage + " returned exit code " + str(result[stage]))
-        exit(return_code)
     elif (sys.argv[1] == "lint"):
-        exit(lint())
+        return_code = lint()
     elif (sys.argv[1] == "build"):
-        exit(build())
+        return_code = build()
     elif (sys.argv[1] == "run"):
-        exit(run_main())
+        if len(sys.argv) > 3:
+            return_code = run_main(sys.argv[3])
+        else:
+            return_code = run_main()
     elif (sys.argv[1] == "benchmark"):
-        exit(benchmark())
+        return_code = benchmark()
     elif (sys.argv[1] == "test"):
-        exit(run_tests())
+        return_code = run_tests()
+    elif (sys.argv[1] == "asymp"):
+        additional_args = []
+        for i in range(3, len(sys.argv)):
+            additional_args.append(sys.argv[i])
+        return_code = asymp(additional_args)
     elif (sys.argv[1] == "graph"):
-        exit(cmake_graph())
+        return_code = cmake_graph()
     else:
         help()
+    print("Stage " + sys.argv[1] + " returned exit code " + str(return_code))
+    exit(return_code)
