@@ -1,6 +1,7 @@
 import os, sys, subprocess
 
 project_directory = os.getcwd()
+data_directory = None
 compiler = {
     "g++" : ("gcc", "g++"),
     "clang" : ("clang", "clang++"),
@@ -10,6 +11,13 @@ compiler = {
 build_directories = {}
 
 def create_folders():
+    global data_directory
+    os.chdir("..")
+    if not os.path.exists("graph_data"):
+        os.mkdir("graph_data")
+    os.chdir("graph_data")
+    data_directory = os.getcwd()
+    os.chdir(project_directory)
     for compiler_name in compiler.keys():
         folder_name = "build_" + compiler_name
         os.chdir("..")
@@ -20,19 +28,18 @@ def create_folders():
         os.chdir(project_directory)
     return 0
 
-
 def lint_walk(subdirectory):
     return_code = 0
     for path, _, files in os.walk(os.path.join(project_directory, subdirectory)):
         for file in files:
             if (file.endswith(".h") or file.endswith(".cpp")):
                 print("Checking: " + os.path.join(path, file))
-                if not os.path.exists(os.path.join(build_directories[compiler_name], "lint.log")):
-                    open(os.path.join(build_directories[compiler_name], "lint.log"), "w").close()
-                os.system("cpplint " + os.path.join(path, file) + " 2> " + os.path.join(build_directories[compiler_name], "lint.log"))
+                if not os.path.exists(os.path.join(data_directory, "lint.log")):
+                    open(os.path.join(data_directory, "lint.log"), "w").close()
+                os.system("cpplint " + os.path.join(path, file) + " 2> " + os.path.join(data_directory, "lint.log"))
                 verdict = ""
                 ingored_errors = 0
-                f = open(os.path.join(build_directories[compiler_name], "lint.log"), "r")
+                f = open(os.path.join(data_directory, "lint.log"), "r")
                 for line in f:
                     if line.endswith("use a pointer: benchmark::State& state  [runtime/references] [2]\n"):
                         ingored_errors += 1
@@ -45,7 +52,7 @@ def lint_walk(subdirectory):
                     if real_errors == 0:
                         print("\033[32mSuccess: " + file + "\033[0m")
                     else:
-                        f = open(os.path.join(build_directories[compiler_name], "lint.log"), "r")
+                        f = open(os.path.join(data_directory, "lint.log"), "r")
                         for line in f:
                             if (line.startswith("Done processing")):
                                 break
@@ -64,6 +71,32 @@ def lint():
     return_code += lint_walk("benchmark")
     return return_code
 
+def setup_pipelines():
+    if not os.path.exists("modules/pipelines/launch.h"):
+        return -1
+    os.chdir("modules/pipelines")
+    f = open("launch.h", "r")
+    file_lines = []
+    found_mark = False
+    for index, line in enumerate(f):
+        if line.startswith("// <build.py> Pipelines declarations"):
+            found_mark = True
+        elif not found_mark:
+            file_lines.append(line)
+        elif line.startswith("// <build.py> End of pipelines declarations"):
+            found_mark = False
+    f.close()
+    f = open("launch.h", "w")
+    for path, _, files in os.walk(os.getcwd()):
+        file_lines.insert(-1, "// <build.py> Pipelines declarations\n")
+        for file in files:
+            file_lines.insert(-1, '#include "../pipelines/' + file + '"\n')
+        file_lines.insert(-1, "// <build.py> End of pipelines declarations\n")
+    for line in file_lines:
+        f.write(line)
+    f.close()
+    os.chdir(project_directory)
+    return 0
 
 def build():
     if ((os.name == "posix" and compiler_name == "msvc") or
@@ -71,6 +104,8 @@ def build():
         print("This compiler is not supported by script on this OS")
         exit(1)
     return_code = 0
+    if setup_pipelines() == -1:
+        print("Pipelines not found")
     if not os.path.exists(build_directories[compiler_name]):
         os.mkdir(build_directories[compiler_name])
     os.chdir(build_directories[compiler_name])
