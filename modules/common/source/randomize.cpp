@@ -24,11 +24,11 @@ static std::function <int
     [](int a) {
         if (seed != -1) {
             std::mt19937 fixed_generator(seed);
-            return std::normal_distribution<float>(0, a - 1)
-                    (fixed_generator);
+            return static_cast<int>(std::normal_distribution<double>
+                    (0., a - 1.)(fixed_generator));
         } else {
-            return std::normal_distribution<float>(0, a - 1)
-                    (generator);
+            return static_cast<int>(std::normal_distribution<double>
+                    (0., a - 1.)(generator));
         }
     }
 };

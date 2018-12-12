@@ -4,7 +4,7 @@
 #include <exception>
 #include <iostream>
 #include "../include/cube_test.h"
-static const int max_weight = 1e5;
+static const int max_weight = static_cast<int>(1e5);
 
 AL cube_test(int n, bool weighted) {
     AL graph;

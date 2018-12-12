@@ -252,8 +252,10 @@ std::vector <int> generate_samples(int from, int to, int n = 20) {
     return result;
 }
 
-std::vector <int> washington_samples = generate_samples(0, 1e5);
-std::vector <int> zadeh_samples = generate_samples(0, 1e3);
+std::vector <int> washington_samples = generate_samples(0,
+                    static_cast<int>(1e5));
+std::vector <int> zadeh_samples = generate_samples(0,
+                    static_cast<int>(1e3));
 std::vector <int> cube_samples = generate_samples(0, 100);
 
 TEST_P(random_matching_washington_test, max_size_on_csr) {

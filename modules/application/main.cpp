@@ -22,7 +22,8 @@ int main(int argc, char** argv) {
                 << Timer::calculate(washington_test, 2, false)
                 << " s" << std::endl << std::endl;
     std::cout << "Execution time for washington_test (n = 1e6): "
-                << Timer::calculate(washington_test, 1e6, false)
+                << Timer::calculate(washington_test, 
+                    static_cast<int>(1e6), false)
                 << " s" << std::endl << std::endl;
     return 0;
 }
