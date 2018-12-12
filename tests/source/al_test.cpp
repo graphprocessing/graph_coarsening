@@ -19,8 +19,7 @@ TEST(al_test, basic_washington_test_generates) {
 }
 
 TEST(al_test, random_washington_test_generates) {
-    int n = std::uniform_int_distribution<int>(1,
-            static_cast<int>(1e4))(generator);
+    int n = std::uniform_int_distribution<int>(1, 10000)(generator);
     ASSERT_NO_THROW(AL al = washington_test(n, true));
 }
 
@@ -29,8 +28,7 @@ TEST(al_test, basic_zadeh_test_generates) {
 }
 
 TEST(al_test, random_zadeh_test_generates) {
-    int n = std::uniform_int_distribution<int>(1,
-            static_cast<int>(1e3))(generator);
+    int n = std::uniform_int_distribution<int>(1, 1000)(generator);
     ASSERT_NO_THROW(CSR csr = zadeh_test(n, true));
 }
 
@@ -68,8 +66,7 @@ TEST(al_test, correct_hard_matching_on_basic_washington_test) {
 }
 
 TEST(al_test, run_dfs_on_random_washington_test) {
-    int n = std::uniform_int_distribution<int>(1,
-            static_cast<int>(1e3))(generator);
+    int n = std::uniform_int_distribution<int>(1, 1000)(generator);
     AL al = washington_test(n, true);
     std::vector <int> expected_dfs_result;
     expected_dfs_result.push_back(1);

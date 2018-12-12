@@ -4,7 +4,7 @@
 #include <exception>
 #include <iostream>
 #include "../include/zadeh_test.h"
-static const int max_weight = static_cast<int>(1e5);
+static const int max_weight = 100000;
 
 AL zadeh_test(int n, bool weighted) {
     AL graph;

@@ -294,9 +294,9 @@ std::vector <int> generate(int start, int end) {
     return res;
 }
 
-std::vector <int> wash = generate(0, static_cast<int>(1e3));
-std::vector <int> zadeh = generate(0, static_cast<int>(1e3));
-std::vector <int> cube = generate(0, static_cast<int>(1e2));
+std::vector <int> wash = generate(0, 1000);
+std::vector <int> zadeh = generate(0, 1000);
+std::vector <int> cube = generate(0, 100);
 
 TEST_P(hard_matching_washington_test, al) {
     hard_matching_on_al();
