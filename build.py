@@ -75,13 +75,13 @@ def build():
         os.mkdir(build_directories[compiler_name])
     os.chdir(build_directories[compiler_name])
     if os.name == "posix":
-        subprocess.call('cmake -D CMAKE_C_COMPILER=' + compiler[compiler_name][0] + ' -D CMAKE_CXX_COMPILER=' + compiler[compiler_name][1]
+        subprocess.call('cmake -D BENCHMARK_ENABLE_GTEST_TESTS=OFF -D CMAKE_C_COMPILER=' + compiler[compiler_name][0] + ' -D CMAKE_CXX_COMPILER=' + compiler[compiler_name][1]
         + ' CMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ' + project_directory, shell=True)
     elif os.name == "nt":
         if compiler_name == "msvc":
-            subprocess.call('cmake -D CMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ' + project_directory, shell=True)
+            subprocess.call('cmake -D BENCHMARK_ENABLE_GTEST_TESTS=OFF -D CMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ' + project_directory, shell=True)
         elif compiler_name == "g++":
-            subprocess.call('cmake -G "MinGW Makefiles" -D CMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ' + project_directory, shell=True)
+            subprocess.call('cmake -D BENCHMARK_ENABLE_GTEST_TESTS=OFF -G "MinGW Makefiles" -D CMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ' + project_directory, shell=True)
     if os.name == "posix":
         subprocess.call("cppcheck -j4 --project=compile_commands.json > log_cppcheck", shell=True)
     elif os.name == "nt":

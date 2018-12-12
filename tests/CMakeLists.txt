@@ -4,6 +4,9 @@ file(GLOB_RECURSE source_files "*.cpp")
 
 project(Test_Target)
 
+set(CMAKE_BUILD_TYPE RELEASE)
+set(CMAKE_CXX_FLAGS_RELEASE "-O3")
+
 configure_file(CMakeLists.txt.in googletest-download/CMakeLists.txt)
 execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
     RESULT_VARIABLE result
