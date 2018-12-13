@@ -4,7 +4,7 @@
 #include <exception>
 #include <iostream>
 #include "../include/washington_test.h"
-static const int max_weight = 1e5;
+static const int max_weight = 100000;
 
 AL washington_test(int n, bool weighted) {
     AL graph;

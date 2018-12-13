@@ -48,7 +48,7 @@ std::vector <int> Graph::dfs(int root) {
 }
 
 int Graph::Dijkstra(int from, int to) {
-    const int INF = 1e9;
+    const int INF = 1000000000;
     std::vector <int> d(n, INF), p(n);
     d[from] = 0;
     std::set <std::pair<int, int> > s;
