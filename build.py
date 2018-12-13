@@ -118,7 +118,8 @@ def build():
         elif compiler_name == "g++":
             subprocess.call('cmake -D BENCHMARK_ENABLE_GTEST_TESTS=OFF -G "MinGW Makefiles" -D CMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ' + project_directory, shell=True)
         elif compiler_name == "icc":
-            subprocess.call('cmake -D BENCHMARK_ENABLE_GTEST_TESTS=OFF -T "Intel C++ Compiler 19.0" -D CMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ' + project_directory, shell=True)
+            subprocess.call('cmake -D BENCHMARK_ENABLE_GTEST_TESTS=OFF -D CMAKE_C_COMPILER=icl -D CMAKE_CXX_COMPILER=icl' 
+        + ' CMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ' + project_directory, shell=True)
     if os.name == "posix":
         subprocess.call("cppcheck -j4 --project=compile_commands.json > log_cppcheck", shell=True)
     elif os.name == "nt":
