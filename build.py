@@ -9,6 +9,7 @@ compiler = {
     "icc" : ("icc", "icpc")
 }
 build_directories = {}
+pipelines = False
 
 def create_folders():
     global data_directory
@@ -73,7 +74,7 @@ def lint():
 
 def setup_pipelines():
     if not os.path.exists("modules/pipelines/launch.h"):
-        return -1
+        return False
     os.chdir("modules/pipelines")
     f = open("launch.h", "r")
     file_lines = []
@@ -96,7 +97,7 @@ def setup_pipelines():
         f.write(line)
     f.close()
     os.chdir(project_directory)
-    return 0
+    return True
 
 def build():
     if ((os.name == "posix" and compiler_name == "msvc") or
@@ -104,7 +105,8 @@ def build():
         print("This compiler is not supported by script on this OS")
         exit(1)
     return_code = 0
-    if setup_pipelines() == -1:
+    pipelines = setup_pipelines()
+    if not pipelines:
         print("Pipelines not found")
     if not os.path.exists(build_directories[compiler_name]):
         os.mkdir(build_directories[compiler_name])
@@ -192,6 +194,16 @@ def cmake_graph():
     os.chdir(project_directory)
     return return_code
 
+def run_pipelines():
+    if not pipelines:
+        return -1
+    run_main()
+    if os.name == "posix":
+        return_code = subprocess.call("python3 scripts/pipelines_table.py " + data_directory, shell=True)
+    elif os.name == "nt":
+        return_code = subprocess.call("python scripts/pipelines_table.py " + data_directory, shell=True)
+    return return_code
+
 def help():
     print("python3 build.py lint <compiler>             (check code style)")
     print("python3 build.py build <compiler>            (build project)")
@@ -201,6 +213,7 @@ def help():
     print("python3 build.py graph <compiler>            (generate graph project)")
     print("python3 build.py all <compiler>              (check code style, build, run main and tests)")
     print("python3 build.py asymp <compiler> <args>     (make asymptotics figures)")
+    print("python3 build.py pipelines <compiler>        (run pipelines)")
     print("compilers: g++ (default), clang (Linux, macOS), msvc (Windows)")
     print("Compler choice temporary works only on linux-like OS")
     print("Use python instead of python3 on Windows")
@@ -246,6 +259,8 @@ if __name__ == "__main__":
         return_code = benchmark()
     elif (sys.argv[1] == "test"):
         return_code = run_tests()
+    elif (sys.argv[1] == "pipelines"):
+        return_code = run_pipelines()
     elif (sys.argv[1] == "asymp"):
         additional_args = []
         for i in range(3, len(sys.argv)):
