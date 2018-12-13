@@ -4,9 +4,6 @@ file(GLOB_RECURSE source_files "*.cpp")
 
 project(Test_Target)
 
-set(CMAKE_BUILD_TYPE RELEASE)
-set(CMAKE_CXX_FLAGS_RELEASE "-O3")
-
 configure_file(CMakeLists.txt.in googletest-download/CMakeLists.txt)
 execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
     RESULT_VARIABLE result
@@ -33,11 +30,13 @@ endif()
 
 add_executable(${PROJECT_NAME} ${source_files})
 
-target_link_libraries(${PROJECT_NAME} data_structures_library)
-target_link_libraries(${PROJECT_NAME} generator_library)
-target_link_libraries(${PROJECT_NAME} algorithms_library)
-target_link_libraries(${PROJECT_NAME} common_library)
-target_link_libraries(${PROJECT_NAME} gtest_main)
-target_link_libraries(${PROJECT_NAME} gtest)
+add_dependencies(${PROJECT_NAME} gtest)
+set(GRAPH_LIBRARIES gtest gtest_main
+                    data_structures_library
+                    algorithms_library
+                    generator_library
+                    common_library)
 
+target_link_libraries(${PROJECT_NAME} ${GRAPH_LIBRARIES})
+enable_testing()
 add_test(NAME graph_test COMMAND ${PROJECT_NAME})
