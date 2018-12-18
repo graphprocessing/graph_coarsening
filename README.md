@@ -31,6 +31,8 @@ Note:
   `pip3 install cpplint`  
   - построение графиков асимптотики:  
   `pip3 install matplotlib`  
+  - создание таблиц:
+  `pip3 install xlwt`
 - для использования статического анализатора:  
   Linux: `sudo apt install cppcheck`  
   Windows:  
@@ -53,6 +55,7 @@ Note:
 | Запуск main()                             | `run <компилятор>`                    |
 | Запуск lint, build, benchmark, test, run  | `all <компилятор>`                    |
 | Построить графики асимптотики             | `asymp <компилятор> <аргументы>`      |
+| Запустить пайплайны                       | `pipelines <компилятор>`              |
 
 ### Материалы:
 * Ссылка на [Google drive](https://drive.google.com/drive/folders/1tVuATbCl1Kc5TMwlbntEZXAiG7QLDulV?usp=sharing)
