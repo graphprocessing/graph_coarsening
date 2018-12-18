@@ -10,7 +10,9 @@
 namespace Pipeline {
     std::vector <std::function <std::string(const std::string&)>> pipelines;
     const std::string launch() {
-        const std::string file_name = std::string("../../../graph_data/pipeline_") + std::string(COMPILER_NAME);
+        const std::string file_name =
+                std::string("../../../graph_data/pipeline_") +
+                std::string(COMPILER_NAME);
         std::ofstream out(file_name);
         for (auto f : pipelines) {
             CSR graph;
