@@ -16,6 +16,8 @@
 #include "../pipelines/launch.h"
 
 int main(int argc, char** argv) {
+    std::cout << "pipelines" << std::endl;
+    Pipeline::launch();
     std::cout << "main" << std::endl;
     // Timer sample
     std::cout << std::fixed;
