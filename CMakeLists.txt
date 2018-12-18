@@ -4,6 +4,23 @@ if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE RELEASE)
 endif()
 
+
+if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    add_definitions(-DCOMPILER_NAME="g++")
+endif()
+
+if(MSVC)
+    add_definitions(-DCOMPILER_NAME="msvc")
+endif()
+
+if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+    add_definitions(-DCOMPILER_NAME="clang")
+endif()
+
+if(CMAKE_CXX_COMPILER MATCHES "icpc")
+    add_definitions(-DCOMPILER_NAME="icc")
+endif()
+
 if(CMAKE_VERSION VERSION_LESS "3.1")
     if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11")

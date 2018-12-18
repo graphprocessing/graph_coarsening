@@ -7,15 +7,16 @@
 #include "../data_structures/include/csr.h"
 namespace Pipeline {
     int p1() {
-        const std::string f = [&](const std::string& s) {
+        auto f = [&](const std::string& s) {
             CSR graph;
             graph.read(s);
             // Graph_coarsening
-            const std::string outstr = "..\..\..\graph_data\pipeline1";
+            std::string outstr = "../../../graph_data/pipeline1";
             graph.write(outstr);
             return outstr;
         };
         pipelines.push_back(f);
+        return 0;
     }
     int p1_ = p1();
 }  // namespace Pipeline

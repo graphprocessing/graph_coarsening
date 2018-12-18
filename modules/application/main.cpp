@@ -13,8 +13,11 @@
 #include "../algorithms/include/random_matching.h"
 #include "../algorithms/include/hard_matching.h"
 #include "../common/include/timer.h"
+#include "../pipelines/launch.h"
 
 int main(int argc, char** argv) {
+    std::cout << "pipelines" << std::endl;
+    Pipeline::launch();
     std::cout << "main" << std::endl;
     // Timer sample
     std::cout << std::fixed;
