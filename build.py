@@ -8,25 +8,19 @@ compiler = {
     "msvc" : ("msvc", "msvc"),
     "icc" : ("icc", "icpc")
 }
-build_directories = {}
+build_directories = dict()
 pipelines = False
 
 def create_folders():
-    global data_directory
+    global data_directory, build_directoriess
     os.chdir("..")
+    for x in compiler.keys():
+        build_directories[x] = os.path.join(os.getcwd(), "build_" + x)
     if not os.path.exists("graph_data"):
         os.mkdir("graph_data")
     os.chdir("graph_data")
     data_directory = os.getcwd()
     os.chdir(project_directory)
-    for compiler_name in compiler.keys():
-        folder_name = "build_" + compiler_name
-        os.chdir("..")
-        if not os.path.exists(folder_name):
-            os.mkdir(folder_name)
-        os.chdir(folder_name)
-        build_directories[compiler_name] = os.getcwd()
-        os.chdir(project_directory)
     return 0
 
 def lint_walk(subdirectory):
@@ -65,8 +59,6 @@ def lint_walk(subdirectory):
 
 def lint():
     return_code = 0
-    if not os.path.exists(build_directories[compiler_name]):
-        os.mkdir(build_directories[compiler_name])
     return_code += lint_walk("modules")
     return_code += lint_walk("tests")
     return_code += lint_walk("benchmark")
@@ -195,9 +187,9 @@ def cmake_graph():
     return return_code
 
 def run_pipelines():
-    if not pipelines:
-        return -1
-    run_main()
+    return_code = run_main()
+    if return_code != 0:
+        return return_code
     if os.name == "posix":
         return_code = subprocess.call("python3 scripts/pipelines_table.py " + data_directory, shell=True)
     elif os.name == "nt":
