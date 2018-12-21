@@ -2,19 +2,10 @@
 #ifndef TESTS_INCLUDE_RANDOM_MATCHING_PARAMETRIC_TEST_H_
 #define TESTS_INCLUDE_RANDOM_MATCHING_PARAMETRIC_TEST_H_
 #include <gtest/gtest.h>
-#include <random>
-#include <vector>
-#include "../../modules/data_structures/include/graph.h"
-#include "../../modules/data_structures/include/csr.h"
-#include "../../modules/data_structures/include/jds.h"
-#include "../../modules/data_structures/include/adjacency_list.h"
-#include "../../modules/generators/include/washington_test.h"
-#include "../../modules/generators/include/zadeh_test.h"
-#include "../../modules/generators/include/cube_test.h"
-#include "../../modules/algorithms/include/random_matching.h"
+#include "../../modules/pch/include/precomp.h"
 
-std::random_device rd;
-std::mt19937 generator(rd());
+static std::random_device rd;
+static std::mt19937 generator(rd());
 
 class random_matching_washington_test : public testing::TestWithParam<int> {
  public:

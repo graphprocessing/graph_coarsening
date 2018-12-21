@@ -1,4 +1,5 @@
 // Copyright [year] <Copyright Owner>
+#include "../../modules/pch/include/precomp.h"
 #include "../include/generators_test.h"
 
 void washington_test_creation_csr(benchmark::State& state) {

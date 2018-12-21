@@ -1,16 +1,6 @@
 // Copyright [year] <Copyright Owner>
 #include <gtest/gtest.h>
-#include <iostream>
-#include <vector>
-#include <random>
-#include "../../modules/data_structures/include/graph.h"
-#include "../../modules/data_structures/include/csr.h"
-#include "../../modules/data_structures/include/jds.h"
-#include "../../modules/generators/include/washington_test.h"
-#include "../../modules/generators/include/zadeh_test.h"
-#include "../../modules/generators/include/cube_test.h"
-#include "../../modules/algorithms/include/random_matching.h"
-#include "../../modules/algorithms/include/hard_matching.h"
+#include "../../modules/pch/include/precomp.h"
 
 TEST(random_matching_fixed_test, basic_washington_test_csr) {
     CSR graph = washington_test(2);

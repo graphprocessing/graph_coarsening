@@ -1,9 +1,11 @@
 cmake_minimum_required( VERSION 2.8 )
+include(cmake/PrecompiledHeader.cmake)
 
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE RELEASE)
 endif()
 
+set(MAIN_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     add_definitions(-DCOMPILER_NAME="g++")
@@ -60,3 +62,6 @@ endif(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
 add_subdirectory(modules)
 add_subdirectory(tests)
 add_subdirectory(benchmark)
+if (MSVC)
+    add_precompiled_header(pch modules/pch/pch.h SOURCE_CXX modules/pch/pch.cpp FORCEINCLUDE)
+endif()

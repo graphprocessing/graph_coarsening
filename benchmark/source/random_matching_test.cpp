@@ -1,4 +1,5 @@
 // Copyright [year] <Copyright Owner>
+#include "../../modules/pch/include/precomp.h"
 #include "../include/random_matching_test.h"
 
 void random_matching_on_washington_test_csr(benchmark::State& state) {

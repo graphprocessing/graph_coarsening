@@ -3,8 +3,7 @@
 #define BENCHMARK_INCLUDE_EXAMPLE_BENCHMARK_TEST_H_
 
 #include <benchmark/benchmark.h>
-#include <string>
-#include <vector>
+#include "../../modules/pch/include/precomp.h"
 
 void BM_StringCreation(benchmark::State& state);
 BENCHMARK(BM_StringCreation);

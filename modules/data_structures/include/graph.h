@@ -1,11 +1,7 @@
 // Copyright [year] <Copyright Owner>
 #ifndef MODULES_DATA_STRUCTURES_INCLUDE_GRAPH_H_
 #define MODULES_DATA_STRUCTURES_INCLUDE_GRAPH_H_
-#include <vector>
-#include <string>
-#include <queue>
-#include <set>
-#include <utility>
+#include "../../pch/include/precomp.h"
 
 struct JDS;
 struct CSR;

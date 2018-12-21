@@ -1,13 +1,5 @@
 // Copyright [year] <Copyright Owner>
-#include <random>
-#include <utility>
-#include <vector>
-#include <algorithm>
-#include <iostream>
-#include "../../data_structures/include/adjacency_list.h"
-#include "../../data_structures/include/csr.h"
-#include "../../data_structures/include/matching.h"
-#include "../../common/include/randomize.h"
+#include "../../pch/include/precomp.h"
 
 Matching random_matching(const AL& graph, int distribution,
             int vertexes_in_matching, int random_seed) {

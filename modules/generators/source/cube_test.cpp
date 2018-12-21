@@ -1,9 +1,5 @@
 // Copyright [year] <Copyright Owner>
-#include <random>
-#include <utility>
-#include <exception>
-#include <iostream>
-#include "../include/cube_test.h"
+#include "../../pch/include/precomp.h"
 static const int max_weight = 100000;
 
 AL cube_test(int n, bool weighted) {

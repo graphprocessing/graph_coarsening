@@ -3,10 +3,7 @@
 #define BENCHMARK_INCLUDE_RANDOM_MATCHING_TEST_H_
 
 #include <benchmark/benchmark.h>
-#include "../../modules/algorithms/include/random_matching.h"
-#include "../../modules/generators/include/washington_test.h"
-#include "../../modules/generators/include/zadeh_test.h"
-#include "../../modules/generators/include/cube_test.h"
+#include "../../modules/pch/include/precomp.h"
 
 void random_matching_on_washington_test_csr(benchmark::State& state);
 void random_matching_on_washington_test_al(benchmark::State& state);

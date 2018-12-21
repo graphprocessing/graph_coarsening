@@ -1,6 +1,5 @@
 // Copyright [year] <Copyright Owner>
-#include <string>
-#include <algorithm>
+#include "../../modules/pch/include/precomp.h"
 #include "../include/example_benchmark_test.h"
 
 void BM_StringCreation(benchmark::State& state) {

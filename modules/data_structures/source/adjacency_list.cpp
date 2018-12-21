@@ -1,11 +1,5 @@
 // Copyright [year] <Copyright Owner>
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <utility>
-#include <vector>
-#include "../include/adjacency_list.h"
-#include "../include/csr.h"
+#include "../../pch/include/precomp.h"
 
 AL::AL(const CSR& csr, ...) {
     n = csr.n;
