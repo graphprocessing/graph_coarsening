@@ -1,10 +1,5 @@
 // Copyright [year] <Copyright Owner>
-#include "../include/graph.h"
-#include <utility>
-#include <vector>
-#include <queue>
-#include <set>
-#include <iostream>
+#include "../../pch/include/precomp.h"
 
 int Graph::bfs(int from, int to) {
     std::vector <int> d(n, -1);

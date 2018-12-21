@@ -32,3 +32,5 @@ target_link_libraries( ${PROJECT_NAME} algorithms_library )
 target_link_libraries( ${PROJECT_NAME} common_library )
 target_link_libraries( ${PROJECT_NAME} benchmark_main )
 target_link_libraries( ${PROJECT_NAME} benchmark )
+
+include_directories(${MAIN_DIR})

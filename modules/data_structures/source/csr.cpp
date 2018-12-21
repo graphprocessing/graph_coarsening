@@ -1,13 +1,5 @@
 // Copyright [year] <Copyright Owner>
-#include <vector>
-#include <utility>
-#include <string>
-#include <fstream>
-#include <iostream>
-#include "../include/graph.h"
-#include "../include/csr.h"
-#include "../include/adjacency_list.h"
-#include "../include/jds.h"
+#include "../../pch/include/precomp.h"
 
 CSR::CSR(const AL& al, ...) {
     n = al.n;

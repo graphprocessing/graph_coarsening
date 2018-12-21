@@ -1,11 +1,8 @@
 // Copyright 2017 Nesterov Alexander
 #ifndef TESTS_INCLUDE_EXAMPLE_PARAMETRIC_TEST_H_
 #define TESTS_INCLUDE_EXAMPLE_PARAMETRIC_TEST_H_
-
 #include <gtest/gtest.h>
-#include <string>
-#include <vector>
-#include "../../modules/data_structures/include/graph.h"
+#include "../../modules/pch/include/precomp.h"
 
 
 class ExampleParametricTest : public testing::TestWithParam<std::string> {

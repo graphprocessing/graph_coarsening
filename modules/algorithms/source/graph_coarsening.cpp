@@ -1,11 +1,5 @@
 // Copyright [year] <Copyright Owner>
-#include <utility>
-#include <map>
-#include <vector>
-#include <algorithm>
-#include <iostream>
-#include "../../data_structures/include/csr.h"
-#include "../../data_structures/include/matching.h"
+#include "../../pch/include/precomp.h"
 
 CSR graph_coarsening(const CSR& graph, const Matching& match) {
     CSR g;

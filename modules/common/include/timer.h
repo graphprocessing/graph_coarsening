@@ -1,7 +1,7 @@
 // Copyright [year] <Copyright Owner>
 #ifndef MODULES_COMMON_INCLUDE_TIMER_H_
 #define MODULES_COMMON_INCLUDE_TIMER_H_
-#include <omp.h>
+#include "../../pch/include/precomp.h"
 
 namespace Timer {
     template <typename T, typename... Args>
