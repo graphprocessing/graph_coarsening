@@ -1,17 +1,16 @@
 // Copyright [year] <Copyright Owner>
 #ifndef MODULES_PIPELINES_PIPELINE_SAMPLE_H_
 #define MODULES_PIPELINES_PIPELINE_SAMPLE_H_
-#include <string>
+#include "../pch/include/precomp.h"
 #include "./launch.h"
-#include "../data_structures/include/graph.h"
-#include "../data_structures/include/csr.h"
+
 namespace Pipeline {
     int p1() {
         auto f = [&](const std::string& s) {
             CSR graph;
             graph.read(s);
             // Graph_coarsening
-            std::string outstr = "../../../graph_data/pipeline1";
+            std::string outstr = "../graph_data/pipeline_sample.bin";
             graph.write(outstr);
             return outstr;
         };

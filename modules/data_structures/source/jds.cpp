@@ -1,12 +1,5 @@
 // Copyright [year] <Copyright Owner>
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <utility>
-#include <vector>
-#include <algorithm>
-#include "../include/jds.h"
-#include "../include/csr.h"
+#include "../../pch/include/precomp.h"
 
 bool compare(std::pair<int, int> a, std::pair<int, int> b) {
     return a.first > b.first;

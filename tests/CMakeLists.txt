@@ -40,3 +40,4 @@ set(GRAPH_LIBRARIES gtest gtest_main
 target_link_libraries(${PROJECT_NAME} ${GRAPH_LIBRARIES})
 enable_testing()
 add_test(NAME graph_test COMMAND ${PROJECT_NAME})
+include_directories(${MAIN_DIR})

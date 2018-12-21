@@ -1,9 +1,6 @@
 // Copyright [year] <Copyright Owner>
-#include <random>
-#include <utility>
-#include <exception>
-#include <iostream>
-#include "../include/zadeh_test.h"
+#include "../../pch/include/precomp.h"
+
 static const int max_weight = 100000;
 
 AL zadeh_test(int n, bool weighted) {

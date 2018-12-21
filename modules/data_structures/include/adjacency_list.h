@@ -1,10 +1,7 @@
 // Copyright [year] <Copyright Owner>
 #ifndef MODULES_DATA_STRUCTURES_INCLUDE_ADJACENCY_LIST_H_
 #define MODULES_DATA_STRUCTURES_INCLUDE_ADJACENCY_LIST_H_
-#include <vector>
-#include <utility>
-#include <string>
-#include "./graph.h"
+#include "../../pch/include/precomp.h"
 
 struct AL : public Graph {
  public:

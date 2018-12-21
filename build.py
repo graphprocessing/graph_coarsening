@@ -38,6 +38,8 @@ def lint_walk(subdirectory):
                 for line in f:
                     if line.endswith("use a pointer: benchmark::State& state  [runtime/references] [2]\n"):
                         ingored_errors += 1
+                    elif line.endswith("[build/include_what_you_use] [4]\n"):
+                        ingored_errors += 1
                     verdict = line
                 f.close()
                 if (verdict.startswith("Done processing")):
@@ -65,8 +67,9 @@ def lint():
     return return_code
 
 def setup_pipelines():
+    global pipelines
     if not os.path.exists("modules/pipelines/launch.h"):
-        return False
+        return -1
     os.chdir("modules/pipelines")
     f = open("launch.h", "r")
     file_lines = []
@@ -80,16 +83,18 @@ def setup_pipelines():
             found_mark = False
     f.close()
     f = open("launch.h", "w")
-    for path, _, files in os.walk(os.getcwd()):
-        file_lines.insert(-1, "// <build.py> Pipelines declarations\n")
-        for file in files:
-            file_lines.insert(-1, '#include "../pipelines/' + file + '"\n')
-        file_lines.insert(-1, "// <build.py> End of pipelines declarations\n")
+    if not pipelines:
+        for path, _, files in os.walk(os.getcwd()):
+            file_lines.insert(-1, "// <build.py> Pipelines declarations\n")
+            for file in files:
+                file_lines.insert(-1, '#include "../pipelines/' + file + '"\n')
+            file_lines.insert(-1, "// <build.py> End of pipelines declarations\n")
+        pipelines = True
     for line in file_lines:
         f.write(line)
     f.close()
     os.chdir(project_directory)
-    return True
+    return 0
 
 def build():
     if ((os.name == "posix" and compiler_name == "msvc") or
@@ -97,9 +102,7 @@ def build():
         print("This compiler is not supported by script on this OS")
         exit(1)
     return_code = 0
-    pipelines = setup_pipelines()
-    if not pipelines:
-        print("Pipelines not found")
+    setup_pipelines() # add pipeline includes
     if not os.path.exists(build_directories[compiler_name]):
         os.mkdir(build_directories[compiler_name])
     os.chdir(build_directories[compiler_name])
@@ -128,6 +131,8 @@ def build():
             return_code = subprocess.call("mingw32-make", shell=True)
         elif compiler_name == "icc":
             return_code = subprocess.call("msbuild ALL_BUILD.vcxproj", shell=True)
+    os.chdir(project_directory)
+    setup_pipelines() # remove pipeline includes
     os.chdir(project_directory)
     return return_code
 
