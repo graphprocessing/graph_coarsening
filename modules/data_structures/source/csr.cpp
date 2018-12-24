@@ -37,17 +37,14 @@ bool CSR::read(const std::string& path) {
     if (!in.is_open())
         return false;
     in.read(reinterpret_cast<char*>(&n), sizeof(int));
-    int sz = 0;
-    in.read(reinterpret_cast<char*>(&sz), sizeof(int));
-    edges.resize(sz);
-    for (int i = 0; i < sz; ++i) {
-        in.read(reinterpret_cast<char*>(&edges[i].first), sizeof(int));
-        in.read(reinterpret_cast<char*>(&edges[i].second), sizeof(int));
-    }
-    in.read(reinterpret_cast<char*>(&sz), sizeof(int));
-    offset.resize(sz);
-    for (int i = 0; i < sz; ++i)
+    offset.resize(n + 1);
+    for (int i = 0; i <= n; ++i)
         in.read(reinterpret_cast<char*>(&offset[i]), sizeof(int));
+    edges.resize(offset.back());
+    for (unsigned i = 0; i < edges.size(); ++i)
+        in.read(reinterpret_cast<char*>(&edges[i].first), sizeof(int));
+    for (unsigned i = 0; i < edges.size(); ++i)
+        in.read(reinterpret_cast<char*>(&edges[i].second), sizeof(int));
     return true;
 }
 
@@ -56,16 +53,12 @@ bool CSR::write(const std::string& path) {
     if (!out.is_open())
         return false;
     out.write(reinterpret_cast<char*>(&n), sizeof(int));
-    int sz = edges.size();
-    out.write(reinterpret_cast<char*>(&sz), sizeof(int));
-    for (auto y : edges) {
-        out.write(reinterpret_cast<char*>(&y.first), sizeof(int));
-        out.write(reinterpret_cast<char*>(&y.second), sizeof(int));
-    }
-    sz = offset.size();
-    out.write(reinterpret_cast<char*>(&sz), sizeof(int));
-    for (auto y : offset)
-        out.write(reinterpret_cast<char*>(&y), sizeof(int));
+    for (int i = 0; i <= n; ++i)
+        out.write(reinterpret_cast<char*>(&offset[i]), sizeof(int));
+    for (unsigned i = 0; i < edges.size(); ++i)
+        out.write(reinterpret_cast<char*>(&edges[i].first), sizeof(int));
+    for (unsigned i = 0; i < edges.size(); ++i)
+        out.write(reinterpret_cast<char*>(&edges[i].second), sizeof(int));
     out.close();
     return true;
 }
