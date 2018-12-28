@@ -36,15 +36,20 @@ bool CSR::read(const std::string& path) {
     std::ifstream in(path, std::ios::binary);
     if (!in.is_open())
         return false;
+    int m;
     in.read(reinterpret_cast<char*>(&n), sizeof(int));
+    in.read(reinterpret_cast<char*>(&m), sizeof(int));
     offset.resize(n + 1);
-    for (int i = 0; i <= n; ++i)
-        in.read(reinterpret_cast<char*>(&offset[i]), sizeof(int));
-    edges.resize(offset.back());
-    for (unsigned i = 0; i < edges.size(); ++i)
+    edges.resize(m);
+    for (int i = 0; i < m; ++i)
         in.read(reinterpret_cast<char*>(&edges[i].first), sizeof(int));
-    for (unsigned i = 0; i < edges.size(); ++i)
-        in.read(reinterpret_cast<char*>(&edges[i].second), sizeof(int));
+    for (unsigned i = 0; i <= n; ++i)
+        in.read(reinterpret_cast<char*>(&offset[i]), sizeof(int));
+    for (unsigned i = 0; i < m; ++i) {
+        double tmp = 0;
+        in.read(reinterpret_cast<char*>(&tmp), sizeof(double));
+        edges[i].second = tmp;
+    }
     return true;
 }
 
@@ -53,10 +58,12 @@ bool CSR::write(const std::string& path) {
     if (!out.is_open())
         return false;
     out.write(reinterpret_cast<char*>(&n), sizeof(int));
-    for (int i = 0; i <= n; ++i)
-        out.write(reinterpret_cast<char*>(&offset[i]), sizeof(int));
+    int m = edges.size();
+    out.write(reinterpret_cast<char*>(&m), sizeof(int));
     for (unsigned i = 0; i < edges.size(); ++i)
         out.write(reinterpret_cast<char*>(&edges[i].first), sizeof(int));
+    for (int i = 0; i <= n; ++i)
+        out.write(reinterpret_cast<char*>(&offset[i]), sizeof(int));
     for (unsigned i = 0; i < edges.size(); ++i)
         out.write(reinterpret_cast<char*>(&edges[i].second), sizeof(int));
     out.close();

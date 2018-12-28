@@ -3,15 +3,6 @@
 
 int get_cost_of_minimal_spanning_tree(const CSR& graph) {
     AL al_graph(graph);
-    for (int i = 0; i < al_graph.n; ++i)
-        for (unsigned j = 0; j < al_graph.edges[i].size(); ++j)
-            al_graph.edges[al_graph.edges[i][j].first].
-                    push_back({i, al_graph.edges[i][j].second});
-    for (int i = 0; i < al_graph.n; ++i) {
-        std::sort(al_graph.edges[i].begin(), al_graph.edges[i].end());
-        al_graph.edges[i].resize(std::unique(al_graph.edges[i].begin(),
-                    al_graph.edges[i].end()) - al_graph.edges[i].begin());
-    }
     std::vector <std::pair <int, std::pair <int, int>>> edges;
     for (int i = 0; i < al_graph.n; ++i)
         for (unsigned j = 0; j < al_graph.edges[i].size(); ++j)

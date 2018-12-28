@@ -36,15 +36,6 @@ void find_joint_points(std::set <int>* joint_points, const CSR& graph) {
     check.clear(), check.resize(graph.n);
     AL al_graph(graph);
     for (int i = 0; i < al_graph.n; ++i)
-        for (unsigned j = 0; j < al_graph.edges[i].size(); ++j)
-            al_graph.edges[al_graph.edges[i][j].first].
-                    push_back({i, al_graph.edges[i][j].second});
-    for (int i = 0; i < al_graph.n; ++i) {
-        std::sort(al_graph.edges[i].begin(), al_graph.edges[i].end());
-        al_graph.edges[i].resize(std::unique(al_graph.edges[i].begin(),
-                    al_graph.edges[i].end()) - al_graph.edges[i].begin());
-    }
-    for (int i = 0; i < al_graph.n; ++i)
         if (!used[i])
             dfs(al_graph, joint_points, i);
 }
