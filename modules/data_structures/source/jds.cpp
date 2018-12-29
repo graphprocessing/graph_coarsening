@@ -4,8 +4,10 @@
 bool compare(std::pair<int, int> a, std::pair<int, int> b) {
     return a.first > b.first;
 }
-JDS::JDS(const CSR& csr, ...) {
-    n = csr.n;
+
+template <typename WeightType>
+JDS<WeightType>::JDS(const CSR<WeightType>& csr, ...) {
+    this->n = csr.n;
     std::vector<std::pair<int, int>> priority;
     for (unsigned i = 1; i < csr.offset.size(); i++) {
         priority.push_back(std::make_pair(csr.offset[i] -
@@ -35,7 +37,9 @@ JDS::JDS(const CSR& csr, ...) {
         }
     }
 }
-bool JDS::get_neighbours(std::vector <std::pair<int, int>>* neighbours,
+
+template <typename WeightType>
+bool JDS<WeightType>::get_neighbours(std::vector <std::pair<int, WeightType>>* neighbours,
         int vertex, int anc) const {
     int j = 0;
     while (parm[j] != vertex) {
@@ -52,18 +56,19 @@ bool JDS::get_neighbours(std::vector <std::pair<int, int>>* neighbours,
     return true;
 }
 
-bool JDS::read(const std::string &file) {
+template <typename WeightType>
+bool JDS<WeightType>::read(const std::string &file) {
     std::ifstream file_to_open(file.c_str(), std::ios::binary);
     if (!file_to_open.is_open()) {
         return false;
     } else {
-        file_to_open.read(reinterpret_cast<char*>(&n), sizeof(int));
+        file_to_open.read(reinterpret_cast<char*>(&this->n), sizeof(int));
         int size = 0;
         file_to_open.read(reinterpret_cast<char *>(&size), sizeof(int));
         val.resize(size);
         col_ind.resize(size);
         for (int i = 0; i < size; i++) {
-            file_to_open.read(reinterpret_cast<char *>(&val[i]), sizeof(int));
+            file_to_open.read(reinterpret_cast<char *>(&val[i]), sizeof(WeightType));
             file_to_open.read(reinterpret_cast<char *>(&col_ind[i]),
             sizeof(int));
         }
@@ -81,16 +86,18 @@ bool JDS::read(const std::string &file) {
         return true;
     }
 }
-bool JDS::write(const std::string& path) {
+
+template <typename WeightType>
+bool JDS<WeightType>::write(const std::string& path) {
     std::ofstream file_to_write(path, std::ios::binary);
     if (!file_to_write.is_open())
         return false;
-    file_to_write.write(reinterpret_cast<char*>(&n), sizeof(int));
+    file_to_write.write(reinterpret_cast<char*>(&this->n), sizeof(int));
     int size = val.size();
     file_to_write.write(reinterpret_cast<char *>(&size), sizeof(int));
     for (unsigned i = 0; i < val.size(); i++) {
-        int value = val[i], col = col_ind[i];
-        file_to_write.write(reinterpret_cast<char *>(&value), sizeof(int));
+        WeightType value = val[i], col = col_ind[i];
+        file_to_write.write(reinterpret_cast<char *>(&value), sizeof(WeightType));
         file_to_write.write(reinterpret_cast<char *>(&col), sizeof(int));
     }
     size = offset.size();

@@ -1,8 +1,9 @@
 // Copyright [year] <Copyright Owner>
 #include "../../pch/include/precomp.h"
 
+template <typename WeightType>
 void floyd_warshall(std::vector <std::vector <int>>* matrix,
-                            const CSR& graph) {
+                            const CSR<WeightType>& graph) {
     int n = graph.n;
     matrix->resize(n);
     for (int i = 0; i < n; ++i)

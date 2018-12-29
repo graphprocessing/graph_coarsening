@@ -5,7 +5,8 @@ static std::vector <char> used;
 static std::vector <int> in, check;
 static int timer;
 
-static void dfs(const AL& graph, std::set <std::pair <int, int>>* bridges,
+template <typename WeightType>
+static void dfs(const AL<WeightType>& graph, std::set <std::pair <int, int>>* bridges,
         int x, int p = -1) {
     used[x] = 1;
     in[x] = check[x] = ++timer;
@@ -30,19 +31,21 @@ static void dfs(const AL& graph, std::set <std::pair <int, int>>* bridges,
     }
 }
 
-void find_bridges(std::set <std::pair <int, int>>* bridges, const CSR& graph) {
+template <typename WeightType>
+void find_bridges(std::set <std::pair <int, int>>* bridges, const CSR<WeightType>& graph) {
     timer = 0;
     used.clear(), used.resize(graph.n);
     used.assign(graph.n, 0);
     in.clear(), in.resize(graph.n);
     check.clear(), check.resize(graph.n);
-    AL al_graph(graph);
+    AL <WeightType> al_graph(graph);
     for (int i = 0; i < al_graph.n; ++i)
         if (!used[i])
             dfs(al_graph, bridges, i);
 }
 
-int count_bridges(const CSR& graph) {
+template <typename WeightType>
+int count_bridges(const CSR<WeightType>& graph) {
     std::set <std::pair <int, int>> bridges;
     find_bridges(&bridges, graph);
     return bridges.size();

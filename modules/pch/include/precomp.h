@@ -8,6 +8,7 @@
 #include <fstream>
 #include <random>
 #include <climits>
+#include <exception>
 // STL
 #include <algorithm>
 #include <numeric>

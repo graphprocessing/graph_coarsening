@@ -7,7 +7,7 @@
 namespace Pipeline {
     int p1() {
         auto f = [&](const std::string& s) {
-            CSR graph;
+            CSR<double> graph;
             graph.read(s);
             // Graph_coarsening
             std::string outstr = "../graph_data/pipeline_sample.bin";

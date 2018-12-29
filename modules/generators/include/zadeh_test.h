@@ -3,6 +3,7 @@
 #define MODULES_GENERATORS_INCLUDE_ZADEH_TEST_H_
 #include "../../pch/include/precomp.h"
 
-AL zadeh_test(int n, bool weighted = false);
+template <typename WeightType>
+AL<WeightType> zadeh_test(int n, bool weighted = false);
 
 #endif  // MODULES_GENERATORS_INCLUDE_ZADEH_TEST_H_

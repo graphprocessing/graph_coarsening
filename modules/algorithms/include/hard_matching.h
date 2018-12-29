@@ -3,7 +3,10 @@
 #define MODULES_ALGORITHMS_INCLUDE_HARD_MATCHING_H_
 #include "../../pch/include/precomp.h"
 
-Matching hard_matching(const AL& graph);
-Matching hard_matching(const CSR& gtaph);
+template <typename WeightType>
+Matching hard_matching(const AL<WeightType>& graph);
+
+template <typename WeightType>
+Matching hard_matching(const CSR<WeightType>& gtaph);
 
 #endif  // MODULES_ALGORITHMS_INCLUDE_HARD_MATCHING_H_

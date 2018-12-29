@@ -1,7 +1,8 @@
 // Copyright [year] <Copyright Owner>
 #include "../../pch/include/precomp.h"
 
-std::vector <int> vertexes_eccentricity(const CSR& graph) {
+template <typename WeightType>
+std::vector <int> vertexes_eccentricity(const CSR<WeightType>& graph) {
     std::vector <std::vector <int>> matrix;
     floyd_warshall(&matrix, graph);
     std::vector <int> ecc(graph.n, 0);
@@ -11,7 +12,8 @@ std::vector <int> vertexes_eccentricity(const CSR& graph) {
     return ecc;
 }
 
-int graph_radius(const CSR& graph) {
+template <typename WeightType>
+int graph_radius(const CSR<WeightType>& graph) {
     std::vector <int> ecc = vertexes_eccentricity(graph);
     int rad = 200000;
     for (int e : ecc)
@@ -19,7 +21,8 @@ int graph_radius(const CSR& graph) {
     return rad;
 }
 
-int graph_diameter(const CSR& graph) {
+template <typename WeightType>
+int graph_diameter(const CSR<WeightType>& graph) {
     std::vector <int> ecc = vertexes_eccentricity(graph);
     int diam = 0;
     for (int e : ecc)

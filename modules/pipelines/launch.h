@@ -16,7 +16,7 @@ namespace Pipeline {
         std::ofstream out(output_file_name);
         for (unsigned index = 0; index < graph_files.size(); ++index) {
             for (auto pipeline : pipelines) {
-                CSR graph;
+                CSR<double> graph;
                 std::string new_file;
                 auto fu = [&]() {
                     std::cout << "processing " << graph_files[index] << std::endl;
@@ -45,11 +45,11 @@ namespace Pipeline {
                 out << static_cast<double>(graph.edges.size()) / graph.n << " ";
                 // 5. Max vertex weight
                 {
-                    int max_weight = 0;
+                    double max_weight = 0;
                     for (int i = 0; i < graph.n; ++i) {
-                        int current_weight = 0;
+                        double current_weight = 0;
                         for (int j = graph.offset[i]; j < graph.offset[i+1]; ++j)
-                            current_weight += graph.edges[j].second;
+                            current_weight += graph.weights[j];
                         max_weight = std::max(max_weight, current_weight);
                     }
                     out << max_weight << " ";

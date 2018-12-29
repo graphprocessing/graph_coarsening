@@ -3,8 +3,9 @@
 
 static const int max_weight = 100000;
 
-AL zadeh_test(int n, bool weighted) {
-    AL graph;
+template <typename WeightType>
+AL<WeightType> zadeh_test(int n, bool weighted) {
+    AL <WeightType> graph;
     try {
         std::random_device rd;
         std::mt19937 generator(rd());
@@ -14,51 +15,52 @@ AL zadeh_test(int n, bool weighted) {
         for (int i = 1; i < n; i++) {
             if (i % 2 == 0) {
                 for (int j = 0; j < 2*n; j++) {
-                    graph.edges[i].push_back(std::make_pair(3*n + 1 + j,
-                    weight(generator)));
+                    graph.edges[i].push_back(3*n + 1 + j);
+                    graph.weights[i].push_back(weight(generator));
                 }
-                graph.edges[i].push_back(std::make_pair(i + 1,
-                weight(generator)));
+                graph.edges[i].push_back(i + 1);
+                graph.weights[i].push_back(weight(generator));
             } else {
                 for (int j = 0; j < 2*n; j++) {
-                    graph.edges[i].push_back(std::make_pair(n + 1 + j,
-                    weight(generator)));
+                    graph.edges[i].push_back(n + 1 + j);
+                    graph.weights[i].push_back(weight(generator));
                 }
-                graph.edges[i].push_back(std::make_pair(i + 1,
-                weight(generator)));
+                graph.edges[i].push_back(i + 1);
+                graph.weights[i].push_back(weight(generator));
             }
         }
         if (n % 2 == 0) {
             for (int j = 0; j < 2*n; j++) {
-            graph.edges[n].push_back(std::make_pair(3*n + 1 + j,
-            weight(generator)));
+                graph.edges[n].push_back(3*n + 1 + j);
+                graph.weights[n].push_back(weight(generator));
             }
         } else {
             for (int j = 0; j < 2*n; j++) {
-            graph.edges[n].push_back(std::make_pair(n + 1 + j,
-            weight(generator)));
+                graph.edges[n].push_back(n + 1 + j);
+                graph.weights[n].push_back(weight(generator));
             }
         }
         for (int i = n + 1; i <= 3*n; i++) {
             for (int j = 0; j < 2*n; j++) {
-                graph.edges[i].push_back(std::make_pair(3*n + 1 + j,
-                weight(generator)));
-                graph.edges[3*n + 1 + j].push_back(std::make_pair(i,
-                weight(generator)));
+                graph.edges[i].push_back(3*n + 1 + j);
+                graph.weights[i].push_back(weight(generator));
+                graph.edges[3*n + 1 + j].push_back(i);
+                graph.weights[3*n + 1 + j].push_back(weight(generator));
             }
             for (int k = 6*n - 1; k > 5*n; k -= 2) {
-                graph.edges[i].push_back(std::make_pair(k, weight(generator)));
+                graph.edges[i].push_back(k);
+                graph.weights[i].push_back(weight(generator));
             }
         }
         for (int i = 3*n + 1; i <= 5*n; i++) {
             for (int k = 6*n; k > 5*n; k -= 2) {
-                graph.edges[i].push_back(std::make_pair(k,
-                weight(generator)));
+                graph.edges[i].push_back(k);
+                graph.weights[i].push_back(weight(generator));
             }
         }
         for (int i = 5*n; i < 6*n; i++) {
-            graph.edges[i].push_back(std::make_pair(i + 1,
-            weight(generator)));
+            graph.edges[i].push_back(i + 1);
+            graph.weights[i].push_back(weight(generator));
         }
     }
     catch (std::bad_alloc ba) {

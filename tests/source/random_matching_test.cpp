@@ -3,7 +3,7 @@
 #include "../../modules/pch/include/precomp.h"
 
 TEST(random_matching_fixed_test, basic_washington_test_csr) {
-    CSR graph = washington_test(2);
+    CSR<int> graph = washington_test<int>(2);
     Matching matching = random_matching(graph, 0, graph.n, 10);
     Matching expected;
     expected.edge_b = {0, 2, 5, 7};
@@ -13,7 +13,7 @@ TEST(random_matching_fixed_test, basic_washington_test_csr) {
 }
 
 TEST(random_matching_fixed_test, basic_washington_test_al) {
-    AL graph = washington_test(2);
+    AL<int> graph = washington_test<int>(2);
     Matching matching = random_matching(graph, 0, graph.n, 10);
     Matching expected;
     expected.edge_b = {0, 2, 5, 7};
@@ -23,7 +23,7 @@ TEST(random_matching_fixed_test, basic_washington_test_al) {
 }
 
 TEST(random_matching_fixed_test, basic_zadeh_test_csr) {
-    CSR graph = zadeh_test(2);
+    CSR<int> graph = zadeh_test<int>(2);
     Matching matching = random_matching(graph, 0, graph.n, 10);
     Matching expected;
     expected.edge_b = {1, 2, 4, 5, 8, 3};
@@ -33,7 +33,7 @@ TEST(random_matching_fixed_test, basic_zadeh_test_csr) {
 }
 
 TEST(random_matching_fixed_test, basic_zadeh_test_al) {
-    AL graph = zadeh_test(2);
+    AL<int> graph = zadeh_test<int>(2);
     Matching matching = random_matching(graph, 0, graph.n, 10);
     Matching expected;
     expected.edge_b = {1, 2, 4, 5, 8, 3};
@@ -43,7 +43,7 @@ TEST(random_matching_fixed_test, basic_zadeh_test_al) {
 }
 
 TEST(random_matching_fixed_test, basic_cube_test_csr) {
-    CSR graph = cube_test(2);
+    CSR<int> graph = cube_test<int>(2);
     Matching matching = random_matching(graph, 0, graph.n, 20);
     Matching expected;
     expected.edge_b = {0, 4, 5, 7};
@@ -53,7 +53,7 @@ TEST(random_matching_fixed_test, basic_cube_test_csr) {
 }
 
 TEST(random_matching_fixed_test, basic_cube_test_al) {
-    AL graph = cube_test(2);
+    AL<int> graph = cube_test<int>(2);
     Matching matching = random_matching(graph, 0, graph.n, 20);
     Matching expected;
     expected.edge_b = {0, 4, 5, 7};
@@ -63,7 +63,7 @@ TEST(random_matching_fixed_test, basic_cube_test_al) {
 }
 
 TEST(random_matching_fixed_test, basic_washington_test_csr_2) {
-    AL graph = washington_test(2);
+    AL<int> graph = washington_test<int>(2);
     Matching matching = random_matching(graph, 0, graph.n, 59);
     Matching expected;
     expected.edge_b = {0, 2, 3, 6};
@@ -73,7 +73,7 @@ TEST(random_matching_fixed_test, basic_washington_test_csr_2) {
 }
 
 TEST(random_matching_fixed_test, basic_washington_test_al_2) {
-    AL graph = washington_test(2);
+    AL<int> graph = washington_test<int>(2);
     Matching matching = random_matching(graph, 0, graph.n, 59);
     Matching expected;
     expected.edge_b = {0, 2, 3, 6};
@@ -83,7 +83,7 @@ TEST(random_matching_fixed_test, basic_washington_test_al_2) {
 }
 
 TEST(random_matching_fixed_test, basic_zadeh_test_csr_2) {
-    CSR graph = zadeh_test(2);
+    CSR<int> graph = zadeh_test<int>(2);
     Matching matching = random_matching(graph, 0, graph.n, 7893);
     Matching expected;
     expected.edge_b = {2, 4, 6, 8, 3};
@@ -93,7 +93,7 @@ TEST(random_matching_fixed_test, basic_zadeh_test_csr_2) {
 }
 
 TEST(random_matching_fixed_test, basic_zadeh_test_al_2) {
-    AL graph = zadeh_test(2);
+    AL<int> graph = zadeh_test<int>(2);
     Matching matching = random_matching(graph, 0, graph.n, 7893);
     Matching expected;
     expected.edge_b = {2, 4, 6, 8, 3};
@@ -103,7 +103,7 @@ TEST(random_matching_fixed_test, basic_zadeh_test_al_2) {
 }
 
 TEST(random_matching_fixed_test, basic_cube_test_csr_2) {
-    CSR graph = cube_test(2);
+    CSR<int> graph = cube_test<int>(2);
     Matching matching = random_matching(graph, 0, graph.n, 7893);
     Matching expected;
     expected.edge_b = {0, 4, 7, 1};
@@ -113,7 +113,7 @@ TEST(random_matching_fixed_test, basic_cube_test_csr_2) {
 }
 
 TEST(random_matching_fixed_test, basic_cube_test_al_2) {
-    AL graph = cube_test(2);
+    AL<int> graph = cube_test<int>(2);
     Matching matching = random_matching(graph, 0, graph.n, 7893);
     Matching expected;
     expected.edge_b = {0, 4, 7, 1};
@@ -123,7 +123,7 @@ TEST(random_matching_fixed_test, basic_cube_test_al_2) {
 }
 
 TEST(random_matching_fixed_test, basic_washington_test_csr_3) {
-    AL graph = washington_test(2);
+    AL<int> graph = washington_test<int>(2);
     Matching matching = random_matching(graph, 0, graph.n, 2354);
     Matching expected;
     expected.edge_b = {1, 4, 7, 3};
@@ -133,7 +133,7 @@ TEST(random_matching_fixed_test, basic_washington_test_csr_3) {
 }
 
 TEST(random_matching_fixed_test, basic_washington_test_al_3) {
-    AL graph = washington_test(2);
+    AL<int> graph = washington_test<int>(2);
     Matching matching = random_matching(graph, 0, graph.n, 2354);
     Matching expected;
     expected.edge_b = {1, 4, 7, 3};
@@ -143,7 +143,7 @@ TEST(random_matching_fixed_test, basic_washington_test_al_3) {
 }
 
 TEST(random_matching_fixed_test, basic_zadeh_test_csr_3) {
-    CSR graph = zadeh_test(2);
+    CSR<int> graph = zadeh_test<int>(2);
     Matching matching = random_matching(graph, 0, graph.n, 1364);
     Matching expected;
     expected.edge_b = {1, 2, 4, 5, 6, 10};
@@ -153,7 +153,7 @@ TEST(random_matching_fixed_test, basic_zadeh_test_csr_3) {
 }
 
 TEST(random_matching_fixed_test, basic_zadeh_test_al_3) {
-    AL graph = zadeh_test(2);
+    AL<int> graph = zadeh_test<int>(2);
     Matching matching = random_matching(graph, 0, graph.n, 1364);
     Matching expected;
     expected.edge_b = {1, 2, 4, 5, 6, 10};
@@ -163,7 +163,7 @@ TEST(random_matching_fixed_test, basic_zadeh_test_al_3) {
 }
 
 TEST(random_matching_fixed_test, basic_cube_test_csr_3) {
-    CSR graph = cube_test(2);
+    CSR<int> graph = cube_test<int>(2);
     Matching matching = random_matching(graph, 0, graph.n, 8767);
     Matching expected;
     expected.edge_b = {1, 5, 7, 0};
@@ -173,7 +173,7 @@ TEST(random_matching_fixed_test, basic_cube_test_csr_3) {
 }
 
 TEST(random_matching_fixed_test, basic_cube_test_al_3) {
-    AL graph = cube_test(2);
+    AL<int> graph = cube_test<int>(2);
     Matching matching = random_matching(graph, 0, graph.n, 8767);
     Matching expected;
     expected.edge_b = {1, 5, 7, 0};
@@ -183,7 +183,7 @@ TEST(random_matching_fixed_test, basic_cube_test_al_3) {
 }
 
 TEST(random_matching_fixed_test, basic_washington_test_csr_4) {
-    AL graph = washington_test(2);
+    AL<int> graph = washington_test<int>(2);
     Matching matching = random_matching(graph, 0, graph.n, 10001);
     Matching expected;
     expected.edge_b = {0, 2, 3, 6};
@@ -193,7 +193,7 @@ TEST(random_matching_fixed_test, basic_washington_test_csr_4) {
 }
 
 TEST(random_matching_fixed_test, basic_washington_test_al_4) {
-    AL graph = washington_test(2);
+    AL<int> graph = washington_test<int>(2);
     Matching matching = random_matching(graph, 0, graph.n, 10001);
     Matching expected;
     expected.edge_b = {0, 2, 3, 6};
@@ -203,7 +203,7 @@ TEST(random_matching_fixed_test, basic_washington_test_al_4) {
 }
 
 TEST(random_matching_fixed_test, basic_zadeh_test_csr_4) {
-    CSR graph = zadeh_test(2);
+    CSR<int> graph = zadeh_test<int>(2);
     Matching matching = random_matching(graph, 0, graph.n, 10002);
     Matching expected;
     expected.edge_b = {1, 3, 7, 10, 2, 9};
@@ -213,7 +213,7 @@ TEST(random_matching_fixed_test, basic_zadeh_test_csr_4) {
 }
 
 TEST(random_matching_fixed_test, basic_zadeh_test_al_4) {
-    AL graph = zadeh_test(2);
+    AL<int> graph = zadeh_test<int>(2);
     Matching matching = random_matching(graph, 0, graph.n, 10002);
     Matching expected;
     expected.edge_b = {1, 3, 7, 10, 2, 9};
@@ -223,7 +223,7 @@ TEST(random_matching_fixed_test, basic_zadeh_test_al_4) {
 }
 
 TEST(random_matching_fixed_test, basic_cube_test_csr_4) {
-    CSR graph = cube_test(2);
+    CSR<int> graph = cube_test<int>(2);
     Matching matching = random_matching(graph, 0, graph.n, 10003);
     Matching expected;
     expected.edge_b = {0, 2, 3, 4};
@@ -233,7 +233,7 @@ TEST(random_matching_fixed_test, basic_cube_test_csr_4) {
 }
 
 TEST(random_matching_fixed_test, basic_cube_test_al_4) {
-    AL graph = cube_test(2);
+    AL<int> graph = cube_test<int>(2);
     Matching matching = random_matching(graph, 0, graph.n, 10003);
     Matching expected;
     expected.edge_b = {0, 2, 3, 4};
@@ -243,7 +243,7 @@ TEST(random_matching_fixed_test, basic_cube_test_al_4) {
 }
 
 TEST(random_matching_fixed_test, basic_washington_test_csr_5) {
-    AL graph = washington_test(2);
+    AL<int> graph = washington_test<int>(2);
     Matching matching = random_matching(graph, 0, graph.n, 1010);
     Matching expected;
     expected.edge_b = {1, 4, 3, 7};
@@ -253,7 +253,7 @@ TEST(random_matching_fixed_test, basic_washington_test_csr_5) {
 }
 
 TEST(random_matching_fixed_test, basic_washington_test_al_5) {
-    AL graph = washington_test(2);
+    AL<int> graph = washington_test<int>(2);
     Matching matching = random_matching(graph, 0, graph.n, 1010);
     Matching expected;
     expected.edge_b = {1, 4, 3, 7};
@@ -263,7 +263,7 @@ TEST(random_matching_fixed_test, basic_washington_test_al_5) {
 }
 
 TEST(random_matching_fixed_test, basic_zadeh_test_csr_5) {
-    CSR graph = zadeh_test(2);
+    CSR<int> graph = zadeh_test<int>(2);
     Matching matching = random_matching(graph, 0, graph.n, 1011);
     Matching expected;
     expected.edge_b = {2, 3, 5, 6, 11, 1};
@@ -273,7 +273,7 @@ TEST(random_matching_fixed_test, basic_zadeh_test_csr_5) {
 }
 
 TEST(random_matching_fixed_test, basic_zadeh_test_al_5) {
-    AL graph = zadeh_test(2);
+    AL<int> graph = zadeh_test<int>(2);
     Matching matching = random_matching(graph, 0, graph.n, 1011);
     Matching expected;
     expected.edge_b = {2, 3, 5, 6, 11, 1};
@@ -283,7 +283,7 @@ TEST(random_matching_fixed_test, basic_zadeh_test_al_5) {
 }
 
 TEST(random_matching_fixed_test, basic_cube_test_csr_5) {
-    CSR graph = cube_test(2);
+    CSR<int> graph = cube_test<int>(2);
     Matching matching = random_matching(graph, 0, graph.n, 1012);
     Matching expected;
     expected.edge_b = {7, 0, 1, 4};
@@ -293,7 +293,7 @@ TEST(random_matching_fixed_test, basic_cube_test_csr_5) {
 }
 
 TEST(random_matching_fixed_test, basic_cube_test_al_5) {
-    AL graph = cube_test(2);
+    AL<int> graph = cube_test<int>(2);
     Matching matching = random_matching(graph, 0, graph.n, 1012);
     Matching expected;
     expected.edge_b = {7, 0, 1, 4};

@@ -1,9 +1,11 @@
 // Copyright [year] <Copyright Owner>
 #include "../../pch/include/precomp.h"
+
 static const int max_weight = 100000;
 
-AL cube_test(int n, bool weighted) {
-    AL graph;
+template <typename WeightType>
+AL<WeightType> cube_test(int n, bool weighted) {
+    AL <WeightType> graph;
     try {
         std::random_device rd;
         std::mt19937 generator(rd());
@@ -14,24 +16,30 @@ AL cube_test(int n, bool weighted) {
             for (int j = 0; j < n; ++j) {
                 for (int k = 0; k < n; ++k) {
                     int vertex = i * n * n + j * n + k;
-                    if (i != 0)
-                        graph.edges[vertex].push_back({vertex - n * n,
-                                    weight(generator)});
-                    if (i != n - 1)
-                        graph.edges[vertex].push_back({vertex + n * n,
-                                    weight(generator)});
-                    if (j != 0)
-                        graph.edges[vertex].push_back({vertex - n,
-                                    weight(generator)});
-                    if (j != n - 1)
-                        graph.edges[vertex].push_back({vertex + n,
-                                    weight(generator)});
-                    if (k != 0)
-                        graph.edges[vertex].push_back({vertex - 1,
-                                    weight(generator)});
-                    if (k != n - 1)
-                        graph.edges[vertex].push_back({vertex + 1,
-                                    weight(generator)});
+                    if (i != 0) {
+                        graph.edges[vertex].push_back(vertex - n * n);
+                        graph.weights[vertex].push_back(weight(generator));
+                    }
+                    if (i != n - 1) {
+                        graph.edges[vertex].push_back(vertex + n * n);
+                        graph.weights[vertex].push_back(weight(generator));
+                    }
+                    if (j != 0) {
+                        graph.edges[vertex].push_back(vertex - n);
+                        graph.weights[vertex].push_back(weight(generator));
+                    }
+                    if (j != n - 1) {
+                        graph.edges[vertex].push_back(vertex + n);
+                        graph.weights[vertex].push_back(weight(generator));
+                    }
+                    if (k != 0) {
+                        graph.edges[vertex].push_back(vertex - 1);
+                        graph.weights[vertex].push_back(weight(generator));
+                    }
+                    if (k != n - 1) {
+                        graph.edges[vertex].push_back(vertex + 1);
+                        graph.weights[vertex].push_back(weight(generator));
+                    }
                 }
             }
         }

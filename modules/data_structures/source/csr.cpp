@@ -1,71 +1,77 @@
 // Copyright [year] <Copyright Owner>
 #include "../../pch/include/precomp.h"
 
-CSR::CSR(const AL& al, ...) {
-    n = al.n;
+template <typename WeightType>
+CSR<WeightType>::CSR(const AL<WeightType>& al, ...) {
+    this->n = al.n;
     offset.push_back(0);
     for (unsigned i = 0; i < al.edges.size(); ++i) {
         for (unsigned j = 0; j < al.edges[i].size(); ++j) {
             edges.emplace_back(al.edges[i][j]);
+            weights.emplace_back(al.weights[i][j]);
         }
         offset.push_back(edges.size());
     }
 }
 
-CSR::CSR(const JDS& jds, ...) {
-    n = jds.n;
+template <typename WeightType>
+CSR<WeightType>::CSR(const JDS<WeightType>& jds, ...) {
+    this->n = jds.n;
     offset.push_back(0);
     std::vector <std::pair <int, int>> neighbours;
-    for (int i = 0; i < n; ++i) {
+    for (int i = 0; i < this->n; ++i) {
         neighbours.clear();
         jds.get_neighbours(&neighbours, i, i);
-        for (auto& y : neighbours)
-            edges.push_back(y);
+        for (auto& y : neighbours) {
+            edges.push_back(y.first);
+            weights.push_back(y.second);
+        }
         offset.push_back(edges.size());
     }
 }
 
-bool CSR::get_neighbours(std::vector <std::pair <int, int>>* neighbours,
+template <typename WeightType>
+bool CSR<WeightType>::get_neighbours(std::vector <std::pair <int, WeightType>>* neighbours,
     int vertex, int anc) const {
     for (int i = offset[vertex]; i < offset[vertex+1]; ++i)
         neighbours->emplace_back(edges[i]);
     return true;
 }
 
-bool CSR::read(const std::string& path) {
+template <typename WeightType>
+bool CSR<WeightType>::read(const std::string& path) {
     std::ifstream in(path, std::ios::binary);
     if (!in.is_open())
         return false;
     int m;
-    in.read(reinterpret_cast<char*>(&n), sizeof(int));
+    in.read(reinterpret_cast<char*>(&this->n), sizeof(int));
     in.read(reinterpret_cast<char*>(&m), sizeof(int));
-    offset.resize(n + 1);
+    offset.resize(this->n + 1);
     edges.resize(m);
     for (int i = 0; i < m; ++i)
-        in.read(reinterpret_cast<char*>(&edges[i].first), sizeof(int));
-    for (unsigned i = 0; i <= n; ++i)
+        in.read(reinterpret_cast<char*>(&edges[i]), sizeof(int));
+    for (unsigned i = 0; i <= this->n; ++i)
         in.read(reinterpret_cast<char*>(&offset[i]), sizeof(int));
     for (unsigned i = 0; i < m; ++i) {
-        double tmp = 0;
-        in.read(reinterpret_cast<char*>(&tmp), sizeof(double));
-        edges[i].second = tmp;
+        in.read(reinterpret_cast<char*>(&weights[i]), sizeof(WeightType));
     }
     return true;
 }
 
-bool CSR::write(const std::string& path) {
+template <typename WeightType>
+bool CSR<WeightType>::write(const std::string& path) {
     std::ofstream out(path, std::ios::binary);
     if (!out.is_open())
         return false;
-    out.write(reinterpret_cast<char*>(&n), sizeof(int));
+    out.write(reinterpret_cast<char*>(&this->n), sizeof(int));
     int m = edges.size();
     out.write(reinterpret_cast<char*>(&m), sizeof(int));
     for (unsigned i = 0; i < edges.size(); ++i)
-        out.write(reinterpret_cast<char*>(&edges[i].first), sizeof(int));
-    for (int i = 0; i <= n; ++i)
+        out.write(reinterpret_cast<char*>(&edges[i]), sizeof(int));
+    for (int i = 0; i <= this->n; ++i)
         out.write(reinterpret_cast<char*>(&offset[i]), sizeof(int));
     for (unsigned i = 0; i < edges.size(); ++i)
-        out.write(reinterpret_cast<char*>(&edges[i].second), sizeof(int));
+        out.write(reinterpret_cast<char*>(&weights[i]), sizeof(WeightType));
     out.close();
     return true;
 }

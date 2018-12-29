@@ -1,8 +1,9 @@
 // Copyright [year] <Copyright Owner>
 #include "../../pch/include/precomp.h"
 
-CSR graph_coarsening(const CSR& graph, const Matching& match) {
-    CSR g;
+template <typename WeightType>
+CSR<WeightType> graph_coarsening(const CSR<WeightType>& graph, const Matching& match) {
+    CSR<WeightType> g;
     std::map <int, int> Map;
     std::map <int, std::pair<int, int>> Map1;
     int sz = static_cast<int>(graph.n);

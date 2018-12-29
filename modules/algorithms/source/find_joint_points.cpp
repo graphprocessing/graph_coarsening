@@ -5,7 +5,8 @@ static std::vector <char> used;
 static std::vector <int> in, check;
 static int timer;
 
-static void dfs(const AL& graph, std::set <int>* joint_points,
+template <typename WeightType>
+static void dfs(const AL<WeightType>& graph, std::set <int>* joint_points,
         int x, int p = -1) {
     used[x] = 1;
     in[x] = check[x] = ++timer;
@@ -28,19 +29,21 @@ static void dfs(const AL& graph, std::set <int>* joint_points,
     }
 }
 
-void find_joint_points(std::set <int>* joint_points, const CSR& graph) {
+template <typename WeightType>
+void find_joint_points(std::set <int>* joint_points, const CSR<WeightType>& graph) {
     timer = 0;
     used.clear(), used.resize(graph.n);
     used.assign(graph.n, 0);
     in.clear(), in.resize(graph.n);
     check.clear(), check.resize(graph.n);
-    AL al_graph(graph);
+    AL <WeightType> al_graph(graph);
     for (int i = 0; i < al_graph.n; ++i)
         if (!used[i])
             dfs(al_graph, joint_points, i);
 }
 
-int count_joint_points(const CSR& graph) {
+template <typename WeightType>
+int count_joint_points(const CSR<WeightType>& graph) {
     std::set <int> joint_points;
     find_joint_points(&joint_points, graph);
     return joint_points.size();

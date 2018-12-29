@@ -1,7 +1,8 @@
 // Copyright [year] <Copyright Owner>
 #include "../../pch/include/precomp.h"
 
-int Graph::bfs(int from, int to) {
+template <typename WeightType>
+int Graph<WeightType>::bfs(int from, int to) {
     std::vector <int> d(n, -1);
     std::queue <int> q;
     d[from] = 0;
@@ -9,7 +10,7 @@ int Graph::bfs(int from, int to) {
     while (q.size()) {
         int x = q.front();
         q.pop();
-        std::vector <std::pair <int, int>> neighbours;
+        std::vector <std::pair <int, WeightType>> neighbours;
         get_neighbours(&neighbours, x, x);
         for (auto y : neighbours) {
             if (d[y.first] == -1) {
@@ -21,13 +22,14 @@ int Graph::bfs(int from, int to) {
     return d[to];
 }
 
-void Graph::dfs_recursion(std::vector <int>* pd,
+template <typename WeightType>
+void Graph<WeightType>::dfs_recursion(std::vector <int>* pd,
                           std::vector <char>* pwas, int x, int anc) {
     std::vector <int>& d = *pd;
     std::vector <char>& was = *pwas;
     was[x] = 1;
     d[x] = d[anc] + 1;
-    std::vector <std::pair <int, int>> neighbours;
+    std::vector <std::pair <int, WeightType>> neighbours;
     get_neighbours(&neighbours, x, anc);
     for (auto y : neighbours) {
         if (!was[y.first])
@@ -35,14 +37,16 @@ void Graph::dfs_recursion(std::vector <int>* pd,
     }
 }
 
-std::vector <int> Graph::dfs(int root) {
+template <typename WeightType>
+std::vector <int> Graph<WeightType>::dfs(int root) {
     std::vector <int> d(n, 0);
     std::vector <char> was(n, 0);
     dfs_recursion(&d, &was, root, root);
     return d;
 }
 
-int Graph::Dijkstra(int from, int to) {
+template <typename WeightType>
+int Graph<WeightType>::Dijkstra(int from, int to) {
     const int INF = 1000000000;
     std::vector <int> d(n, INF), p(n);
     d[from] = 0;
@@ -51,7 +55,7 @@ int Graph::Dijkstra(int from, int to) {
     while (s.size()) {
         int x = s.begin()->second;
         s.erase(s.begin());
-        std::vector <std::pair <int, int>> neighbours;
+        std::vector <std::pair <int, WeightType>> neighbours;
         get_neighbours(&neighbours, x, x);
         for (auto y : neighbours) {
             if (d[x] + y.second < d[y.first]) {

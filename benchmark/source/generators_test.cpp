@@ -5,7 +5,7 @@
 void washington_test_creation_csr(benchmark::State& state) {
     while (state.KeepRunning()) {
         auto fu = [&]() {
-            CSR csr = washington_test(state.range(0));
+            CSR<int> csr = washington_test<int>(state.range(0));
             return csr;
         };
         benchmark::DoNotOptimize(fu());
@@ -16,7 +16,7 @@ void washington_test_creation_csr(benchmark::State& state) {
 void washington_test_creation_al(benchmark::State& state) {
     while (state.KeepRunning()) {
         auto fu = [&]() {
-            AL al = washington_test(state.range(0));
+            AL<int> al = washington_test<int>(state.range(0));
             return al;
         };
         benchmark::DoNotOptimize(fu());
@@ -27,7 +27,7 @@ void washington_test_creation_al(benchmark::State& state) {
 void zadeh_test_creation_csr(benchmark::State& state) {
     while (state.KeepRunning()) {
         auto fu = [&]() {
-            CSR csr = zadeh_test(state.range(0));
+            CSR<int> csr = zadeh_test<int>(state.range(0));
             return csr;
         };
         benchmark::DoNotOptimize(fu());
@@ -38,7 +38,7 @@ void zadeh_test_creation_csr(benchmark::State& state) {
 void zadeh_test_creation_al(benchmark::State& state) {
     while (state.KeepRunning()) {
         auto fu = [&]() {
-            AL al = zadeh_test(state.range(0));
+            AL<int> al = zadeh_test<int>(state.range(0));
             return al;
         };
         benchmark::DoNotOptimize(fu());
@@ -49,7 +49,7 @@ void zadeh_test_creation_al(benchmark::State& state) {
 void cube_test_creation_csr(benchmark::State& state) {
     while (state.KeepRunning()) {
         auto fu = [&]() {
-            CSR csr = cube_test(state.range(0));
+            CSR<int> csr = cube_test<int>(state.range(0));
             return csr;
         };
         benchmark::DoNotOptimize(fu());
@@ -60,7 +60,7 @@ void cube_test_creation_csr(benchmark::State& state) {
 void cube_test_creation_al(benchmark::State& state) {
     while (state.KeepRunning()) {
         auto fu = [&]() {
-            AL al = cube_test(state.range(0));
+            AL<int> al = cube_test<int>(state.range(0));
             return al;
         };
         benchmark::DoNotOptimize(fu());

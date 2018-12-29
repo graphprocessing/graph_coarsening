@@ -1,7 +1,8 @@
 // Copyright [year] <Copyright Owner>
 #include "../../pch/include/precomp.h"
 
-Matching random_matching(const AL& graph, int distribution,
+template <typename WeightType>
+Matching random_matching(const AL<WeightType>& graph, int distribution,
             int vertexes_in_matching, int random_seed) {
     int n = graph.n;
     std::random_device rd;
@@ -53,7 +54,8 @@ Matching random_matching(const AL& graph, int distribution,
     return matching;
 }
 
-Matching random_matching(const CSR& graph, int distribution,
+template <typename WeightType>
+Matching random_matching(const CSR<WeightType>& graph, int distribution,
             int vertexes_in_matching, int random_seed) {
     int n = graph.n;
     std::random_device rd;

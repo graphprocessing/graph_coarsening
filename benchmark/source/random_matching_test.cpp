@@ -3,7 +3,7 @@
 #include "../include/random_matching_test.h"
 
 void random_matching_on_washington_test_csr(benchmark::State& state) {
-    CSR graph = washington_test(state.range(0));
+    CSR <int> graph = washington_test<int>(state.range(0));
     while (state.KeepRunning()) {
         benchmark::DoNotOptimize(random_matching(graph));
     }
@@ -12,7 +12,7 @@ void random_matching_on_washington_test_csr(benchmark::State& state) {
 }
 
 void random_matching_on_washington_test_al(benchmark::State& state) {
-    AL graph = washington_test(state.range(0));
+    AL <int> graph = washington_test<int>(state.range(0));
     while (state.KeepRunning()) {
         benchmark::DoNotOptimize(random_matching(graph));
     }
@@ -24,7 +24,7 @@ void random_matching_on_washington_test_al(benchmark::State& state) {
 }
 
 void random_matching_on_zadeh_test_csr(benchmark::State& state) {
-    CSR graph = zadeh_test(state.range(0));
+    CSR <int> graph = zadeh_test<int>(state.range(0));
     while (state.KeepRunning()) {
         benchmark::DoNotOptimize(random_matching(graph));
     }
@@ -33,7 +33,7 @@ void random_matching_on_zadeh_test_csr(benchmark::State& state) {
 }
 
 void random_matching_on_zadeh_test_al(benchmark::State& state) {
-    AL graph = zadeh_test(state.range(0));
+    AL <int> graph = zadeh_test<int>(state.range(0));
     while (state.KeepRunning()) {
         benchmark::DoNotOptimize(random_matching(graph));
     }
@@ -45,7 +45,7 @@ void random_matching_on_zadeh_test_al(benchmark::State& state) {
 }
 
 void random_matching_on_cube_test_csr(benchmark::State& state) {
-    CSR graph = cube_test(state.range(0));
+    CSR <int> graph = cube_test<int>(state.range(0));
     while (state.KeepRunning()) {
         benchmark::DoNotOptimize(random_matching(graph));
     }
@@ -54,7 +54,7 @@ void random_matching_on_cube_test_csr(benchmark::State& state) {
 }
 
 void random_matching_on_cube_test_al(benchmark::State& state) {
-    AL graph = cube_test(state.range(0));
+    AL <int> graph = cube_test<int>(state.range(0));
     while (state.KeepRunning()) {
         benchmark::DoNotOptimize(random_matching(graph));
     }

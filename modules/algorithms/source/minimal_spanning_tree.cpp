@@ -1,8 +1,9 @@
 // Copyright [year] <Copyright Owner>
 #include "../../pch/include/precomp.h"
 
-int get_cost_of_minimal_spanning_tree(const CSR& graph) {
-    AL al_graph(graph);
+template <typename WeightType>
+int get_cost_of_minimal_spanning_tree(const CSR<WeightType>& graph) {
+    AL <WeightType> al_graph(graph);
     std::vector <std::pair <int, std::pair <int, int>>> edges;
     for (int i = 0; i < al_graph.n; ++i)
         for (unsigned j = 0; j < al_graph.edges[i].size(); ++j)

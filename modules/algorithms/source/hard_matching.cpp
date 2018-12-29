@@ -1,7 +1,8 @@
 // Copyright [year] <Copyright Owner>
 #include "../../pch/include/precomp.h"
 
-Matching hard_matching(const AL& graph) {
+template <typename WeightType>
+Matching hard_matching(const AL<WeightType>& graph) {
     Matching matching;
     int size = graph.n;
     std::vector <int> ed(size);
@@ -40,7 +41,8 @@ Matching hard_matching(const AL& graph) {
     return matching;
 }
 
-Matching hard_matching(const CSR& graph) {
+template <typename WeightType>
+Matching hard_matching(const CSR<WeightType>& graph) {
     Matching matching;
     int size = graph.n;
     std::vector <int> ed(size);

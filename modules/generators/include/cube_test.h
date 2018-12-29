@@ -3,6 +3,7 @@
 #define MODULES_GENERATORS_INCLUDE_CUBE_TEST_H_
 #include "../../pch/include/precomp.h"
 
-AL cube_test(int n, bool weighted = false);
+template <typename WeightType>
+AL<WeightType> cube_test(int n, bool weighted = false);
 
 #endif  // MODULES_GENERATORS_INCLUDE_CUBE_TEST_H_
