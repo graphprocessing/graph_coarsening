@@ -13,6 +13,7 @@ AL<WeightType> washington_test(int n, bool weighted = false) {
         std::uniform_int_distribution<int> weight(1, weighted ? max_weight : 1);
         graph.n = 3 * n + 3;
         graph.edges.resize(graph.n);
+        graph.weights.resize(graph.n);
         graph.edges[0].push_back(1);
         graph.weights[0].push_back(weight(generator));
         for (int i = 2; i < n + 2; ++i) {
@@ -29,7 +30,7 @@ AL<WeightType> washington_test(int n, bool weighted = false) {
         }
         for (int i = 2 * n + 3; i < 3 * n + 3; ++i) {
             graph.edges[i - 1].push_back(i);
-            graph.edges[i - 1].push_back(weight(generator));
+            graph.weights[i - 1].push_back(weight(generator));
         }
     }
     catch (std::bad_alloc ba) {

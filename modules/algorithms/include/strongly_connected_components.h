@@ -40,6 +40,8 @@ void find_strongly_connected_components(std::vector <int>* comp,
     g.n = rg.n = graph.n;
     g.edges.resize(graph.n);
     rg.edges.resize(graph.n);
+    g.weights.resize(graph.n);
+    rg.weights.resize(graph.n);
     for (int i = 0; i < graph.n; ++i) {
         std::vector <std::pair <int, WeightType>> neighbours;
         graph.get_neighbours(&neighbours, i, i);

@@ -82,6 +82,7 @@ namespace Pipeline {
                         sum += comp.second;
                     out << static_cast<double>(sum) / m.size() << " ";
                 }
+                std::cout << "getting even" << std::endl;
                 // 9. Number of bridges
                 out << count_bridges(graph) << " ";
                 // 10. Number of joint points

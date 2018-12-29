@@ -13,6 +13,7 @@ AL<WeightType> zadeh_test(int n, bool weighted = false) {
         std::uniform_int_distribution<int> weight(1, weighted ? max_weight : 1);
         graph.n = 6*n+1;
         graph.edges.resize(6*n+1);
+        graph.weights.resize(6*n+1);
         for (int i = 1; i < n; i++) {
             if (i % 2 == 0) {
                 for (int j = 0; j < 2*n; j++) {

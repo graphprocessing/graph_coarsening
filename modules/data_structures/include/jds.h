@@ -33,7 +33,7 @@ JDS<WeightType>::JDS(const CSR<WeightType>& csr, ...) {
         priority.push_back(std::make_pair(csr.offset[i] -
         csr.offset[i - 1], i - 1));
     }
-    sort(priority.begin(), priority.end(), compare);
+    sort(priority.begin(), priority.end(), this->compare);
     offset.push_back(0);
     for (unsigned i = 0; i < priority.size(); i++) {
         parm.push_back(priority[i].second);

@@ -65,6 +65,7 @@ bool CSR<WeightType>::read(const std::string& path) {
     in.read(reinterpret_cast<char*>(&m), sizeof(int));
     offset.resize(this->n + 1);
     edges.resize(m);
+    weights.resize(m);
     for (int i = 0; i < m; ++i)
         in.read(reinterpret_cast<char*>(&edges[i]), sizeof(int));
     for (int i = 0; i <= this->n; ++i)

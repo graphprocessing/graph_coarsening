@@ -20,6 +20,7 @@ template <typename WeightType>
 AL<WeightType>::AL(const CSR<WeightType>& csr, ...) {
     this->n = csr.n;
     edges.resize(this->n);
+    weights.resize(this->n);
     for (unsigned i = 0; i < csr.offset.size() - 1; i++) {
         for (int j = csr.offset[i]; j < csr.offset[i + 1]; j++) {
             edges[i].push_back(csr.edges[j]);

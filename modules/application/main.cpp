@@ -5,8 +5,8 @@
 
 int main(int argc, char** argv) {
     std::cout << "pipelines" << std::endl;
-    // Pipeline::prepare();
-    // Pipeline::launch();
+    Pipeline::prepare();
+    Pipeline::launch();
     std::cout << "main" << std::endl;
     // Timer sample
     std::cout << std::fixed;

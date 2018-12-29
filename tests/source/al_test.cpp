@@ -6,7 +6,7 @@ static std::random_device rd;
 static std::mt19937 generator(rd());
 
 TEST(al_test, basic_washington_test_generates) {
-    ASSERT_NO_THROW(AL<int> al = washington_test<int>(20));
+    ASSERT_NO_THROW(AL<int> al = washington_test<int>(2));
 }
 
 TEST(al_test, random_washington_test_generates) {
@@ -26,6 +26,7 @@ TEST(al_test, random_zadeh_test_generates) {
 TEST(al_test, graph_file_operations) {
     AL<int> graph = washington_test<int>(20);
     ASSERT_NO_THROW(ASSERT_EQ(true, graph.write("al.bin")));
+    std::cout << "123" << std::endl;
     ASSERT_NO_THROW(ASSERT_EQ(true, graph.read("al.bin")));
 }
 
