@@ -26,9 +26,6 @@ add_subdirectory( ${CMAKE_CURRENT_BINARY_DIR}/google-benchmark-src
                   EXCLUDE_FROM_ALL )
 add_executable( ${PROJECT_NAME} ${source_files} )
 
-target_link_libraries( ${PROJECT_NAME} data_structures_library )
-target_link_libraries( ${PROJECT_NAME} generator_library )
-target_link_libraries( ${PROJECT_NAME} algorithms_library )
 target_link_libraries( ${PROJECT_NAME} common_library )
 target_link_libraries( ${PROJECT_NAME} benchmark_main )
 target_link_libraries( ${PROJECT_NAME} benchmark )
