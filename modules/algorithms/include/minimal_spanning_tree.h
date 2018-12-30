@@ -6,7 +6,7 @@
 template <typename WeightType>
 int get_cost_of_minimal_spanning_tree(const CSR<WeightType>& graph) {
     AL <WeightType> al_graph(graph);
-    std::vector <std::pair <int, std::pair <int, WeightType>>> edges;
+    std::vector <std::pair <WeightType, std::pair <int, int>>> edges;
     for (int i = 0; i < al_graph.n; ++i)
         for (unsigned j = 0; j < al_graph.edges[i].size(); ++j)
             edges.push_back({al_graph.weights[i][j],
