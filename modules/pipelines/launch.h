@@ -101,7 +101,7 @@ namespace Pipeline {
                     std::cerr << ba.what() << std::endl;
                 }
                 // 12. Sum of edges weight in minimal spanning tree
-                out << get_cost_of_minimal_spanning_tree(graph) << " ";
+                out << get_cost_of_minimal_spanning_tree(graph) << std::endl;
             }
         }
         return output_file_name;
