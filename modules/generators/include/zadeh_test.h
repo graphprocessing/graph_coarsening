@@ -10,7 +10,8 @@ AL<WeightType> zadeh_test(int n, bool weighted = false) {
     try {
         std::random_device rd;
         std::mt19937 generator(rd());
-        std::uniform_int_distribution<int> weight(1, weighted ? max_weight : 1);
+        std::uniform_real_distribution<double>
+                    weight(1, weighted ? max_weight : 1);
         graph.n = 6*n+1;
         graph.edges.resize(6*n+1);
         graph.weights.resize(6*n+1);

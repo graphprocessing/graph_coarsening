@@ -26,7 +26,6 @@ TEST(al_test, random_zadeh_test_generates) {
 TEST(al_test, graph_file_operations) {
     AL<int> graph = washington_test<int>(20);
     ASSERT_NO_THROW(ASSERT_EQ(true, graph.write("al.bin")));
-    std::cout << "123" << std::endl;
     ASSERT_NO_THROW(ASSERT_EQ(true, graph.read("al.bin")));
 }
 
@@ -71,4 +70,20 @@ TEST(al_test, run_dfs_on_random_washington_test) {
         expected_dfs_result.push_back(i + 5);
     std::vector <int> dfs_result = al.dfs(0);
     ASSERT_EQ(expected_dfs_result, dfs_result);
+}
+
+TEST(al_test, basic_washington_test_generates_double) {
+    ASSERT_NO_THROW(AL<double> al = washington_test<double>(2, true));
+}
+
+TEST(al_test, graph_file_operations_float) {
+    AL<float> graph = washington_test<float>(20, true);
+    ASSERT_NO_THROW(ASSERT_EQ(true, graph.write("al.bin")));
+    ASSERT_NO_THROW(ASSERT_EQ(true, graph.read("al.bin")));
+}
+
+TEST(al_test, graph_file_operations_double) {
+    AL<double> graph = washington_test<double>(20, true);
+    ASSERT_NO_THROW(ASSERT_EQ(true, graph.write("al.bin")));
+    ASSERT_NO_THROW(ASSERT_EQ(true, graph.read("al.bin")));
 }

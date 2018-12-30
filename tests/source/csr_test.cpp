@@ -66,3 +66,19 @@ TEST(csr_test, run_dfs_on_random_washington_test) {
     std::vector <int> dfs_result = csr.dfs(0);
     ASSERT_EQ(expected_dfs_result, dfs_result);
 }
+
+TEST(csr_test, basic_washington_test_double_generates_and_converts_to_csr) {
+    ASSERT_NO_THROW(CSR<double> csr = washington_test<double>(20));
+}
+
+TEST(csr_test, graph_file_operations_float) {
+    CSR<float> graph = washington_test<float>(20, true);
+    ASSERT_NO_THROW(ASSERT_EQ(true, graph.write("al.bin")));
+    ASSERT_NO_THROW(ASSERT_EQ(true, graph.read("al.bin")));
+}
+
+TEST(csr_test, graph_file_operations_double) {
+    CSR<double> graph = washington_test<double>(20, true);
+    ASSERT_NO_THROW(ASSERT_EQ(true, graph.write("al.bin")));
+    ASSERT_NO_THROW(ASSERT_EQ(true, graph.read("al.bin")));
+}

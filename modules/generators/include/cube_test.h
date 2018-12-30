@@ -10,7 +10,8 @@ AL<WeightType> cube_test(int n, bool weighted = false) {
     try {
         std::random_device rd;
         std::mt19937 generator(rd());
-        std::uniform_int_distribution<int> weight(1, weighted ? max_weight : 1);
+        std::uniform_real_distribution<double>
+                    weight(1, weighted ? max_weight : 1);
         graph.n = n * n * n;
         graph.edges.resize(graph.n);
         graph.weights.resize(graph.n);
