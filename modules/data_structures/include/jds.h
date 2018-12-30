@@ -59,7 +59,8 @@ JDS<WeightType>::JDS(const CSR<WeightType>& csr, ...) {
 }
 
 template <typename WeightType>
-bool JDS<WeightType>::get_neighbours(std::vector <std::pair<int, WeightType>>* neighbours,
+bool JDS<WeightType>::get_neighbours(
+        std::vector <std::pair<int, WeightType>>* neighbours,
         int vertex, int anc) const {
     int j = 0;
     while (parm[j] != vertex) {
@@ -88,7 +89,8 @@ bool JDS<WeightType>::read(const std::string &file) {
         val.resize(size);
         col_ind.resize(size);
         for (int i = 0; i < size; i++) {
-            file_to_open.read(reinterpret_cast<char *>(&val[i]), sizeof(WeightType));
+            file_to_open.read(reinterpret_cast<char *>(&val[i]),
+                                                sizeof(WeightType));
             file_to_open.read(reinterpret_cast<char *>(&col_ind[i]),
             sizeof(int));
         }
@@ -117,7 +119,8 @@ bool JDS<WeightType>::write(const std::string& path) {
     file_to_write.write(reinterpret_cast<char *>(&size), sizeof(int));
     for (unsigned i = 0; i < val.size(); i++) {
         WeightType value = val[i], col = col_ind[i];
-        file_to_write.write(reinterpret_cast<char *>(&value), sizeof(WeightType));
+        file_to_write.write(reinterpret_cast<char *>(&value),
+                                                    sizeof(WeightType));
         file_to_write.write(reinterpret_cast<char *>(&col), sizeof(int));
     }
     size = offset.size();

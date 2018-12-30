@@ -4,12 +4,15 @@
 #include "../../pch/include/precomp.h"
 
 template <typename WeightType>
-void find_bridges(std::set <std::pair <int, WeightType>>* bridges, const CSR<WeightType>& graph) {
+void find_bridges(std::set <std::pair <int, WeightType>>* bridges,
+                    const CSR<WeightType>& graph) {
     std::vector <char> used;
     std::vector <int> in, check;
     int timer;
-    std::function <void(const AL<WeightType>&, std::set <std::pair <int, WeightType>>*, int, int)>
-        dfs = [&](const AL<WeightType>& graph, std::set <std::pair <int, WeightType>>* bridges, int x, int p) {
+    std::function <void(const AL<WeightType>&,
+                    std::set <std::pair <int, WeightType>>*, int, int)>
+    dfs = [&](const AL<WeightType>& graph,
+            std::set <std::pair <int, WeightType>>* bridges, int x, int p) {
         used[x] = 1;
         in[x] = check[x] = ++timer;
         std::vector <std::pair <int, WeightType>> neighbours;

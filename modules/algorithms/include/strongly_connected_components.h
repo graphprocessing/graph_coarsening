@@ -13,7 +13,8 @@ void find_strongly_connected_components(std::vector <int>* comp,
     std::vector <char> used;
     std::vector <int> order;
     int index;
-    std::function<void(const AL<WeightType>&, int)> dfs1 = [&](const AL<WeightType>& graph, int x) {
+    std::function<void(const AL<WeightType>&, int)>
+    dfs1 = [&](const AL<WeightType>& graph, int x) {
         used[x] = 1;
         std::vector <std::pair <int, WeightType>> neighbours;
         graph.get_neighbours(&neighbours, x, x);
@@ -22,7 +23,8 @@ void find_strongly_connected_components(std::vector <int>* comp,
                 dfs1(graph, y.first);
         order.push_back(x);
     };
-    std::function<void(const AL<WeightType>&, std::vector <int>*, int)> dfs2 = [&](const AL<WeightType>& graph, std::vector <int>* comp, int x) {
+    std::function<void(const AL<WeightType>&, std::vector <int>*, int)>
+    dfs2 = [&](const AL<WeightType>& graph, std::vector <int>* comp, int x) {
         used[x] = 1;
         (*comp)[x] = index;
         std::vector <std::pair <int, WeightType>> neighbours;

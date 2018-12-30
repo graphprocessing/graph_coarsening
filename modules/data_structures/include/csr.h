@@ -12,7 +12,8 @@ struct CSR : public Graph<WeightType> {
     CSR() = default;
     CSR(const AL<WeightType>& al, ...);
     CSR(const JDS<WeightType>& jds, ...);
-    bool get_neighbours(std::vector <std::pair <int, WeightType>>* neighbours,
+    bool get_neighbours(
+        std::vector <std::pair <int, WeightType>>* neighbours,
         int vertex, int anc) const override;
     bool read(const std::string& path) override;
     bool write(const std::string& path) override;
@@ -48,7 +49,8 @@ CSR<WeightType>::CSR(const JDS<WeightType>& jds, ...) {
 }
 
 template <typename WeightType>
-bool CSR<WeightType>::get_neighbours(std::vector <std::pair <int, WeightType>>* neighbours,
+bool CSR<WeightType>::get_neighbours(
+    std::vector <std::pair <int, WeightType>>* neighbours,
     int vertex, int anc) const {
     for (int i = offset[vertex]; i < offset[vertex+1]; ++i)
         neighbours->push_back({edges[i], weights[i]});

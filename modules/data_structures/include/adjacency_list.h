@@ -30,7 +30,8 @@ AL<WeightType>::AL(const CSR<WeightType>& csr, ...) {
 }
 
 template <typename WeightType>
-bool AL<WeightType>::get_neighbours(std::vector <std::pair<int, WeightType>>* neighbours,
+bool AL<WeightType>::get_neighbours(
+        std::vector <std::pair<int, WeightType>>* neighbours,
         int vertex, int anc) const {
     for (unsigned i = 0; i < edges[vertex].size(); i++) {
         std::pair<int, WeightType> to = {edges[vertex][i], weights[vertex][i]};
@@ -80,7 +81,8 @@ bool AL<WeightType>::write(const std::string& path) {
             int to = edges[i][j];
             WeightType len = weights[i][j];
             file_to_write.write(reinterpret_cast<char *>(&to), sizeof(int));
-            file_to_write.write(reinterpret_cast<char *>(&len), sizeof(WeightType));
+            file_to_write.write(reinterpret_cast<char *>(&len),
+                                                        sizeof(WeightType));
         }
         int val = -1;
         file_to_write.write(reinterpret_cast<char *>(&val), sizeof(int));

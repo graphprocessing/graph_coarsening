@@ -4,7 +4,8 @@
 #include "../../pch/include/precomp.h"
 
 template <typename WeightType>
-CSR<WeightType> graph_coarsening(const CSR<WeightType>& graph, const Matching& match) {
+CSR<WeightType> graph_coarsening(const CSR<WeightType>& graph,
+                                    const Matching& match) {
     CSR<WeightType> g;
     std::map <int, int> Map;
     std::map <int, std::pair<int, int>> Map1;

@@ -19,9 +19,11 @@ namespace Pipeline {
                 CSR<double> graph;
                 std::string new_file;
                 auto fu = [&]() {
-                    std::cout << "processing " << graph_files[index] << std::endl;
+                    std::cout << "processing "
+                                << graph_files[index] << std::endl;
                     new_file = pipeline(graph_files[index]);
-                    std::cout << "done processing " << graph_files[index] << std::endl;
+                    std::cout << "done processing "
+                                << graph_files[index] << std::endl;
                 };
                 double pipeline_time = Timer::calculate(fu);
                 graph.read(new_file);
@@ -48,7 +50,8 @@ namespace Pipeline {
                     double max_weight = 0;
                     for (int i = 0; i < graph.n; ++i) {
                         double current_weight = 0;
-                        for (int j = graph.offset[i]; j < graph.offset[i+1]; ++j)
+                        for (int j = graph.offset[i];
+                                    j < graph.offset[i+1]; ++j)
                             current_weight += graph.weights[j];
                         max_weight = std::max(max_weight, current_weight);
                     }

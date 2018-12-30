@@ -4,12 +4,14 @@
 #include "../../pch/include/precomp.h"
 
 template <typename WeightType>
-void find_joint_points(std::set <int>* joint_points, const CSR<WeightType>& graph) {
+void find_joint_points(std::set <int>* joint_points,
+                        const CSR<WeightType>& graph) {
     std::vector <char> used;
     std::vector <int> in, check;
     int timer;
-    std::function <void(const AL<WeightType>&, std::set <int>*, int, int)> dfs =
-        [&](const AL<WeightType>& graph, std::set <int>* joint_points, int x, int p) {
+    std::function <void(const AL<WeightType>&, std::set <int>*, int, int)>
+    dfs = [&](const AL<WeightType>& graph,
+                            std::set <int>* joint_points, int x, int p) {
         used[x] = 1;
         in[x] = check[x] = ++timer;
         std::vector <std::pair <int, WeightType>> neighbours;
