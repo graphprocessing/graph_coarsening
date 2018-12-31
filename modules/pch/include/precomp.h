@@ -43,5 +43,7 @@
 #include "modules/algorithms/include/graph_distances.h"
 #include "modules/algorithms/include/minimal_spanning_tree.h"
 #include "modules/algorithms/include/strongly_connected_components.h"
+// Graph export functions
+#include "modules/common/include/export.h"
 
 #endif  // MODULES_PCH_INCLUDE_PRECOMP_H_

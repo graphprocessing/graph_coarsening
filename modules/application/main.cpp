@@ -18,15 +18,7 @@ int main(int argc, char** argv) {
                     1000000, false)
                 << " s" << std::endl << std::endl;
     std::cout << "graph_visualization" << std::endl;
-    std::ofstream out("graph.txt");
-    AL <int> g1 = washington_test<int>(2);
-    for (int i = 0; i < g1.n; ++i) {
-        std::vector <std::pair <int, int>> neighbours;
-        g1.get_neighbours(&neighbours, i, i);
-        for (unsigned j = 0; j < neighbours.size(); ++j)
-            out << i << " " << neighbours[j].first << " "
-                    << neighbours[j].second << std::endl;
-    }
-    out.close();
+    AL <int> gr = washington_test<int>(100);
+    export_for_visualization(gr, "graph.txt");
     return 0;
 }
