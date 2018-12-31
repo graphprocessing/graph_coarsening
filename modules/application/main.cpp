@@ -17,5 +17,8 @@ int main(int argc, char** argv) {
                 << Timer::calculate(washington_test<int>,
                     1000000, false)
                 << " s" << std::endl << std::endl;
+    std::cout << "graph_visualization" << std::endl;
+    AL <int> gr = washington_test<int>(100);
+    export_for_visualization(gr, "graph.txt");
     return 0;
 }
