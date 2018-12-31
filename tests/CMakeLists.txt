@@ -32,9 +32,6 @@ add_executable(${PROJECT_NAME} ${source_files})
 
 add_dependencies(${PROJECT_NAME} gtest)
 set(GRAPH_LIBRARIES gtest gtest_main
-                    data_structures_library
-                    algorithms_library
-                    generator_library
                     common_library)
 
 target_link_libraries(${PROJECT_NAME} ${GRAPH_LIBRARIES})

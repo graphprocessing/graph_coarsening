@@ -14,7 +14,7 @@ class random_matching_washington_test : public testing::TestWithParam<int> {
     }
 
     void correct_random_matching_on_csr_max_size() {
-        CSR csr = washington_test(value);
+        CSR<int> csr = washington_test<int>(value);
         std::vector <char> used(csr.n, 0);
         auto matching = random_matching(csr);
         for (int i = 0; i < matching.n; ++i) {
@@ -26,13 +26,13 @@ class random_matching_washington_test : public testing::TestWithParam<int> {
         for (int i = 0; i < csr.n; ++i) {
             if (!used[i]) {
                 for (int j = csr.offset[i]; j < csr.offset[i+1]; ++j)
-                    ASSERT_NE(0, used[csr.edges[j].first]);
+                    ASSERT_NE(0, used[csr.edges[j]]);
             }
         }
     }
 
     void correct_random_matching_on_al_max_size() {
-        AL al = washington_test(value);
+        AL<int> al = washington_test<int>(value);
         std::vector <char> used(al.n, 0);
         auto matching = random_matching(al);
         for (int i = 0; i < matching.n; ++i) {
@@ -44,13 +44,13 @@ class random_matching_washington_test : public testing::TestWithParam<int> {
         for (int i = 0; i < al.n; ++i) {
             if (!used[i]) {
                 for (unsigned j = 0; j < al.edges[i].size(); ++j)
-                    ASSERT_NE(0, used[al.edges[i][j].first]);
+                    ASSERT_NE(0, used[al.edges[i][j]]);
             }
         }
     }
 
     void correct_random_matching_on_csr_variable_size() {
-        CSR csr = washington_test(value);
+        CSR<int> csr = washington_test<int>(value);
         std::vector <char> used(csr.n, 0);
         int matching_size =
             std::uniform_int_distribution<int>(1, csr.n / 2)(generator);
@@ -65,7 +65,7 @@ class random_matching_washington_test : public testing::TestWithParam<int> {
     }
 
     void correct_random_matching_on_al_variable_size() {
-        AL al = washington_test(value);
+        AL<int> al = washington_test<int>(value);
         std::vector <char> used(al.n, 0);
         int matching_size =
             std::uniform_int_distribution<int>(1, al.n / 2)(generator);
@@ -90,7 +90,7 @@ class random_matching_zadeh_test : public testing::TestWithParam<int> {
     }
 
     void correct_random_matching_on_csr_max_size() {
-        CSR csr = zadeh_test(value);
+        CSR<int> csr = zadeh_test<int>(value);
         std::vector <char> used(csr.n, 0);
         auto matching = random_matching(csr);
         for (int i = 0; i < matching.n; ++i) {
@@ -102,13 +102,13 @@ class random_matching_zadeh_test : public testing::TestWithParam<int> {
         for (int i = 0; i < csr.n; ++i) {
             if (!used[i]) {
                 for (int j = csr.offset[i]; j < csr.offset[i+1]; ++j)
-                    ASSERT_NE(0, used[csr.edges[j].first]);
+                    ASSERT_NE(0, used[csr.edges[j]]);
             }
         }
     }
 
     void correct_random_matching_on_al_max_size() {
-        AL al = zadeh_test(value);
+        AL<int> al = zadeh_test<int>(value);
         std::vector <char> used(al.n, 0);
         auto matching = random_matching(al);
         for (int i = 0; i < matching.n; ++i) {
@@ -120,13 +120,13 @@ class random_matching_zadeh_test : public testing::TestWithParam<int> {
         for (int i = 0; i < al.n; ++i) {
             if (!used[i]) {
                 for (unsigned j = 0; j < al.edges[i].size(); ++j)
-                    ASSERT_NE(0, used[al.edges[i][j].first]);
+                    ASSERT_NE(0, used[al.edges[i][j]]);
             }
         }
     }
 
     void correct_random_matching_on_csr_variable_size() {
-        CSR csr = washington_test(value);
+        CSR<int> csr = washington_test<int>(value);
         std::vector <char> used(csr.n, 0);
         int matching_size =
             std::uniform_int_distribution<int>(1, csr.n / 2)(generator);
@@ -141,7 +141,7 @@ class random_matching_zadeh_test : public testing::TestWithParam<int> {
     }
 
     void correct_random_matching_on_al_variable_size() {
-        AL al = washington_test(value);
+        AL<int> al = washington_test<int>(value);
         std::vector <char> used(al.n, 0);
         int matching_size =
             std::uniform_int_distribution<int>(1, al.n / 2)(generator);
@@ -166,7 +166,7 @@ class random_matching_cube_test : public testing::TestWithParam<int> {
     }
 
     void correct_random_matching_on_csr_max_size() {
-        CSR csr = cube_test(value);
+        CSR<int> csr = cube_test<int>(value);
         std::vector <char> used(csr.n, 0);
         auto matching = random_matching(csr);
         for (int i = 0; i < matching.n; ++i) {
@@ -178,13 +178,13 @@ class random_matching_cube_test : public testing::TestWithParam<int> {
         for (int i = 0; i < csr.n; ++i) {
             if (!used[i]) {
                 for (int j = csr.offset[i]; j < csr.offset[i+1]; ++j)
-                    ASSERT_NE(0, used[csr.edges[j].first]);
+                    ASSERT_NE(0, used[csr.edges[j]]);
             }
         }
     }
 
     void correct_random_matching_on_al_max_size() {
-        AL al = cube_test(value);
+        AL<int> al = cube_test<int>(value);
         std::vector <char> used(al.n, 0);
         auto matching = random_matching(al);
         for (int i = 0; i < matching.n; ++i) {
@@ -196,13 +196,13 @@ class random_matching_cube_test : public testing::TestWithParam<int> {
         for (int i = 0; i < al.n; ++i) {
             if (!used[i]) {
                 for (unsigned j = 0; j < al.edges[i].size(); ++j)
-                    ASSERT_NE(0, used[al.edges[i][j].first]);
+                    ASSERT_NE(0, used[al.edges[i][j]]);
             }
         }
     }
 
     void correct_random_matching_on_csr_variable_size() {
-        CSR csr = washington_test(value);
+        CSR<int> csr = washington_test<int>(value);
         std::vector <char> used(csr.n, 0);
         int matching_size =
             std::uniform_int_distribution<int>(1, csr.n / 2)(generator);
@@ -217,7 +217,7 @@ class random_matching_cube_test : public testing::TestWithParam<int> {
     }
 
     void correct_random_matching_on_al_variable_size() {
-        AL al = washington_test(value);
+        AL<int> al = washington_test<int>(value);
         std::vector <char> used(al.n, 0);
         int matching_size =
             std::uniform_int_distribution<int>(1, al.n / 2)(generator);

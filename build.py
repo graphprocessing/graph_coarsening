@@ -1,3 +1,4 @@
+from __future__ import print_function
 import os, sys, subprocess
 
 project_directory = os.getcwd()
@@ -36,7 +37,7 @@ def lint_walk(subdirectory):
                 ingored_errors = 0
                 f = open(os.path.join(data_directory, "lint.log"), "r")
                 for line in f:
-                    if line.endswith("use a pointer: benchmark::State& state  [runtime/references] [2]\n"):
+                    if line.endswith("benchmark::State& state  [runtime/references] [2]\n"):
                         ingored_errors += 1
                     elif line.endswith("[build/include_what_you_use] [4]\n"):
                         ingored_errors += 1
@@ -53,7 +54,9 @@ def lint_walk(subdirectory):
                         for line in f:
                             if (line.startswith("Done processing")):
                                 break
-                            print(line)
+                            if (not line.endswith("benchmark::State& state  [runtime/references] [2]\n") and
+                                not line.endswith("[build/include_what_you_use] [4]\n")):
+                                print(line, end='')
                         f.close()
                         print("\033[31mFailed: "  + file + "\033[0m")
                         return_code = 1

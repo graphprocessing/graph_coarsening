@@ -6,7 +6,7 @@
 namespace Pipeline {
     std::vector <std::string> graph_files;
     void prepare() {
-        CSR graph = washington_test(2);
+        CSR<double> graph = washington_test<double>(2);
         graph_files.push_back("../graph_data/sample_washington_test.bin");
         graph.write(graph_files.back());
     }
