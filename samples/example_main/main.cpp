@@ -1,7 +1,7 @@
 // Copyright [year] <Copyright Owner>
-#include "../pch/include/precomp.h"
-#include "../pipelines/prepare.h"
-#include "../pipelines/launch.h"
+#include "modules/pch/include/precomp.h"
+#include "modules/pipelines/prepare.h"
+#include "modules/pipelines/launch.h"
 
 int main(int argc, char** argv) {
     std::cout << "pipelines" << std::endl;
