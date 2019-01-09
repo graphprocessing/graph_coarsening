@@ -15,9 +15,7 @@ addons:
       - graphviz
 
 before_install:
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update          ; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install graphviz; fi
 
 script:
-  - cd src
-  - make all
+  - mkdir dfghj
