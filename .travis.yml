@@ -9,13 +9,5 @@ compiler:
   - gcc
   - clang
 
-addons:
-  apt:
-    packages:
-      - graphviz
-
-before_install:
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install graphviz; fi
-
 script:
   - mkdir dfghj
