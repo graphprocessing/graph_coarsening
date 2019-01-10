@@ -8,10 +8,10 @@ matrix:
         - sudo apt-get install libomp* python3-pip
         - pip install --upgrade pip
         - pip install setuptools cpplint
-        script:
-          - python build.py lint
-          - python build.py build g++
-          - python build.py test g++
+      script:
+        - python build.py lint
+        - python build.py build g++
+        - python build.py test g++
     - os: windows
       script:
         - python build.py build msvc
