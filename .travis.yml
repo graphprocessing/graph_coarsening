@@ -5,12 +5,7 @@ matrix:
     #######################################################
     - os: linux
       dist: xenial
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-7
+      compiler: gcc
       install:
         - sudo apt-get install libomp* python3-pip
         - sudo pip install --upgrade pip
@@ -23,12 +18,7 @@ matrix:
     #######################################################
     - os: linux
       dist: xenial
-      addons:
-        apt:
-          sources:
-            - llvm-toolchain-trusty-5.0
-          packages:
-            - clang-5.0
+      compiler: clang
       install:
         - sudo apt-get install libiomp-dev
       script:
