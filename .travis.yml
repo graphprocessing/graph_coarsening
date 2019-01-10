@@ -2,12 +2,15 @@ language: cpp
 
 matrix:
   include:
-    - os: linux
-      dist: xenial
-      install: sudo apt-get install libomp*
-      script: python build.py build g++
-    - os: osx
-      osx_image: xcode10.1
-      script: python build.py build clang
-    # - os: windows
-    #   script: MSBuild
+    # - os: linux
+    #   dist: xenial
+    #   install: sudo apt-get install libomp*
+    #   script: python build.py build g++
+    # - os: osx
+    #   osx_image: xcode10.1
+    #   script: python build.py build clang
+    - os: windows
+      script:
+        - mkdir build
+        - cd build
+        - cmake -D BENCHMARK_ENABLE_GTEST_TESTS=OFF -D CMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON --build ..
