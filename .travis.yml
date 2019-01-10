@@ -2,10 +2,10 @@ language: cpp
 
 matrix:
   include:
-    # - os: linux
-    #   dist: xenial
-    #   install: sudo apt-get install libomp*
-    #   script: python build.py build g++
+    - os: linux
+      dist: xenial
+      install: sudo apt-get install libomp*
+      script: python build.py build g++
     - os: osx
       osx_image: xcode10.1
       script: python build.py build clang
