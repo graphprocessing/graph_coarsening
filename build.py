@@ -125,13 +125,7 @@ def build():
     elif os.name == "nt":
         subprocess.call("cppcheck --project=compile_commands.json > log_cppcheck", shell=True)
     subprocess.call("python " + os.path.join(project_directory, "scripts/static_analysis.py") + " log_cppcheck", shell=True)
-    if os.name == "posix":
-        return_code = subprocess.call("make -j4", shell=True)
-    elif os.name == "nt":
-        if compiler_name == "msvc" or compiler_name == "icc":
-            return_code = subprocess.call("cmake --build . ", shell=True)
-        elif compiler_name == "g++":
-            return_code = subprocess.call("mingw32-make", shell=True)
+    return_code = subprocess.call("cmake --build . ", shell=True)
     os.chdir(project_directory)
     setup_pipelines() # remove pipeline includes
     os.chdir(project_directory)
