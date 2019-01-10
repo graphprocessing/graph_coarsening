@@ -20,7 +20,7 @@ matrix:
       dist: xenial
       compiler: clang
       install:
-        - sudo apt-get install libiomp-dev
+        - sudo apt-get install libiomp*
       script:
         - python build.py build clang
         - python build.py test clang
