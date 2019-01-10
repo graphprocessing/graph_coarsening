@@ -129,7 +129,7 @@ def build():
         return_code = subprocess.call("make -j4", shell=True)
     elif os.name == "nt":
         if compiler_name == "msvc" or compiler_name == "icc":
-            return_code = subprocess.call("msbuild ALL_BUILD.vcxproj", shell=True)
+            return_code = subprocess.call("cmake --build . ", shell=True)
         elif compiler_name == "g++":
             return_code = subprocess.call("mingw32-make", shell=True)
     os.chdir(project_directory)
