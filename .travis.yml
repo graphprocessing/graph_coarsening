@@ -1,13 +1,11 @@
 language: cpp
 
-os:
-  - linux
-  - osx
-  - windows
-
-compiler:
-  - gcc
-  - clang
+matrix:
+  - os: linux
+    compiler: gcc
+  - os: osx
+    compiler: clang
+  - os: windows
 
 script:
-  - mkdir dfghj
+  - python build.py build
