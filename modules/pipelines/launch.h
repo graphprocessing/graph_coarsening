@@ -107,9 +107,4 @@ namespace Pipeline {
     }
 }  // namespace Pipeline
 
-// <build.py> Pipelines declarations
-#include "../pipelines/launch.h"
-#include "../pipelines/prepare.h"
-#include "../pipelines/pipeline_sample.h"
-// <build.py> End of pipelines declarations
 #endif  // MODULES_PIPELINES_LAUNCH_H_
