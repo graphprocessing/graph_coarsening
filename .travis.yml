@@ -2,8 +2,15 @@ language: cpp
 
 matrix:
   include:
+    #######################################################
     - os: linux
       dist: xenial
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-7
       install:
         - sudo apt-get install libomp* python3-pip
         - sudo pip install --upgrade pip
@@ -12,10 +19,30 @@ matrix:
         - python build.py lint
         - python build.py build g++
         - python build.py test g++
+        - python build.py benchmark g++
+    #######################################################
+    - os: linux
+      dist: xenial
+      addons:
+        apt:
+          sources:
+            - llvm-toolchain-trusty-5.0
+          packages:
+            - clang-5.0
+      install:
+        - sudo apt-get install libiomp-dev
+      script:
+        - python build.py build clang
+        - python build.py test clang
+        - python build.py benchmark clang
+    #######################################################
     - os: windows
       script:
         - python build.py build msvc
-        - python build.py test msvc
+        # - python build.py test msvc
+        - python build.py benchmark msvc
+    #######################################################
     # - os: osx
     #   osx_image: xcode10.1
     #   script: python build.py build clang
+    #######################################################
