@@ -1,11 +1,11 @@
 language: cpp
 
-matrix:
-  - os: linux
-    compiler: gcc
-  - os: osx
-    compiler: clang
-  - os: windows
+os:
+  - linux
+  - osx
+  - windows
 
 script:
-  - python build.py build
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]];   python build.py build gcc;
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]];     python build.py build clang;
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; python build.py build msvc;
