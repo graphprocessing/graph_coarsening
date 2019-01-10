@@ -34,10 +34,13 @@ matrix:
     - os: windows
       script:
         - python build.py build msvc
-        # - python build.py test msvc
+        # - python build.py test msvc # Tests failed
         - python build.py benchmark msvc
     #######################################################
-    # - os: osx
-    #   osx_image: xcode10.1
-    #   script: python build.py build clang
+    - os: osx
+      osx_image: xcode10.1
+      script:
+        - python build.py build clang
+        - python build.py test clang
+        # - python build.py benchmark clang # Build failed
     #######################################################

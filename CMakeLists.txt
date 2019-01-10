@@ -60,7 +60,9 @@ endif(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
 
 add_subdirectory(modules)
 add_subdirectory(tests)
-add_subdirectory(benchmark)
+if(NOT APPLE)
+    add_subdirectory(benchmark)
+endif()
 add_subdirectory(samples)
 
 # if (MSVC)
