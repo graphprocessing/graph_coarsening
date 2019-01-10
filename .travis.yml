@@ -18,11 +18,6 @@ matrix:
           - stage: google_tests
             name: "Google Tests"
             script: python build.py test g++
-
-    # - os: osx
-    #   osx_image: xcode10.1
-    #   script: python build.py build clang
-
     - os: windows
       jobs:
         include:
@@ -32,3 +27,6 @@ matrix:
           - stage: google_tests
             name: "Google Tests"
             script: python build.py test msvc
+    # - os: osx
+    #   osx_image: xcode10.1
+    #   script: python build.py build clang
