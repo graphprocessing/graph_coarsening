@@ -3,7 +3,7 @@ language: cpp
 matrix:
   include:
     - os: linux
-      dist: trusty
+      dist: xenial
       install: sudo apt-get install libomp*
       script: python build.py build g++
     - os: osx
