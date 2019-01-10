@@ -6,18 +6,12 @@ matrix:
       dist: xenial
       install:
         - sudo apt-get install libomp* python3-pip
-        - pip3 install setuptools cpplint
-      jobs:
-        include:
-          - stage: "coding_style"
-            name: "Coding style"
-            script: python build.py lint
-          - stage: build_project
-            name: "Build Project"
-            script: python build.py build g++
-          - stage: google_tests
-            name: "Google Tests"
-            script: python build.py test g++
+        - pip install --upgrade pip
+        - pip install setuptools cpplint
+        script:
+          - python build.py lint
+          - python build.py build g++
+          - python build.py test g++
     - os: windows
       script:
         - python build.py build msvc

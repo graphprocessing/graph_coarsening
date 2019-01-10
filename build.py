@@ -149,7 +149,7 @@ def run_tests():
     if os.name == "posix":
         return_code = subprocess.call("./tests/Test_Target", shell=True)
     elif os.name == "nt":
-        return_code = subprocess.call("tests\\Test_Target", shell=True)
+        return_code = subprocess.call("tests\\Debug\\Test_Target.exe", shell=True)
     os.chdir(project_directory)
     return return_code
 
