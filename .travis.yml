@@ -1,11 +1,12 @@
 language: cpp
 
-os:
-  - linux
-  - osx
-  - windows
-
-script:
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]];   python build.py build gcc;
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]];     python build.py build clang;
-  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; python build.py build msvc;
+matrix:
+  include:
+    - os: linux
+      dist: trusty
+      script: python build.py build gcc
+    - os: osx
+      osx_image: xcode7.2
+      script: python build.py build clang
+    - os: windows
+      script: python build.py build msvc
