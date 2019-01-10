@@ -10,4 +10,4 @@ matrix:
       osx_image: xcode7.2
       script: python build.py build clang
     - os: windows
-      script: xbuild
+      script: MSBuild
