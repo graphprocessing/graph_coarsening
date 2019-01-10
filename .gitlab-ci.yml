@@ -1,0 +1,64 @@
+stages:
+  - coding_style
+  - build
+  - tests
+
+coding_style:
+  before_script:
+    - apt-get -qq update && apt-get -qq install -y python3-pip &> log_install
+    - python3 --version
+    - pip3 install cpplint
+  stage: coding_style
+  script:
+    - python3 build.py lint
+
+clang_build:
+  before_script:
+    - apt-get -qq update && apt-get -qq install -y cppcheck cmake clang libiomp-dev &> log_install
+  stage: build
+  artifacts:
+    paths:
+      - $CI_PROJECT_DIR/build_clang
+  script:
+    - python3 build.py build clang
+    - cd ..
+    - mv build_clang $CI_PROJECT_DIR
+
+gnu_build:
+  before_script:
+    - apt-get -qq update && apt-get -qq install -y cppcheck cmake clang libiomp-dev &> log_install
+  stage: build
+  artifacts:
+    paths:
+      - $CI_PROJECT_DIR/build_g++
+  script:
+    - python3 build.py build g++
+    - cd ..
+    - mv build_g++ $CI_PROJECT_DIR
+
+gtest:
+  before_script:
+    - apt-get -qq update && apt-get -qq install -y libiomp-dev &> log_install
+    - mv build_clang .. && mv build_g++ ..
+  stage: tests
+  script:
+    - python3 build.py test g++
+    - python3 build.py test clang
+
+benchmark:
+  before_script:
+    - apt-get -qq update && apt-get -qq install -y libiomp-dev &> log_install
+    - mv build_clang .. && mv build_g++ ..
+  stage: tests
+  script:
+    - python3 build.py benchmark g++
+    - python3 build.py benchmark clang
+
+run:
+  before_script:
+    - apt-get -qq update && apt-get -qq install -y libiomp-dev &> log_install
+    - mv build_clang .. && mv build_g++ ..
+  stage: tests
+  script:
+    - python3 build.py run g++
+    - python3 build.py run clang

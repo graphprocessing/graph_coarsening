@@ -4,10 +4,25 @@ matrix:
   include:
     - os: linux
       dist: xenial
-      install: sudo apt-get install libomp*
-      script: python build.py build g++
+      install: sudo apt-get install libomp* python3-pip cpplint
+      jobs:
+        include:
+          - stage: coding_style
+            script: python build.py lint
+          - stage: build_project
+            script: python build.py build g++
+          - stage: google_tests
+            script: python build.py test g++
+
     # - os: osx
     #   osx_image: xcode10.1
     #   script: python build.py build clang
+    
     - os: windows
       script: python build.py build msvc
+      jobs:
+        include:
+          - stage: build_project
+            script: python build.py build msvc
+          - stage: google_tests
+            script: python build.py test msvc
