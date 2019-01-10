@@ -4,6 +4,7 @@ matrix:
   include:
     - os: linux
       dist: trusty
+      install: sudo apt-get install libomp*
       script: python build.py build g++
     - os: osx
       osx_image: xcode7.2
