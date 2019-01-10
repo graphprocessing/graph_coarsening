@@ -6,8 +6,8 @@ matrix:
       dist: xenial
       install:
         - sudo apt-get install libomp* python3-pip
-        - pip install --upgrade pip
-        - pip install setuptools cpplint
+        - sudo pip install --upgrade pip
+        - sudo pip install setuptools cpplint
       script:
         - python build.py lint
         - python build.py build g++
