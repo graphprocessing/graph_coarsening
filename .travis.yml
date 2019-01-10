@@ -13,4 +13,5 @@ matrix:
       script:
         - mkdir build
         - cd build
-        - cmake -D BENCHMARK_ENABLE_GTEST_TESTS=OFF -D CMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON --build ..
+        - cmake -D BENCHMARK_ENABLE_GTEST_TESTS=OFF -D CMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..
+        - cmake --build
