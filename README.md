@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/allnes/graph_processing.svg?token=tRqzsurCd13H7jAqeEJH&branch=master)](https://travis-ci.com/allnes/graph_processing)
+[![Build Status](https://travis-ci.com/allnes/graph_coarsening.svg?token=tRqzsurCd13H7jAqeEJH&branch=master)](https://travis-ci.com/allnes/graph_coarsening)
 
 # ITLab 2018
 ## <b><i>Тема</i></b>: Огрубление графов
