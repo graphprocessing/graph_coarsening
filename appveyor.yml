@@ -4,9 +4,9 @@ environment:
     #   MPI_HOME: "C:/Program Files (x86)/Microsoft SDKs/MPI"
     - CMAKE_GENERATOR: "Visual Studio 14 2015"
       MPI_HOME: "C:/Program Files (x86)/Microsoft SDKs/MPI"
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-      # CMAKE_GENERATOR: "Visual Studio 15 2017"
-      # MPI_HOME: "C:/Program Files (x86)/Microsoft SDKs/MPI"
+    # - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+    #   CMAKE_GENERATOR: "Visual Studio 15 2017"
+    #   MPI_HOME: "C:/Program Files (x86)/Microsoft SDKs/MPI"
 
 build_script:
   - cmd: python build.py build msvc
