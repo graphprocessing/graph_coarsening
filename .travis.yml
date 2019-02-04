@@ -26,12 +26,6 @@ matrix:
         - python build.py test clang
         - python build.py benchmark clang
     #######################################################
-    - os: windows
-      script:
-        - python build.py build msvc
-        # - python build.py test msvc # Tests failed
-        - python build.py benchmark msvc
-    #######################################################
     - os: osx
       osx_image: xcode10.1
       install:
