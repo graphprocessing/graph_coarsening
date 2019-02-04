@@ -11,8 +11,7 @@ namespace Pipeline {
     std::vector <std::function <std::string(const std::string&)>> pipelines;
     const std::string launch() {
         const std::string output_file_name =
-                std::string("../graph_data/pipeline_") +
-                std::string(COMPILER_NAME) + std::string(".txt");
+                "../graph_data/pipeline_" COMPILER_NAME ".txt";
         std::ofstream out(output_file_name);
         for (unsigned index = 0; index < graph_files.size(); ++index) {
             for (auto pipeline : pipelines) {
@@ -103,6 +102,7 @@ namespace Pipeline {
                 out << get_cost_of_minimal_spanning_tree(graph) << std::endl;
             }
         }
+        out.close();
         return output_file_name;
     }
 }  // namespace Pipeline

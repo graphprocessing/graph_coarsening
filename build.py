@@ -196,6 +196,13 @@ def run_pipelines():
         return_code = subprocess.call("python scripts/pipelines_table.py " + data_directory, shell=True)
     return return_code
 
+def visualize(data_file = None):
+    if os.name == "posix":
+        return_code = subprocess.call("python3 scripts/graph_visualization.py " + data_file, shell=True)
+    elif os.name == "nt":
+        return_code = subprocess.call("python scripts/graph_visualization.py " + data_file, shell=True)
+    return return_code
+
 def help():
     print("python3 build.py lint <compiler>             (check code style)")
     print("python3 build.py build <compiler>            (build project)")
@@ -206,6 +213,7 @@ def help():
     print("python3 build.py all <compiler>              (check code style, build, run main and tests)")
     print("python3 build.py asymp <compiler> <args>     (make asymptotics figures)")
     print("python3 build.py pipelines <compiler>        (run pipelines)")
+    print("python3 build.py visualize <file_path>       (create graph visualization)")
     print("compilers: g++ (default), clang (Linux, macOS), msvc (Windows)")
     print("Compler choice temporary works only on linux-like OS")
     print("Use python instead of python3 on Windows")
@@ -219,6 +227,9 @@ if __name__ == "__main__":
         exit(1)
     global compiler_name
     compiler_name = sys.argv[2] if len(sys.argv) > 2 else "g++"
+    additional_args = []
+    for i in range(3, len(sys.argv)):
+        additional_args.append(sys.argv[i])
     if len(sys.argv) < 2:
         help()
     elif (sys.argv[1] == "all"):
@@ -244,7 +255,7 @@ if __name__ == "__main__":
         return_code = build()
     elif (sys.argv[1] == "run"):
         if len(sys.argv) > 3:
-            return_code = run_main(sys.argv[3])
+            return_code = run_main(additional_args[0])
         else:
             return_code = run_main()
     elif (sys.argv[1] == "benchmark"):
@@ -254,12 +265,14 @@ if __name__ == "__main__":
     elif (sys.argv[1] == "pipelines"):
         return_code = run_pipelines()
     elif (sys.argv[1] == "asymp"):
-        additional_args = []
-        for i in range(3, len(sys.argv)):
-            additional_args.append(sys.argv[i])
         return_code = asymp(additional_args)
     elif (sys.argv[1] == "graph"):
         return_code = cmake_graph()
+    elif (sys.argv[1] == "visualize"):
+        if len(sys.argv) > 2:
+            return_code = visualize(sys.argv[2])
+        else:
+            return_code = 1
     else:
         help()
     print("Stage " + sys.argv[1] + " returned exit code " + str(return_code))

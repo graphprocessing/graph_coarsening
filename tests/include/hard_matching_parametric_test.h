@@ -334,12 +334,12 @@ TEST_P(hard_matching_cube_test, csr1) {
     test_hard_matching_on_csr();
 }
 
-INSTANTIATE_TEST_CASE_P(hard_matching_test, hard_matching_washington_test,
+INSTANTIATE_TEST_SUITE_P(hard_matching_test, hard_matching_washington_test,
                     testing::ValuesIn(wash));
 
-INSTANTIATE_TEST_CASE_P(hard_matching_test, hard_matching_zadeh_test,
+INSTANTIATE_TEST_SUITE_P(hard_matching_test, hard_matching_zadeh_test,
                     testing::ValuesIn(zadeh));
 
-INSTANTIATE_TEST_CASE_P(hard_matching_test, hard_matching_cube_test,
+INSTANTIATE_TEST_SUITE_P(hard_matching_test, hard_matching_cube_test,
                     testing::ValuesIn(cube));
 #endif  // TESTS_INCLUDE_HARD_MATCHING_PARAMETRIC_TEST_H_

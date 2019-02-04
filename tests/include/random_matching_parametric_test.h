@@ -295,13 +295,13 @@ TEST_P(random_matching_cube_test, variable_size_on_al) {
     correct_random_matching_on_al_variable_size();
 }
 
-INSTANTIATE_TEST_CASE_P(random_matching_test1, random_matching_washington_test,
+INSTANTIATE_TEST_SUITE_P(random_matching_test1, random_matching_washington_test,
                     testing::ValuesIn(washington_samples));
 
-INSTANTIATE_TEST_CASE_P(random_matching_test2, random_matching_zadeh_test,
+INSTANTIATE_TEST_SUITE_P(random_matching_test2, random_matching_zadeh_test,
                     testing::ValuesIn(zadeh_samples));
 
-INSTANTIATE_TEST_CASE_P(random_matching_test3, random_matching_cube_test,
+INSTANTIATE_TEST_SUITE_P(random_matching_test3, random_matching_cube_test,
                     testing::ValuesIn(cube_samples));
 
 #endif  // TESTS_INCLUDE_RANDOM_MATCHING_PARAMETRIC_TEST_H_

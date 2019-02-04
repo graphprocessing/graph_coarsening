@@ -37,7 +37,7 @@ TEST_P(ExampleParametricTest, Test_1) { doTest_1(); }
 TEST_P(ExampleParametricTest, Test_2) { doTest_2(); }
 TEST_P(ExampleParametricTest, Test_3) { doTest_3(); }
 
-INSTANTIATE_TEST_CASE_P(example, ExampleParametricTest,
+INSTANTIATE_TEST_SUITE_P(example, ExampleParametricTest,
                             testing::ValuesIn(graph_sample));
 
 #endif  // TESTS_INCLUDE_EXAMPLE_PARAMETRIC_TEST_H_
