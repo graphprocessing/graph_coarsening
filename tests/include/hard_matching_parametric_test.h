@@ -275,16 +275,16 @@ class hard_matching_cube_test : public testing::TestWithParam<int> {
 };
 std::vector <int> generate(int start, int end) {
     std::vector <int> res;
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 3; i++) {  // upper bound was equal to 10
         res.push_back(std::uniform_int_distribution<int>(start, end)
                             (generator1));
     }
     return res;
 }
 
-std::vector <int> wash = generate(0, 1000);
-std::vector <int> zadeh = generate(0, 1000);
-std::vector <int> cube = generate(0, 100);
+std::vector <int> wash = generate(0, 50);  // was 1000
+std::vector <int> zadeh = generate(0, 50);  // was 1000
+std::vector <int> cube = generate(0, 10);  // was 100
 
 TEST_P(hard_matching_washington_test, al) {
     hard_matching_on_al();

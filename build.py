@@ -67,6 +67,7 @@ def lint():
     return_code += lint_walk("modules")
     return_code += lint_walk("tests")
     return_code += lint_walk("benchmark")
+    return_code += lint_walk("samples")
     return return_code
 
 def setup_pipelines():
@@ -131,14 +132,14 @@ def build():
     os.chdir(project_directory)
     return return_code
 
-def run_main(output = None):
+def run_example(example_name = "main"):
     if not os.path.exists(build_directories[compiler_name]):
         return -1
     os.chdir(build_directories[compiler_name])
     if os.name == "posix":
-        return_code = subprocess.call("./samples/example_main/example_main" + ((" > " + output) if output else ""), shell=True)
+        return_code = subprocess.call("./samples/example_" + example_name + "/example_" + example_name, shell=True)
     elif os.name == "nt":
-        return_code = subprocess.call("example_main\\example_main\\example_main" + ((" > " + output) if output else ""), shell=True)
+        return_code = subprocess.call("samples\\example_" + example_name + "\\example_" + example_name, shell=True)
     os.chdir(project_directory)
     return return_code
 
@@ -166,7 +167,7 @@ def benchmark():
 
 def asymp(args):
     if not os.path.exists(os.path.join(build_directories[compiler_name], "asymp.log")):
-        run_main(os.path.join(build_directories[compiler_name], "asymp.log"))
+        run_example(os.path.join(build_directories[compiler_name], "asymp.log"))
     if os.name == "posix":
         script_call_command = ("python3 " + os.path.join(project_directory, "scripts/asymptotics.py")+
                             " " + os.path.join(build_directories[compiler_name], "asymp.log"))
@@ -206,7 +207,7 @@ def visualize(data_file = None):
 def help():
     print("python3 build.py lint <compiler>             (check code style)")
     print("python3 build.py build <compiler>            (build project)")
-    print("python3 build.py run <compiler>              (run main)")
+    print("python3 build.py run <compiler> <example>    (run example, default = example_main)")
     print("python3 build.py test <compiler>             (run gtests)")
     print("python3 build.py benchmark <compiler>        (run benchmark)")
     print("python3 build.py graph <compiler>            (generate graph project)")
@@ -243,7 +244,7 @@ if __name__ == "__main__":
         if result['build'] == 0:
             result['benchmark'] = benchmark()
             result['tests'] = run_tests()
-            result['main'] = run_main()
+            result['main'] = run_example()
         return_code = 0
         for stage in result:
             if result[stage] != 0:
@@ -255,9 +256,9 @@ if __name__ == "__main__":
         return_code = build()
     elif (sys.argv[1] == "run"):
         if len(sys.argv) > 3:
-            return_code = run_main(additional_args[0])
+            return_code = run_example(additional_args[0])
         else:
-            return_code = run_main()
+            return_code = run_example()
     elif (sys.argv[1] == "benchmark"):
         return_code = benchmark()
     elif (sys.argv[1] == "test"):

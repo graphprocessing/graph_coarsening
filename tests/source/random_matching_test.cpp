@@ -2,6 +2,8 @@
 #include <gtest/gtest.h>
 #include "../../modules/pch/include/precomp.h"
 
+#ifdef __linux__
+
 TEST(random_matching_fixed_test, basic_washington_test_csr) {
     CSR<int> graph = washington_test<int>(2);
     Matching matching = random_matching(graph, 0, graph.n, 10);
@@ -301,3 +303,5 @@ TEST(random_matching_fixed_test, basic_cube_test_al_5) {
     ASSERT_EQ(expected.edge_b, matching.edge_b);
     ASSERT_EQ(expected.edge_e, matching.edge_e);
 }
+
+#endif  // __linux__

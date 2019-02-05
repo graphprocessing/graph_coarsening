@@ -10,5 +10,5 @@ environment:
 
 build_script:
   - cmd: python build.py build msvc
-  # - cmd: python build.py test msvc
+  - cmd: python build.py test msvc
   - cmd: python build.py benchmark msvc

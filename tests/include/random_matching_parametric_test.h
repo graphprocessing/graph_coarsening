@@ -243,9 +243,9 @@ std::vector <int> generate_samples(int from, int to, int n = 20) {
     return result;
 }
 
-std::vector <int> washington_samples = generate_samples(0, 100000);
-std::vector <int> zadeh_samples = generate_samples(0, 1000);
-std::vector <int> cube_samples = generate_samples(0, 100);
+std::vector <int> washington_samples = generate_samples(0, 100, 3);  // was 1e5
+std::vector <int> zadeh_samples = generate_samples(0, 50, 3);  // was 1000
+std::vector <int> cube_samples = generate_samples(0, 10, 3);  // was 100
 
 TEST_P(random_matching_washington_test, max_size_on_csr) {
     correct_random_matching_on_csr_max_size();

@@ -19,8 +19,8 @@ CSR<WeightType> graph_coarsening(const CSR<WeightType>& graph,
         graph.offset[match.edge_b[i]];
         for (int j = graph.offset[match.edge_b[i]];
             j < graph.offset[match.edge_b[i] + 1]; j++) {
-            if (graph.edges[j].first == match.edge_e[i]) {
-                weight = graph.edges[j].second;
+            if (graph.edges[j] == match.edge_e[i]) {
+                weight = graph.weights[j];
                 break;
             }
         }
@@ -40,20 +40,20 @@ CSR<WeightType> graph_coarsening(const CSR<WeightType>& graph,
         int weight = new_vertex[i];
         for (int j = graph.offset[Map1[i].first];
             j < graph.offset[Map1[i].first + 1]; j++) {
-            int to = Map[graph.edges[j].first];
+            int to = Map[graph.edges[j]];
             if (i != to) {
-                g.edges.push_back(std::make_pair(to,
-                            graph.edges[j].second +
-                                weight + new_vertex[to]));
+                g.edges.push_back(to);
+                g.weights.push_back(graph.weights[j] +
+                                weight + new_vertex[to]);
                 vert_sz++;
             } else {
                 for (int k = graph.offset[Map1[i].second];
                         k < graph.offset[Map1[i].second + 1]; k++) {
-                    int to1 = Map[graph.edges[k].first];
+                    int to1 = Map[graph.edges[k]];
                     if (i != to1) {
-                        g.edges.push_back(std::make_pair(to1,
-                                    graph.edges[k].second +
-                                        weight + new_vertex[to1]));
+                        g.edges.push_back(to1);
+                        g.weights.push_back(graph.weights[k] +
+                                        weight + new_vertex[to1]);
                         vert_sz++;
                     }
                 }
@@ -65,10 +65,10 @@ CSR<WeightType> graph_coarsening(const CSR<WeightType>& graph,
         int weight = new_vertex[i];
          for (int j = graph.offset[Map1[i].first];
             j < graph.offset[Map1[i].first + 1]; j++) {
-                int to = Map[graph.edges[j].first];
-                g.edges.push_back(std::make_pair(to,
-                            graph.edges[j].second +
-                                weight + new_vertex[to]));
+                int to = Map[graph.edges[j]];
+                g.edges.push_back(to);
+                g.weights.push_back(graph.weights[j] +
+                                weight + new_vertex[to]);
                 vert_sz++;
         }
         g.offset.push_back(vert_sz);
