@@ -63,6 +63,3 @@ Note:
 | Визуализировать граф                      | `visualize <компилятор>`              |
 
 Примечание: по умолчанию используется компилятор g++
-
-### Материалы:
-* Ссылка на [Google drive](https://drive.google.com/drive/folders/1tVuATbCl1Kc5TMwlbntEZXAiG7QLDulV?usp=sharing)
