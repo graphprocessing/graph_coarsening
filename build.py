@@ -139,7 +139,7 @@ def run_example(example_name = "main"):
     if os.name == "posix":
         return_code = subprocess.call("./samples/example_" + example_name + "/example_" + example_name, shell=True)
     elif os.name == "nt":
-        return_code = subprocess.call("samples\\example_" + example_name + "\\example_" + example_name, shell=True)
+        return_code = subprocess.call("samples\\example_" + example_name + "\\example_" + example_name + ".exe", shell=True)
     os.chdir(project_directory)
     return return_code
 
