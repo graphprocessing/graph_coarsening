@@ -1,10 +1,8 @@
 // Copyright [year] <Copyright Owner>
 #include "modules/pch/include/precomp.h"
-#include "modules/pipelines/prepare.h"
-#include "modules/pipelines/launch.h"
+#include "modules/pipelines/pipeline_management.h"
 
 int main(int argc, char** argv) {
-    std::cout << "+" << std::endl;
     CSR <int> g;
     g.read("../graph_data/bio.bin");
     g.write("../graph_data/1.bin");

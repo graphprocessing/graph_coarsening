@@ -2,11 +2,11 @@
 #ifndef MODULES_PIPELINES_PIPELINE_SAMPLE_H_
 #define MODULES_PIPELINES_PIPELINE_SAMPLE_H_
 #include "../pch/include/precomp.h"
-#include "./launch.h"
+#include "./pipeline_management.h"
 
 namespace Pipeline {
     int p1() {
-        auto f = [&](const std::string& s) {
+        auto f = [&](const std::string& s) -> std::string {
             CSR<double> graph;
             graph.read(s);
             // Graph_coarsening

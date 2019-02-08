@@ -1,12 +1,15 @@
 // Copyright [year] <Copyright Owner>
 #include "modules/pch/include/precomp.h"
-#include "modules/pipelines/prepare.h"
-#include "modules/pipelines/launch.h"
+#include "modules/pipelines/pipeline_management.h"
 
 int main(int argc, char** argv) {
     std::cout << "pipelines" << std::endl;
-    Pipeline::prepare();
-    Pipeline::launch();
+    CSR<double> graph = washington_test<double>(2);
+    graph.write("../graph_data/sample_washington_test.bin");
+    Pipeline::launch("../graph_data/sample_washington_test.bin");
+    graph = cube_test<double>(2);
+    graph.write("../graph_data/sample_cube_test.bin");
+    Pipeline::launch("../graph_data/sample_cube_test.bin");
     std::cout << "main" << std::endl;
     // Timer sample
     std::cout << std::fixed;

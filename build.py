@@ -72,10 +72,10 @@ def lint():
 
 def setup_pipelines():
     global pipelines
-    if not os.path.exists("modules/pipelines/launch.h"):
+    if not os.path.exists("modules/pipelines/pipeline_management.h"):
         return -1
     os.chdir("modules/pipelines")
-    f = open("launch.h", "r")
+    f = open("pipeline_management.h", "r")
     file_lines = []
     found_mark = False
     for index, line in enumerate(f):
@@ -86,7 +86,7 @@ def setup_pipelines():
         elif line.startswith("// <build.py> End of pipelines declarations"):
             found_mark = False
     f.close()
-    f = open("launch.h", "w")
+    f = open("pipeline_management.h", "w")
     if not pipelines:
         for path, _, files in os.walk(os.getcwd()):
             file_lines.insert(-1, "// <build.py> Pipelines declarations\n")
@@ -188,7 +188,7 @@ def cmake_graph():
     return return_code
 
 def run_pipelines():
-    return_code = run_main()
+    return_code = run_example()
     if return_code != 0:
         return return_code
     if os.name == "posix":

@@ -7,7 +7,7 @@ if __name__ == "__main__":
     book = xlwt.Workbook()
     for index, compiler in enumerate(compilers_list):
         sheet = book.add_sheet(compiler)
-        input_file = "pipeline_" + compiler + ".txt"
+        input_file = "pipeline_results_" + compiler + ".txt"
         if not os.path.exists(os.path.join(data_directory, input_file)):
             continue
         sheet.col(0).width = 15000
