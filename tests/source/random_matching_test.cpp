@@ -208,8 +208,8 @@ TEST(random_matching_fixed_test, basic_zadeh_test_csr_4) {
     CSR<int> graph = zadeh_test<int>(2);
     Matching matching = random_matching(graph, 0, graph.n, 10002);
     Matching expected;
-    expected.edge_b = {1, 3, 7, 10, 2, 9};
-    expected.edge_e = {5, 11, 4, 6, 8, 12};
+    expected.edge_b = {1, 3, 7, 10, 2, 8};
+    expected.edge_e = {5, 11, 4, 6, 9, 12};
     ASSERT_EQ(expected.edge_b, matching.edge_b);
     ASSERT_EQ(expected.edge_e, matching.edge_e);
 }
@@ -218,8 +218,8 @@ TEST(random_matching_fixed_test, basic_zadeh_test_al_4) {
     AL<int> graph = zadeh_test<int>(2);
     Matching matching = random_matching(graph, 0, graph.n, 10002);
     Matching expected;
-    expected.edge_b = {1, 3, 7, 10, 2, 9};
-    expected.edge_e = {5, 11, 4, 6, 8, 12};
+    expected.edge_b = {1, 3, 7, 10, 2, 8};
+    expected.edge_e = {5, 11, 4, 6, 9, 12};
     ASSERT_EQ(expected.edge_b, matching.edge_b);
     ASSERT_EQ(expected.edge_e, matching.edge_e);
 }
@@ -269,7 +269,7 @@ TEST(random_matching_fixed_test, basic_zadeh_test_csr_5) {
     Matching matching = random_matching(graph, 0, graph.n, 1011);
     Matching expected;
     expected.edge_b = {2, 3, 5, 6, 11, 1};
-    expected.edge_e = {9, 7, 8, 10, 12, 4};
+    expected.edge_e = {10, 7, 9, 8, 12, 4};
     ASSERT_EQ(expected.edge_b, matching.edge_b);
     ASSERT_EQ(expected.edge_e, matching.edge_e);
 }
@@ -279,7 +279,7 @@ TEST(random_matching_fixed_test, basic_zadeh_test_al_5) {
     Matching matching = random_matching(graph, 0, graph.n, 1011);
     Matching expected;
     expected.edge_b = {2, 3, 5, 6, 11, 1};
-    expected.edge_e = {9, 7, 8, 10, 12, 4};
+    expected.edge_e = {10, 7, 9, 8, 12, 4};
     ASSERT_EQ(expected.edge_b, matching.edge_b);
     ASSERT_EQ(expected.edge_e, matching.edge_e);
 }
@@ -333,7 +333,7 @@ TEST(random_matching_fixed_test, basic_zadeh_test_csr) {
     Matching matching = random_matching(graph, 0, graph.n, 10);
     Matching expected;
     expected.edge_b = {7, 6, 1, 2, 11, 4};
-    expected.edge_e = {5, 8, 3, 10, 12, 9};
+    expected.edge_e = {5, 8, 3, 9, 12, 10};
     ASSERT_EQ(expected.edge_b, matching.edge_b);
     ASSERT_EQ(expected.edge_e, matching.edge_e);
 }
@@ -343,7 +343,7 @@ TEST(random_matching_fixed_test, basic_zadeh_test_al) {
     Matching matching = random_matching(graph, 0, graph.n, 10);
     Matching expected;
     expected.edge_b = {7, 6, 1, 2, 11, 4};
-    expected.edge_e = {5, 8, 3, 10, 12, 9};
+    expected.edge_e = {5, 8, 3, 9, 12, 10};
     ASSERT_EQ(expected.edge_b, matching.edge_b);
     ASSERT_EQ(expected.edge_e, matching.edge_e);
 }
@@ -412,13 +412,6 @@ TEST(random_matching_fixed_test, basic_cube_test_csr_2) {
     CSR<int> graph = cube_test<int>(2);
     Matching matching = random_matching(graph, 0, graph.n, 7893);
     Matching expected;
-    AL<int> gg = graph;
-    for (int i = 0; i < gg.n; ++i) {
-        std::cout << i << ": ";
-        for (unsigned j = 0; j < gg.edges[i].size(); ++j)
-            std::cout << gg.edges[i][j] << " ";
-        std::cout << std::endl;
-    }
     expected.edge_b = {0, 4, 3};
     expected.edge_e = {1, 6, 7};
     ASSERT_EQ(expected.edge_b, matching.edge_b);
@@ -519,8 +512,8 @@ TEST(random_matching_fixed_test, basic_zadeh_test_csr_4) {
     CSR<int> graph = zadeh_test<int>(2);
     Matching matching = random_matching(graph, 0, graph.n, 10002);
     Matching expected;
-    expected.edge_b = {11, 1, 2, 4, 5, 7};
-    expected.edge_e = {12, 3, 8, 9, 10, 6};
+    expected.edge_b = {11, 1, 2, 8, 4, 7};
+    expected.edge_e = {12, 3, 9, 5, 10, 6};
     ASSERT_EQ(expected.edge_b, matching.edge_b);
     ASSERT_EQ(expected.edge_e, matching.edge_e);
 }
@@ -529,8 +522,8 @@ TEST(random_matching_fixed_test, basic_zadeh_test_al_4) {
     AL<int> graph = zadeh_test<int>(2);
     Matching matching = random_matching(graph, 0, graph.n, 10002);
     Matching expected;
-    expected.edge_b = {11, 1, 2, 4, 5, 7};
-    expected.edge_e = {12, 3, 8, 9, 10, 6};
+    expected.edge_b = {11, 1, 2, 8, 4, 7};
+    expected.edge_e = {12, 3, 9, 5, 10, 6};
     ASSERT_EQ(expected.edge_b, matching.edge_b);
     ASSERT_EQ(expected.edge_e, matching.edge_e);
 }

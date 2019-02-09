@@ -32,6 +32,6 @@ matrix:
         - HOMEBREW_NO_AUTO_UPDATE=1 brew install libomp
       script:
         - python build.py build clang
-        # - python build.py test clang # Tests failed
-        # - python build.py benchmark clang # Build failed
+        - python build.py test clang
+        # - python build.py benchmark clang
     #######################################################

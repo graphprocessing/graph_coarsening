@@ -25,8 +25,8 @@ TEST(csr_test, random_zadeh_test_generates_and_converts_to_csr) {
 
 TEST(csr_test, graph_file_operations) {
     CSR<int> graph = washington_test<int>(20);
-    ASSERT_NO_THROW(ASSERT_EQ(true, graph.write("csr.bin")));
-    ASSERT_NO_THROW(ASSERT_EQ(true, graph.read("csr.bin")));
+    ASSERT_NO_THROW(ASSERT_EQ(true, graph.write("test.bin")));
+    ASSERT_NO_THROW(ASSERT_EQ(true, graph.read("test.bin")));
 }
 
 TEST(csr_test, run_bfs_on_basic_washington_test) {
@@ -73,12 +73,12 @@ TEST(csr_test, basic_washington_test_double_generates_and_converts_to_csr) {
 
 TEST(csr_test, graph_file_operations_float) {
     CSR<float> graph = washington_test<float>(20, true);
-    ASSERT_NO_THROW(ASSERT_EQ(true, graph.write("al.bin")));
-    ASSERT_NO_THROW(ASSERT_EQ(true, graph.read("al.bin")));
+    ASSERT_NO_THROW(ASSERT_EQ(true, graph.write("test.bin")));
+    ASSERT_NO_THROW(ASSERT_EQ(true, graph.read("test.bin")));
 }
 
 TEST(csr_test, graph_file_operations_double) {
     CSR<double> graph = washington_test<double>(20, true);
-    ASSERT_NO_THROW(ASSERT_EQ(true, graph.write("al.bin")));
-    ASSERT_NO_THROW(ASSERT_EQ(true, graph.read("al.bin")));
+    ASSERT_NO_THROW(ASSERT_EQ(true, graph.write("test.bin")));
+    ASSERT_NO_THROW(ASSERT_EQ(true, graph.read("test.bin")));
 }
