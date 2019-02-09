@@ -43,7 +43,7 @@ AL<WeightType> zadeh_test(int n, bool weighted = false) {
                 graph.weights[n].push_back(weight(generator));
             }
         }
-        if (n % 2 == 0) {
+        if (n > 0 && n % 2 == 0) {
             graph.edges[n].push_back(n + 1);
             graph.weights[n].push_back(weight(generator));
         }
