@@ -1,6 +1,10 @@
 // Copyright [year] <Copyright Owner>
 #ifndef MODULES_DATA_STRUCTURES_INCLUDE_JDS_H_
 #define MODULES_DATA_STRUCTURES_INCLUDE_JDS_H_
+#include <vector>
+#include <algorithm>
+#include <string>
+#include <utility>
 #include "../../pch/include/precomp.h"
 
 template <typename WeightType>

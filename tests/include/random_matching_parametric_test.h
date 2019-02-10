@@ -2,6 +2,7 @@
 #ifndef TESTS_INCLUDE_RANDOM_MATCHING_PARAMETRIC_TEST_H_
 #define TESTS_INCLUDE_RANDOM_MATCHING_PARAMETRIC_TEST_H_
 #include <gtest/gtest.h>
+#include <vector>
 #include "../../modules/pch/include/precomp.h"
 
 static std::random_device rd;

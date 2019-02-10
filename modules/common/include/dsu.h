@@ -1,6 +1,7 @@
 // Copyright [year] <Copyright Owner>
 #ifndef MODULES_COMMON_INCLUDE_DSU_H_
 #define MODULES_COMMON_INCLUDE_DSU_H_
+#include <vector>
 #include "../../pch/include/precomp.h"
 
 struct DSU {

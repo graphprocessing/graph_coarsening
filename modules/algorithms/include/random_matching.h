@@ -1,6 +1,7 @@
 // Copyright [year] <Copyright Owner>
 #ifndef MODULES_ALGORITHMS_INCLUDE_RANDOM_MATCHING_H_
 #define MODULES_ALGORITHMS_INCLUDE_RANDOM_MATCHING_H_
+#include <vector>
 #include "../../pch/include/precomp.h"
 template <typename WeightType>
 Matching random_matching(const AL<WeightType>& graph, int distribution = 0,

@@ -1,6 +1,8 @@
 // Copyright [year] <Copyright Owner>
 #ifndef MODULES_ALGORITHMS_INCLUDE_FLOYD_WARSHALL_H_
 #define MODULES_ALGORITHMS_INCLUDE_FLOYD_WARSHALL_H_
+#include <vector>
+#include <algorithm>
 #include "../../pch/include/precomp.h"
 
 template <typename WeightType>

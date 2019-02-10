@@ -1,6 +1,11 @@
 // Copyright [year] <Copyright Owner>
 #ifndef MODULES_DATA_STRUCTURES_INCLUDE_GRAPH_H_
 #define MODULES_DATA_STRUCTURES_INCLUDE_GRAPH_H_
+#include <vector>
+#include <string>
+#include <utility>
+#include <queue>
+#include <set>
 #include "../../pch/include/precomp.h"
 
 template <typename WeightType>

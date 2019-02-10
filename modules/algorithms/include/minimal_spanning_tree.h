@@ -1,6 +1,9 @@
 // Copyright [year] <Copyright Owner>
 #ifndef MODULES_ALGORITHMS_INCLUDE_MINIMAL_SPANNING_TREE_H_
 #define MODULES_ALGORITHMS_INCLUDE_MINIMAL_SPANNING_TREE_H_
+#include <vector>
+#include <algorithm>
+#include <utility>
 #include "../../pch/include/precomp.h"
 
 template <typename WeightType>

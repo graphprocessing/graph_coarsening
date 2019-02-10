@@ -1,6 +1,10 @@
 // Copyright [year] <Copyright Owner>
 #ifndef MODULES_PIPELINES_EVALUATOR_H_
 #define MODULES_PIPELINES_EVALUATOR_H_
+#include <vector>
+#include <string>
+#include <algorithm>
+#include <map>
 #include "../pch/include/precomp.h"
 #include "./pipeline_management.h"
 

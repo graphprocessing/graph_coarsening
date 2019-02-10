@@ -1,5 +1,15 @@
 cmake_minimum_required( VERSION 2.8 )
 
+if( CHECK_CODING_STYLE )
+    if( NOT WIN32 )
+        include( cmake/cpplint.cmake )
+        cpplint_add_subdirectory(modules)
+        cpplint_add_subdirectory(samples)
+        cpplint_add_subdirectory(tests)
+    endif( NOT WIN32 )
+endif( CHECK_CODING_STYLE )
+unset(CHECK_CODING_STYLE CACHE)
+
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE RELEASE)
 endif()

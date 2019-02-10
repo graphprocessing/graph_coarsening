@@ -1,6 +1,9 @@
 // Copyright [year] <Copyright Owner>
 #ifndef MODULES_COMMON_INCLUDE_EXPORT_H_
 #define MODULES_COMMON_INCLUDE_EXPORT_H_
+#include <vector>
+#include <string>
+#include <utility>
 #include "../../pch/include/precomp.h"
 
 template <typename WeightType>

@@ -1,6 +1,9 @@
 // Copyright [year] <Copyright Owner>
 #ifndef MODULES_DATA_STRUCTURES_INCLUDE_CSR_H_
 #define MODULES_DATA_STRUCTURES_INCLUDE_CSR_H_
+#include <vector>
+#include <string>
+#include <utility>
 #include "../../pch/include/precomp.h"
 
 template <typename WeightType>

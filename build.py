@@ -24,52 +24,6 @@ def create_folders():
     os.chdir(project_directory)
     return 0
 
-def lint_walk(subdirectory):
-    return_code = 0
-    for path, _, files in os.walk(os.path.join(project_directory, subdirectory)):
-        for file in files:
-            if (file.endswith(".h") or file.endswith(".cpp")):
-                print("Checking: " + os.path.join(path, file))
-                if not os.path.exists(os.path.join(data_directory, "lint.log")):
-                    open(os.path.join(data_directory, "lint.log"), "w").close()
-                os.system("cpplint " + os.path.join(path, file) + " 2> " + os.path.join(data_directory, "lint.log"))
-                verdict = ""
-                ingored_errors = 0
-                f = open(os.path.join(data_directory, "lint.log"), "r")
-                for line in f:
-                    if line.endswith("benchmark::State& state  [runtime/references] [2]\n"):
-                        ingored_errors += 1
-                    elif line.endswith("[build/include_what_you_use] [4]\n"):
-                        ingored_errors += 1
-                    verdict = line
-                f.close()
-                if (verdict.startswith("Done processing")):
-                    print("\033[32mSuccess: " + file + "\033[0m")
-                else:
-                    real_errors = int(verdict.split()[-1]) - ingored_errors
-                    if real_errors == 0:
-                        print("\033[32mSuccess: " + file + "\033[0m")
-                    else:
-                        f = open(os.path.join(data_directory, "lint.log"), "r")
-                        for line in f:
-                            if (line.startswith("Done processing")):
-                                break
-                            if (not line.endswith("benchmark::State& state  [runtime/references] [2]\n") and
-                                not line.endswith("[build/include_what_you_use] [4]\n")):
-                                print(line, end='')
-                        f.close()
-                        print("\033[31mFailed: "  + file + "\033[0m")
-                        return_code = 1
-    return return_code
-
-def lint():
-    return_code = 0
-    return_code += lint_walk("modules")
-    return_code += lint_walk("tests")
-    return_code += lint_walk("benchmark")
-    return_code += lint_walk("samples")
-    return return_code
-
 def setup_pipelines():
     global pipelines
     if not os.path.exists("modules/pipelines/pipeline_management.h"):
@@ -111,15 +65,19 @@ def build():
         os.mkdir(build_directories[compiler_name])
     os.chdir(build_directories[compiler_name])
     if os.name == "posix":
-        subprocess.call('cmake -D BENCHMARK_ENABLE_GTEST_TESTS=OFF -D CMAKE_C_COMPILER=' + compiler[compiler_name][0] + ' -D CMAKE_CXX_COMPILER=' + compiler[compiler_name][1]
+        subprocess.call('cmake -D BENCHMARK_ENABLE_GTEST_TESTS=OFF -D CHECK_CODING_STYLE=ON '
+        + '-D CMAKE_C_COMPILER=' + compiler[compiler_name][0] + ' -D CMAKE_CXX_COMPILER=' + compiler[compiler_name][1]
         + ' CMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ' + project_directory, shell=True)
     elif os.name == "nt":
         if compiler_name == "msvc":
-            subprocess.call('cmake -D BENCHMARK_ENABLE_GTEST_TESTS=OFF -D CMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ' + project_directory, shell=True)
+            subprocess.call('cmake -D BENCHMARK_ENABLE_GTEST_TESTS=OFF -D CHECK_CODING_STYLE=ON '
+            + ' -D CMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ' + project_directory, shell=True)
         elif compiler_name == "g++":
-            subprocess.call('cmake -D BENCHMARK_ENABLE_GTEST_TESTS=OFF -G "MinGW Makefiles" -D CMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ' + project_directory, shell=True)
+            subprocess.call('cmake -D BENCHMARK_ENABLE_GTEST_TESTS=OFF -D CHECK_CODING_STYLE=ON '
+            + ' -G "MinGW Makefiles" -D CMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ' + project_directory, shell=True)
         elif compiler_name == "icc":
-            subprocess.call('cmake -D BENCHMARK_ENABLE_GTEST_TESTS=OFF -D CMAKE_C_COMPILER=icl -D CMAKE_CXX_COMPILER=icl'
+            subprocess.call('cmake -D BENCHMARK_ENABLE_GTEST_TESTS=OFF -D CHECK_CODING_STYLE=ON '
+            + ' -D CMAKE_C_COMPILER=icl -D CMAKE_CXX_COMPILER=icl'
         + ' CMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ' + project_directory, shell=True)
     if os.name == "posix":
         subprocess.call("cppcheck -j4 --project=compile_commands.json > log_cppcheck", shell=True)
@@ -209,7 +167,6 @@ def visualize(data_file = None):
     return return_code
 
 def help():
-    print("python3 build.py lint <compiler>             (check code style)")
     print("python3 build.py build <compiler>            (build project)")
     print("python3 build.py run <compiler> <example>    (run example, default = example_main)")
     print("python3 build.py test <compiler>             (run gtests)")
@@ -238,12 +195,10 @@ if __name__ == "__main__":
     if len(sys.argv) < 2:
         help()
     elif (sys.argv[1] == "all"):
-        result = {'lint' : -1,
-                'build' : -1,
+        result = {'build' : -1,
                 'tests' : -1,
                 'benchmark' : -1,
                 'main' : -1}
-        result['lint'] = lint()
         result['build'] = build()
         if result['build'] == 0:
             result['benchmark'] = benchmark()
@@ -254,8 +209,6 @@ if __name__ == "__main__":
             if result[stage] != 0:
                 return_code = 1
             print("Stage " + stage + " returned exit code " + str(result[stage]))
-    elif (sys.argv[1] == "lint"):
-        return_code = lint()
     elif (sys.argv[1] == "build"):
         return_code = build()
     elif (sys.argv[1] == "run"):

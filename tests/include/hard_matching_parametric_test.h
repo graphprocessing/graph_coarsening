@@ -2,6 +2,8 @@
 #ifndef TESTS_INCLUDE_HARD_MATCHING_PARAMETRIC_TEST_H_
 #define TESTS_INCLUDE_HARD_MATCHING_PARAMETRIC_TEST_H_
 #include <gtest/gtest.h>
+#include <map>
+#include <vector>
 #include "../../modules/pch/include/precomp.h"
 
 static std::random_device rd1;

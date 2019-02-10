@@ -6,12 +6,9 @@ matrix:
     - os: linux
       dist: xenial
       compiler: gcc
-      install:
+      before_install:
         - sudo apt-get install libomp* python3-pip
-        - sudo pip install --upgrade pip
-        - sudo pip install setuptools cpplint
       script:
-        - python build.py lint
         - python build.py build g++
         - python build.py test g++
         - python build.py benchmark g++
@@ -19,7 +16,7 @@ matrix:
     - os: linux
       dist: xenial
       compiler: clang
-      install:
+      before_install:
         - sudo apt-get install libiomp*
       script:
         - python build.py build clang
@@ -28,10 +25,14 @@ matrix:
     #######################################################
     - os: osx
       osx_image: xcode10.1
-      install:
+      before_install:
         - HOMEBREW_NO_AUTO_UPDATE=1 brew install libomp
       script:
         - python build.py build clang
         - python build.py test clang
         # - python build.py benchmark clang
     #######################################################
+
+install:
+  - sudo pip install --upgrade pip
+  - sudo pip install setuptools cpplint

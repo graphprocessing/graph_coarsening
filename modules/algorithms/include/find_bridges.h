@@ -1,6 +1,10 @@
 // Copyright [year] <Copyright Owner>
 #ifndef MODULES_ALGORITHMS_INCLUDE_FIND_BRIDGES_H_
 #define MODULES_ALGORITHMS_INCLUDE_FIND_BRIDGES_H_
+#include <vector>
+#include <algorithm>
+#include <utility>
+#include <set>
 #include "../../pch/include/precomp.h"
 
 template <typename WeightType>
