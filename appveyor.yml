@@ -4,16 +4,11 @@ environment:
     #   MPI_HOME: "C:/Program Files (x86)/Microsoft SDKs/MPI"
     - CMAKE_GENERATOR: "Visual Studio 14 2015"
       MPI_HOME: "C:/Program Files (x86)/Microsoft SDKs/MPI"
-      PYTHON: "C:/Python35"
     # - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
     #   CMAKE_GENERATOR: "Visual Studio 15 2017"
     #   MPI_HOME: "C:/Program Files (x86)/Microsoft SDKs/MPI"
 
-install:
-  - "%PYTHON%/python.exe -m pip install --upgrade pip"
-  - "%PYTHON%/python.exe -m pip install setuptools cpplint"
-
 build_script:
-  - "%PYTHON%/python.exe build.py build msvc"
-  - "%PYTHON%/python.exe build.py test msvc"
-  - "%PYTHON%/python.exe build.py benchmark msvc"
+  - cmd: python build.py build msvc
+  - cmd: python build.py test msvc
+  - cmd: python build.py benchmark msvc

@@ -1,8 +1,6 @@
 // Copyright [year] <Copyright Owner>
 #ifndef MODULES_PIPELINES_PIPELINE_MANAGEMENT_H_
 #define MODULES_PIPELINES_PIPELINE_MANAGEMENT_H_
-#include <vector>
-#include <string>
 #ifndef COMPILER_NAME
 #define COMPILER_NAME "unknown"
 #endif  // COMPILER_NAME

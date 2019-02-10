@@ -1,7 +1,6 @@
 // Copyright [year] <Copyright Owner>
 #ifndef MODULES_DATA_STRUCTURES_INCLUDE_MATCHING_H_
 #define MODULES_DATA_STRUCTURES_INCLUDE_MATCHING_H_
-#include <vector>
 #include "../../pch/include/precomp.h"
 
 struct Matching {

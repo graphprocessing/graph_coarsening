@@ -10,8 +10,15 @@
 #include <climits>
 #include <exception>
 // STL
+#include <algorithm>
 #include <numeric>
+#include <string>
+#include <vector>
+#include <utility>
 #include <functional>
+#include <set>
+#include <map>
+#include <queue>
 // Graph common
 #include "modules/common/include/timer.h"
 #include "modules/common/include/randomize.h"

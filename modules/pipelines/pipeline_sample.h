@@ -1,7 +1,6 @@
 // Copyright [year] <Copyright Owner>
 #ifndef MODULES_PIPELINES_PIPELINE_SAMPLE_H_
 #define MODULES_PIPELINES_PIPELINE_SAMPLE_H_
-#include <string>
 #include "../pch/include/precomp.h"
 #include "./pipeline_management.h"
 
