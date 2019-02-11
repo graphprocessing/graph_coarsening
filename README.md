@@ -21,8 +21,9 @@
 
 Note:
 - для полного функционирования библиотеки нужно скачать доп. модули с помощью команды:
-
-  `git submodule update --init --recursive`
+  ```
+  git submodule update --init --recursive
+  ```
 - для сборки необходим интерпретатор `Python 3.x`  
   Linux (Debian): `sudo apt install python3`  
   Windows: https://www.python.org/downloads/  
