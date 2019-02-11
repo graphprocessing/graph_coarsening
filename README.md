@@ -32,14 +32,22 @@ Note:
 - Необходимые библиотеки для python: (установка pip : `sudo apt install python3-pip`)  
   Если Python 3.x используется по умолчанию, то используется pip вместо pip3  
   - проверка стиля кодирования:  
-  `pip3 install cpplint`  
+  ```
+  pip3 install cpplint
+  ```
   - построение графиков асимптотики:  
-  `pip3 install matplotlib`  
+  ```
+  pip3 install matplotlib  
+  ```
   - создание таблиц:  
-  `pip3 install xlwt`  
+  ```
+  pip3 install xlwt 
+  ```
   - визуализация графика:  
-  `pip3 install networkx`  
-  `pip3 install scipy`
+  ```
+  pip3 install networkx  
+  pip3 install scipy
+  ```
 - для использования статического анализатора:  
   Linux (Debian): `sudo apt install cppcheck`  
   Windows:
