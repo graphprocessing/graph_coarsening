@@ -106,6 +106,7 @@ def build():
         print("This compiler is not supported by script on this OS")
         exit(1)
     return_code = 0
+    subprocess.call('git submodule update --init --recursive', shell=True)
     setup_pipelines() # add pipeline includes
     if not os.path.exists(build_directories[compiler_name]):
         os.mkdir(build_directories[compiler_name])
