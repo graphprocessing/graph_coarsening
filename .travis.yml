@@ -6,7 +6,15 @@ matrix:
     - os: linux
       dist: xenial
       compiler: gcc
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-7
+            - gcc-7
       install:
+        - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 100 --slave /usr/bin/g++ g++ /usr/bin/g++-7
         - sudo apt-get install libomp* python3-pip
         - sudo pip install --upgrade pip
         - sudo pip install setuptools cpplint
