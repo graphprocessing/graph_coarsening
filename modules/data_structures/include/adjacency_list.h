@@ -14,6 +14,8 @@ struct AL : public Graph<WeightType> {
         int vertex, int anc) const override;
     bool read(const std::string& path) override;
     bool write(const std::string& path) override;
+    template <typename T>
+    friend std::ostream& operator<<(std::ostream& out, const AL<T>& graph);
 };
 
 template <typename WeightType>
@@ -88,6 +90,19 @@ bool AL<WeightType>::write(const std::string& path) {
         file_to_write.write(reinterpret_cast<char *>(&val), sizeof(int));
     }
     return true;
+}
+
+template <typename WeightType>
+std::ostream& operator<<(std::ostream& out, const AL<WeightType>& graph) {
+    for (int i = 0; i < graph.n; ++i) {
+        std::cout << i << ": ";
+        for (unsigned j = 0; j < graph.edges[i].size(); ++j) {
+            std::cout << "[" << graph.edges[i][j] << ", "
+                      << graph.weights[i][j] << "] ";
+        }
+        std::cout << std::endl;
+    }
+    return out;
 }
 
 #endif  // MODULES_DATA_STRUCTURES_INCLUDE_ADJACENCY_LIST_H_
