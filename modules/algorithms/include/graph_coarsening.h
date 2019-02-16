@@ -100,7 +100,7 @@ CSR<WeightType> graph_coarsening(const CSR<WeightType>& graph,
                         }
                     }
                 } else {
-                    weight1 = graph.weights[p1_b];
+                    weight1 = graph.weights[p2_b];
                 }
                 g.weights.push_back(weight + weight1 +
                                             new_vertex[to]);
