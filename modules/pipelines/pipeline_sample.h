@@ -15,6 +15,7 @@ namespace Pipeline {
             return outstr;
         };
         pipelines.push_back(f);
+        pipeline_names.push_back("pipeline_sample");
         return 0;
     }
     int p1_ = p1();

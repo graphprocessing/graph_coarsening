@@ -8,8 +8,11 @@ namespace Pipeline {
     int eval1();
     int eval1_ = eval1();
     int eval1() {
-        auto f = [&](const std::string& s, const double pipeline_time)
-                    -> std::string {
+        auto f = [&](const std::string& graph_before,
+                     const std::string& graph_after,
+                     const std::string& pipeline_name,
+                     const double pipeline_time)
+                -> std::string {
             const std::string output_file_name =
                 "../graph_data/pipeline_results_" COMPILER_NAME ".txt";
             std::ofstream out;
@@ -19,8 +22,10 @@ namespace Pipeline {
                 out.open(output_file_name, std::ios_base::app);
             ++eval1_;
             CSR<double> graph;
-            graph.read(s);
+            graph.read(graph_after);
             // Evaluation
+            out << graph_before << " ";
+            out << pipeline_name << " ";
             // 1. Coarsening time
             out << pipeline_time << " ";
             // 2. Number of edges

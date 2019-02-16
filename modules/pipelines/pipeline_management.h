@@ -8,10 +8,16 @@
 
 namespace Pipeline {
     std::vector <std::function <std::string(const std::string&)>> pipelines;
-    std::vector <std::function <std::string(const std::string&, const double)>>
-                                                    results_evaluators;
+    std::vector <std::string> pipeline_names;
+    std::vector <std::function
+            <std::string(const std::string&,  // graph before pipeline (file)
+                         const std::string&,  // graph after pipeline (file)
+                         const std::string&,  // pipeline name
+                         const double)>>      // pipeline time
+                            results_evaluators;
     bool launch(const std::string& graph_file) {
         for (auto& evaluator : results_evaluators) {
+            int i = 0;
             for (auto pipeline : pipelines) {
                 std::string new_file;
                 // Call of pipeline function
@@ -23,7 +29,8 @@ namespace Pipeline {
                                 << graph_file << std::endl;
                 };
                 // Export graph characteristics to file
-                evaluator(new_file, Timer::calculate(fu));
+                evaluator(graph_file, new_file,
+                            pipeline_names[i++], Timer::calculate(fu));
             }
         }
         return true;
