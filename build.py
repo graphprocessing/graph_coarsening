@@ -32,34 +32,28 @@ def lint_walk(subdirectory):
                 print("Checking: " + os.path.join(path, file))
                 if not os.path.exists(os.path.join(data_directory, "lint.log")):
                     open(os.path.join(data_directory, "lint.log"), "w").close()
-                os.system("cpplint " + os.path.join(path, file) + " 2> " + os.path.join(data_directory, "lint.log"))
-                verdict = ""
-                ingored_errors = 0
+                if os.name == "posix":
+                    os.system("cpplint " + os.path.join(path, file) + " 2> " + os.path.join(data_directory, "lint.log") + " 1> /dev/null")
+                elif os.name == "nt":
+                    os.system("cpplint " + os.path.join(path, file) + " 2> " + os.path.join(data_directory, "lint.log") + " 1> NUL")
                 f = open(os.path.join(data_directory, "lint.log"), "r")
+                real_errors = 0
                 for line in f:
-                    if line.endswith("benchmark::State& state  [runtime/references] [2]\n"):
-                        ingored_errors += 1
-                    elif line.endswith("[build/include_what_you_use] [4]\n"):
-                        ingored_errors += 1
-                    verdict = line
+                    if (not line.endswith("benchmark::State& state  [runtime/references] [2]\n") and
+                        not line.endswith("[build/include_what_you_use] [4]\n")):
+                        real_errors += 1
                 f.close()
-                if (verdict.startswith("Done processing")):
+                if real_errors == 0:
                     print("\033[32mSuccess: " + file + "\033[0m")
                 else:
-                    real_errors = int(verdict.split()[-1]) - ingored_errors
-                    if real_errors == 0:
-                        print("\033[32mSuccess: " + file + "\033[0m")
-                    else:
-                        f = open(os.path.join(data_directory, "lint.log"), "r")
-                        for line in f:
-                            if (line.startswith("Done processing")):
-                                break
-                            if (not line.endswith("benchmark::State& state  [runtime/references] [2]\n") and
-                                not line.endswith("[build/include_what_you_use] [4]\n")):
-                                print(line, end='')
-                        f.close()
-                        print("\033[31mFailed: "  + file + "\033[0m")
-                        return_code = 1
+                    f = open(os.path.join(data_directory, "lint.log"), "r")
+                    for line in f:
+                        if (not line.endswith("benchmark::State& state  [runtime/references] [2]\n") and
+                            not line.endswith("[build/include_what_you_use] [4]\n")):
+                            print(line, end='')
+                    f.close()
+                    print("\033[31mFailed: "  + file + "\033[0m")
+                    return_code = 1
     return return_code
 
 def lint():
