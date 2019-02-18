@@ -51,7 +51,7 @@ namespace Pipeline {
                 out << graph_diameter(graph) << " ";
             }
             catch (std::bad_alloc ba) {
-                out << -1 << " ";
+                out << "std::bad_alloc" << " ";
                 std::cerr << ba.what() << std::endl;
             }
             // 7. Graph radius
@@ -59,11 +59,11 @@ namespace Pipeline {
                 out << graph_radius(graph) << " ";
             }
             catch (std::bad_alloc ba) {
-                out << -1 << " ";
+                out << "std::bad_alloc" << " ";
                 std::cerr << ba.what() << std::endl;
             }
             // 8. Average number of vertexes in strongly connected component
-            {
+            try {
                 std::vector <int> components;
                 find_strongly_connected_components(&components, graph);
                 std::map <int, int> m;
@@ -74,10 +74,26 @@ namespace Pipeline {
                     sum += comp.second;
                 out << static_cast<double>(sum) / m.size() << " ";
             }
+            catch (std::bad_alloc ba) {
+                out << "std::bad_alloc" << " ";
+                std::cerr << ba.what() << std::endl;
+            }
             // 9. Number of bridges
-            out << count_bridges(graph) << " ";
+            try {
+                out << count_bridges(graph) << " ";
+            }
+            catch (std::bad_alloc ba) {
+                out << "std::bad_alloc" << " ";
+                std::cerr << ba.what() << std::endl;
+            }
             // 10. Number of joint points
-            out << count_joint_points(graph) << " ";
+            try {
+                out << count_joint_points(graph) << " ";
+            }
+            catch (std::bad_alloc ba) {
+                out << "std::bad_alloc" << " ";
+                std::cerr << ba.what() << std::endl;
+            }
             // 11. Average eccentricity of vertexes
             try {
                 auto ecc = vertexes_eccentricity(graph);
@@ -85,11 +101,17 @@ namespace Pipeline {
                 out << static_cast<double>(ecc_sum) / graph.n << " ";
             }
             catch (std::bad_alloc ba) {
-                out << -1 << " ";
+                out << "std::bad_alloc" << " ";
                 std::cerr << ba.what() << std::endl;
             }
             // 12. Sum of edges weight in minimal spanning tree
-            out << get_cost_of_minimal_spanning_tree(graph) << std::endl;
+            try {
+                out << get_cost_of_minimal_spanning_tree(graph) << std::endl;
+            }
+            catch (std::bad_alloc ba) {
+                out << "std::bad_alloc" << " ";
+                std::cerr << ba.what() << std::endl;
+            }
             // End of evaluation
             out.close();
             return output_file_name;
