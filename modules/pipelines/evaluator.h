@@ -97,7 +97,7 @@ namespace Pipeline {
             // 11. Average eccentricity of vertexes
             try {
                 auto ecc = vertexes_eccentricity(graph);
-                int ecc_sum = std::accumulate(begin(ecc), end(ecc), 0);
+                double ecc_sum = std::accumulate(begin(ecc), end(ecc), 0);
                 out << static_cast<double>(ecc_sum) / graph.n << " ";
             }
             catch (std::bad_alloc ba) {

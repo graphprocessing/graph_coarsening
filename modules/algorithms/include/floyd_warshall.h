@@ -4,7 +4,7 @@
 #include "../../pch/include/precomp.h"
 
 template <typename WeightType>
-void floyd_warshall(std::vector <std::vector <int>>* matrix,
+void floyd_warshall(std::vector <std::vector <WeightType>>* matrix,
                             const CSR<WeightType>& graph) {
     int n = graph.n;
     matrix->resize(n);

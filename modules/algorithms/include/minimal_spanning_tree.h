@@ -4,7 +4,7 @@
 #include "../../pch/include/precomp.h"
 
 template <typename WeightType>
-int get_cost_of_minimal_spanning_tree(const CSR<WeightType>& graph) {
+WeightType get_cost_of_minimal_spanning_tree(const CSR<WeightType>& graph) {
     AL <WeightType> al_graph(graph);
     std::vector <std::pair <WeightType, std::pair <int, int>>> edges;
     for (int i = 0; i < al_graph.n; ++i)
@@ -13,11 +13,11 @@ int get_cost_of_minimal_spanning_tree(const CSR<WeightType>& graph) {
                     {i, al_graph.edges[i][j]}});
     std::sort(begin(edges), end(edges));
     DSU dsu(graph.n);
-    int cost = 0;
+    WeightType cost = 0;
     for (unsigned i = 0; i < edges.size(); ++i) {
         int a = edges[i].second.first,
-            b = edges[i].second.second,
-            w = edges[i].first;
+            b = edges[i].second.second;
+        WeightType w = edges[i].first;
         if (dsu.get(a) != dsu.get(b)) {
             cost += w;
             dsu.unite(a, b);
