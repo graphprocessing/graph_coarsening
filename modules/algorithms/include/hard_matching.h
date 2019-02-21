@@ -22,11 +22,12 @@ Matching hard_matching(const AL<WeightType>& graph) {
     }
     for (unsigned i = 0; i < graph.edges.size(); i++) {
         int v = ed[i];
-        int max_len = 0, e = -1;
+        WeightType max_len = 0;
+        int e = -1;
         if (al_id[v] > 0) {
             for (unsigned j = 0; j < graph.edges[v].size(); j++) {
-                int to = graph.edges[v][j],
-                    len = graph.weights[v][j];
+                int to = graph.edges[v][j];
+                WeightType len = graph.weights[v][j];
                 if (len > max_len && al_id[to] > 0) {
                     max_len = len;
                     e = to;
