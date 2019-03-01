@@ -304,6 +304,176 @@ TEST(random_matching_fixed_test, basic_cube_test_al_5) {
     ASSERT_EQ(expected.edge_e, matching.edge_e);
 }
 
+TEST(random_matching_fixed_test, basic_cycle_generator_csr_1) {
+    CSR<int> graph = cycle_generator<int>(10);
+    Matching matching = random_matching(graph, 0, graph.n, 1012);
+    Matching expected;
+    expected.edge_b = {9, 0, 2, 4, 6};
+    expected.edge_e = {8, 1, 3, 5, 7};
+    ASSERT_EQ(expected.edge_b, matching.edge_b);
+    ASSERT_EQ(expected.edge_e, matching.edge_e);
+}
+
+TEST(random_matching_fixed_test, basic_cycle_generator_csr_2) {
+    CSR<int> graph = cycle_generator<int>(9);
+    Matching matching = random_matching(graph, 0, graph.n, 1013);
+    Matching expected;
+    expected.edge_b = {0, 2, 4, 6};
+    expected.edge_e = {8, 1, 5, 7};
+    ASSERT_EQ(expected.edge_b, matching.edge_b);
+    ASSERT_EQ(expected.edge_e, matching.edge_e);
+}
+
+TEST(random_matching_fixed_test, basic_cycle_generator_csr_3) {
+    CSR<int> graph = cycle_generator<int>(5);
+    Matching matching = random_matching(graph, 0, graph.n, 1014);
+    Matching expected;
+    expected.edge_b = {3, 4};
+    expected.edge_e = {2, 0};
+    ASSERT_EQ(expected.edge_b, matching.edge_b);
+    ASSERT_EQ(expected.edge_e, matching.edge_e);
+}
+
+TEST(random_matching_fixed_test, basic_cycle_generator_csr_4) {
+    CSR<int> graph = cycle_generator<int>(2);
+    Matching matching = random_matching(graph, 0, graph.n, 1015);
+    Matching expected;
+    expected.edge_b = {0};
+    expected.edge_e = {1};
+    ASSERT_EQ(expected.edge_b, matching.edge_b);
+    ASSERT_EQ(expected.edge_e, matching.edge_e);
+}
+
+TEST(random_matching_fixed_test, basic_cycle_generator_csr_5) {
+    CSR<int> graph = cycle_generator<int>(7);
+    Matching matching = random_matching(graph, 0, graph.n, 1016);
+    Matching expected;
+    expected.edge_b = {0, 1, 3};
+    expected.edge_e = {6, 2, 4};
+    ASSERT_EQ(expected.edge_b, matching.edge_b);
+    ASSERT_EQ(expected.edge_e, matching.edge_e);
+}
+
+TEST(random_matching_fixed_test, basic_stars_generator_csr_1) {
+    CSR<int> graph = stars_generator<int>(1);
+    Matching matching = random_matching(graph, 0, graph.n, 1012);
+    Matching expected;
+    expected.edge_b = {5};
+    expected.edge_e = {0};
+    ASSERT_EQ(expected.edge_b, matching.edge_b);
+    ASSERT_EQ(expected.edge_e, matching.edge_e);
+}
+
+TEST(random_matching_fixed_test, basic_stars_generator_csr_2) {
+    CSR<int> graph = stars_generator<int>(2);
+    Matching matching = random_matching(graph, 0, graph.n, 1013);
+    Matching expected;
+    expected.edge_b = {0, 6};
+    expected.edge_e = {4, 8};
+    ASSERT_EQ(expected.edge_b, matching.edge_b);
+    ASSERT_EQ(expected.edge_e, matching.edge_e);
+}
+
+TEST(random_matching_fixed_test, basic_stars_generator_csr_3) {
+    CSR<int> graph = stars_generator<int>(1);
+    Matching matching = random_matching(graph, 0, graph.n, 1014);
+    Matching expected;
+    expected.edge_b = {3};
+    expected.edge_e = {0};
+    ASSERT_EQ(expected.edge_b, matching.edge_b);
+    ASSERT_EQ(expected.edge_e, matching.edge_e);
+}
+
+TEST(random_matching_fixed_test, basic_stars_generator_csr_4) {
+    CSR<int> graph = stars_generator<int>(2);
+    Matching matching = random_matching(graph, 0, graph.n, 1015);
+    Matching expected;
+    expected.edge_b = {0, 6};
+    expected.edge_e = {4, 7};
+    ASSERT_EQ(expected.edge_b, matching.edge_b);
+    ASSERT_EQ(expected.edge_e, matching.edge_e);
+}
+
+TEST(random_matching_fixed_test, basic_stars_generator_csr_5) {
+    CSR<int> graph = stars_generator<int>(1);
+    Matching matching = random_matching(graph, 0, graph.n, 1016);
+    Matching expected;
+    expected.edge_b = {0};
+    expected.edge_e = {5};
+    ASSERT_EQ(expected.edge_b, matching.edge_b);
+    ASSERT_EQ(expected.edge_e, matching.edge_e);
+}
+
+TEST(random_matching_fixed_test, basic_stars_generator_csr_6) {
+    CSR<int> graph = stars_generator<int>(3);
+    Matching matching = random_matching(graph, 0, graph.n, 1016);
+    Matching expected;
+    expected.edge_b = {0, 12};
+    expected.edge_e = {6, 13};
+    ASSERT_EQ(expected.edge_b, matching.edge_b);
+    ASSERT_EQ(expected.edge_e, matching.edge_e);
+}
+
+TEST(random_matching_fixed_test, basic_chain_generator_csr_1) {
+    CSR<int> graph = chain_generator<int>(3, 3);
+    Matching matching = random_matching(graph, 0, graph.n, 1012);
+    Matching expected;
+    expected.edge_b = {8, 0, 3};
+    expected.edge_e = {7, 2, 4};
+    ASSERT_EQ(expected.edge_b, matching.edge_b);
+    ASSERT_EQ(expected.edge_e, matching.edge_e);
+}
+
+TEST(random_matching_fixed_test, basic_chain_generator_csr_2) {
+    CSR<int> graph = chain_generator<int>(3, 3);
+    Matching matching = random_matching(graph, 0, graph.n, 1013);
+    Matching expected;
+    expected.edge_b = {0, 4, 6};
+    expected.edge_e = {2, 3, 8};
+    ASSERT_EQ(expected.edge_b, matching.edge_b);
+    ASSERT_EQ(expected.edge_e, matching.edge_e);
+}
+
+TEST(random_matching_fixed_test, basic_chain_generator_csr_3) {
+    CSR<int> graph = chain_generator<int>(1, 4);
+    Matching matching = random_matching(graph, 0, graph.n, 1014);
+    Matching expected;
+    expected.edge_b = {3, 0};
+    expected.edge_e = {2, 1};
+    ASSERT_EQ(expected.edge_b, matching.edge_b);
+    ASSERT_EQ(expected.edge_e, matching.edge_e);
+}
+
+TEST(random_matching_fixed_test, basic_chain_generator_csr_4) {
+    CSR<int> graph = chain_generator<int>(2, 5);
+    Matching matching = random_matching(graph, 0, graph.n, 1015);
+    Matching expected;
+    expected.edge_b = {0, 2, 5, 8};
+    expected.edge_e = {4, 3, 6, 7};
+    ASSERT_EQ(expected.edge_b, matching.edge_b);
+    ASSERT_EQ(expected.edge_e, matching.edge_e);
+}
+
+TEST(random_matching_fixed_test, basic_chain_generator_csr_5) {
+    CSR<int> graph = chain_generator<int>(1, 3);
+    Matching matching = random_matching(graph, 0, graph.n, 1016);
+    Matching expected;
+    expected.edge_b = {0};
+    expected.edge_e = {2};
+    ASSERT_EQ(expected.edge_b, matching.edge_b);
+    ASSERT_EQ(expected.edge_e, matching.edge_e);
+}
+
+TEST(random_matching_fixed_test, basic_chain_generator_csr_6) {
+    CSR<int> graph = chain_generator<int>(1, 2);
+    Matching matching = random_matching(graph, 0, graph.n, 1016);
+    Matching expected;
+    expected.edge_b = {0};
+    expected.edge_e = {1};
+    ASSERT_EQ(expected.edge_b, matching.edge_b);
+    ASSERT_EQ(expected.edge_e, matching.edge_e);
+}
+
 #endif  // __linux__
 
 #ifdef _WIN32

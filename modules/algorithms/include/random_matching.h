@@ -9,6 +9,8 @@ Matching random_matching(const AL<WeightType>& graph, int distribution = 0,
     std::random_device rd;
     std::mt19937 generator(rd());
     Matching matching;
+    if (vertexes_in_matching <= 0)
+        return matching;
     std::vector <char> used(n, 0);
     std::vector <int> permutation(n);
     for (int i = 0; i < n; ++i)
@@ -62,6 +64,8 @@ Matching random_matching(const CSR<WeightType>& graph, int distribution = 0,
     std::random_device rd;
     std::mt19937 generator(rd());
     Matching matching;
+    if (vertexes_in_matching <= 0)
+        return matching;
     std::vector <char> used(n, 0);
     std::vector <int> permutation(n);
     for (int i = 0; i < n; ++i)
