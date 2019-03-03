@@ -15,7 +15,7 @@ TEST(al_test, random_washington_test_generates) {
 }
 
 TEST(al_test, basic_zadeh_test_generates) {
-    ASSERT_NO_THROW(CSR<int> csr = zadeh_test<int>(20));
+    ASSERT_NO_THROW(CSR<int> csr = zadeh_test<int>(2));
 }
 
 TEST(al_test, random_zadeh_test_generates) {
