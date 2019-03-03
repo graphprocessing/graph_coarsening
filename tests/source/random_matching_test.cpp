@@ -780,3 +780,306 @@ TEST(random_matching_fixed_test, basic_cube_test_al_5) {
 }
 
 #endif  // _WIN32
+
+#ifdef __APPLE__
+TEST(random_matching_fixed_test, basic_washington_test_csr) {
+    CSR<int> graph = washington_test<int>(2);
+    Matching matching = random_matching(graph, 0, graph.n, 10);
+    Matching expected;
+    expected.edge_b = {4, 3, 0, 7};
+    expected.edge_e = {6, 5, 1, 8};
+    ASSERT_EQ(expected.edge_b, matching.edge_b);
+    ASSERT_EQ(expected.edge_e, matching.edge_e);
+}
+
+TEST(random_matching_fixed_test, basic_washington_test_al) {
+    AL<int> graph = washington_test<int>(2);
+    Matching matching = random_matching(graph, 0, graph.n, 10);
+    Matching expected;
+    expected.edge_b = {4, 3, 0, 7};
+    expected.edge_e = {6, 5, 1, 8};
+    ASSERT_EQ(expected.edge_b, matching.edge_b);
+    ASSERT_EQ(expected.edge_e, matching.edge_e);
+}
+
+TEST(random_matching_fixed_test, basic_zadeh_test_csr) {
+    CSR<int> graph = zadeh_test<int>(2);
+    Matching matching = random_matching(graph, 0, graph.n, 10);
+    Matching expected;
+    expected.edge_b = {9, 10, 7, 6, 8, 0};
+    expected.edge_e = {3, 11, 5, 4, 2, 1};
+    ASSERT_EQ(expected.edge_b, matching.edge_b);
+    ASSERT_EQ(expected.edge_e, matching.edge_e);
+}
+
+TEST(random_matching_fixed_test, basic_zadeh_test_al) {
+    AL<int> graph = zadeh_test<int>(2);
+    Matching matching = random_matching(graph, 0, graph.n, 10);
+    Matching expected;
+    expected.edge_b = {9, 10, 7, 6, 8, 0};
+    expected.edge_e = {3, 11, 5, 4, 2, 1};
+    ASSERT_EQ(expected.edge_b, matching.edge_b);
+    ASSERT_EQ(expected.edge_e, matching.edge_e);
+}
+
+TEST(random_matching_fixed_test, basic_cube_test_csr) {
+    CSR<int> graph = cube_test<int>(2);
+    Matching matching = random_matching(graph, 0, graph.n, 20);
+    Matching expected;
+    expected.edge_b = {3, 4, 5, 1};
+    expected.edge_e = {2, 6, 7, 0};
+    ASSERT_EQ(expected.edge_b, matching.edge_b);
+    ASSERT_EQ(expected.edge_e, matching.edge_e);
+}
+
+TEST(random_matching_fixed_test, basic_cube_test_al) {
+    AL<int> graph = cube_test<int>(2);
+    Matching matching = random_matching(graph, 0, graph.n, 20);
+    Matching expected;
+    expected.edge_b = {3, 4, 5, 1};
+    expected.edge_e = {2, 6, 7, 0};
+    ASSERT_EQ(expected.edge_b, matching.edge_b);
+    ASSERT_EQ(expected.edge_e, matching.edge_e);
+}
+
+TEST(random_matching_fixed_test, basic_washington_test_csr_2) {
+    AL<int> graph = washington_test<int>(2);
+    Matching matching = random_matching(graph, 0, graph.n, 59);
+    Matching expected;
+    expected.edge_b = {1, 2, 5, 7};
+    expected.edge_e = {3, 4, 6, 8};
+    ASSERT_EQ(expected.edge_b, matching.edge_b);
+    ASSERT_EQ(expected.edge_e, matching.edge_e);
+}
+
+TEST(random_matching_fixed_test, basic_washington_test_al_2) {
+    AL<int> graph = washington_test<int>(2);
+    Matching matching = random_matching(graph, 0, graph.n, 59);
+    Matching expected;
+    expected.edge_b = {1, 2, 5, 7};
+    expected.edge_e = {3, 4, 6, 8};
+    ASSERT_EQ(expected.edge_b, matching.edge_b);
+    ASSERT_EQ(expected.edge_e, matching.edge_e);
+}
+
+TEST(random_matching_fixed_test, basic_zadeh_test_csr_2) {
+    CSR<int> graph = zadeh_test<int>(2);
+    Matching matching = random_matching(graph, 0, graph.n, 7893);
+    Matching expected;
+    expected.edge_b = {2, 3, 5, 7, 9, 0};
+    expected.edge_e = {8, 4, 11, 6, 10, 1};
+    ASSERT_EQ(expected.edge_b, matching.edge_b);
+    ASSERT_EQ(expected.edge_e, matching.edge_e);
+}
+
+TEST(random_matching_fixed_test, basic_zadeh_test_al_2) {
+    AL<int> graph = zadeh_test<int>(2);
+    Matching matching = random_matching(graph, 0, graph.n, 7893);
+    Matching expected;
+    expected.edge_b = {2, 3, 5, 7, 9, 0};
+    expected.edge_e = {8, 4, 11, 6, 10, 1};
+    ASSERT_EQ(expected.edge_b, matching.edge_b);
+    ASSERT_EQ(expected.edge_e, matching.edge_e);
+}
+
+TEST(random_matching_fixed_test, basic_cube_test_csr_2) {
+    CSR<int> graph = cube_test<int>(2);
+    Matching matching = random_matching(graph, 0, graph.n, 7893);
+    Matching expected;
+    expected.edge_b = {7, 3, 4, 0};
+    expected.edge_e = {6, 1, 5, 2};
+    ASSERT_EQ(expected.edge_b, matching.edge_b);
+    ASSERT_EQ(expected.edge_e, matching.edge_e);
+}
+
+TEST(random_matching_fixed_test, basic_cube_test_al_2) {
+    AL<int> graph = cube_test<int>(2);
+    Matching matching = random_matching(graph, 0, graph.n, 7893);
+    Matching expected;
+    expected.edge_b = {7, 3, 4, 0};
+    expected.edge_e = {6, 1, 5, 2};
+    ASSERT_EQ(expected.edge_b, matching.edge_b);
+    ASSERT_EQ(expected.edge_e, matching.edge_e);
+}
+
+TEST(random_matching_fixed_test, basic_washington_test_csr_3) {
+    AL<int> graph = washington_test<int>(2);
+    Matching matching = random_matching(graph, 0, graph.n, 2354);
+    Matching expected;
+    expected.edge_b = {4, 7, 1, 3};
+    expected.edge_e = {6, 8, 2, 5};
+    ASSERT_EQ(expected.edge_b, matching.edge_b);
+    ASSERT_EQ(expected.edge_e, matching.edge_e);
+}
+
+TEST(random_matching_fixed_test, basic_washington_test_al_3) {
+    AL<int> graph = washington_test<int>(2);
+    Matching matching = random_matching(graph, 0, graph.n, 2354);
+    Matching expected;
+    expected.edge_b = {4, 7, 1, 3};
+    expected.edge_e = {6, 8, 2, 5};
+    ASSERT_EQ(expected.edge_b, matching.edge_b);
+    ASSERT_EQ(expected.edge_e, matching.edge_e);
+}
+
+TEST(random_matching_fixed_test, basic_zadeh_test_csr_3) {
+    CSR<int> graph = zadeh_test<int>(2);
+    Matching matching = random_matching(graph, 0, graph.n, 1364);
+    Matching expected;
+    expected.edge_b = {5, 6, 7, 8, 10, 0};
+    expected.edge_e = {4, 3, 2, 9, 11, 1};
+    ASSERT_EQ(expected.edge_b, matching.edge_b);
+    ASSERT_EQ(expected.edge_e, matching.edge_e);
+}
+
+TEST(random_matching_fixed_test, basic_zadeh_test_al_3) {
+    AL<int> graph = zadeh_test<int>(2);
+    Matching matching = random_matching(graph, 0, graph.n, 1364);
+    Matching expected;
+    expected.edge_b = {5, 6, 7, 8, 10, 0};
+    expected.edge_e = {4, 3, 2, 9, 11, 1};
+    ASSERT_EQ(expected.edge_b, matching.edge_b);
+    ASSERT_EQ(expected.edge_e, matching.edge_e);
+}
+
+TEST(random_matching_fixed_test, basic_cube_test_csr_3) {
+    CSR<int> graph = cube_test<int>(2);
+    Matching matching = random_matching(graph, 0, graph.n, 8767);
+    Matching expected;
+    expected.edge_b = {7, 3, 4, 0};
+    expected.edge_e = {6, 1, 5, 2};
+    ASSERT_EQ(expected.edge_b, matching.edge_b);
+    ASSERT_EQ(expected.edge_e, matching.edge_e);
+}
+
+TEST(random_matching_fixed_test, basic_cube_test_al_3) {
+    AL<int> graph = cube_test<int>(2);
+    Matching matching = random_matching(graph, 0, graph.n, 8767);
+    Matching expected;
+    expected.edge_b = {7, 3, 4, 0};
+    expected.edge_e = {6, 1, 5, 2};
+    ASSERT_EQ(expected.edge_b, matching.edge_b);
+    ASSERT_EQ(expected.edge_e, matching.edge_e);
+}
+
+TEST(random_matching_fixed_test, basic_washington_test_csr_4) {
+    AL<int> graph = washington_test<int>(2);
+    Matching matching = random_matching(graph, 0, graph.n, 10001);
+    Matching expected;
+    expected.edge_b = {1, 2, 5, 7};
+    expected.edge_e = {3, 4, 6, 8};
+    ASSERT_EQ(expected.edge_b, matching.edge_b);
+    ASSERT_EQ(expected.edge_e, matching.edge_e);
+}
+
+TEST(random_matching_fixed_test, basic_washington_test_al_4) {
+    AL<int> graph = washington_test<int>(2);
+    Matching matching = random_matching(graph, 0, graph.n, 10001);
+    Matching expected;
+    expected.edge_b = {1, 2, 5, 7};
+    expected.edge_e = {3, 4, 6, 8};
+    ASSERT_EQ(expected.edge_b, matching.edge_b);
+    ASSERT_EQ(expected.edge_e, matching.edge_e);
+}
+
+TEST(random_matching_fixed_test, basic_zadeh_test_csr_4) {
+    CSR<int> graph = zadeh_test<int>(2);
+    Matching matching = random_matching(graph, 0, graph.n, 10002);
+    Matching expected;
+    expected.edge_b = {1, 2, 4, 6, 8};
+    expected.edge_e = {7, 3, 5, 10, 9};
+    ASSERT_EQ(expected.edge_b, matching.edge_b);
+    ASSERT_EQ(expected.edge_e, matching.edge_e);
+}
+
+TEST(random_matching_fixed_test, basic_zadeh_test_al_4) {
+    AL<int> graph = zadeh_test<int>(2);
+    Matching matching = random_matching(graph, 0, graph.n, 10002);
+    Matching expected;
+    expected.edge_b = {1, 2, 4, 6, 8};
+    expected.edge_e = {7, 3, 5, 10, 9};
+    ASSERT_EQ(expected.edge_b, matching.edge_b);
+    ASSERT_EQ(expected.edge_e, matching.edge_e);
+}
+
+TEST(random_matching_fixed_test, basic_cube_test_csr_4) {
+    CSR<int> graph = cube_test<int>(2);
+    Matching matching = random_matching(graph, 0, graph.n, 10003);
+    Matching expected;
+    expected.edge_b = {5, 6, 0, 2};
+    expected.edge_e = {7, 4, 1, 3};
+    ASSERT_EQ(expected.edge_b, matching.edge_b);
+    ASSERT_EQ(expected.edge_e, matching.edge_e);
+}
+
+TEST(random_matching_fixed_test, basic_cube_test_al_4) {
+    AL<int> graph = cube_test<int>(2);
+    Matching matching = random_matching(graph, 0, graph.n, 10003);
+    Matching expected;
+    expected.edge_b = {5, 6, 0, 2};
+    expected.edge_e = {7, 4, 1, 3};
+    ASSERT_EQ(expected.edge_b, matching.edge_b);
+    ASSERT_EQ(expected.edge_e, matching.edge_e);
+}
+
+TEST(random_matching_fixed_test, basic_washington_test_csr_5) {
+    AL<int> graph = washington_test<int>(2);
+    Matching matching = random_matching(graph, 0, graph.n, 1010);
+    Matching expected;
+    expected.edge_b = {4, 7, 1, 3};
+    expected.edge_e = {6, 8, 2, 5};
+    ASSERT_EQ(expected.edge_b, matching.edge_b);
+    ASSERT_EQ(expected.edge_e, matching.edge_e);
+}
+
+TEST(random_matching_fixed_test, basic_washington_test_al_5) {
+    AL<int> graph = washington_test<int>(2);
+    Matching matching = random_matching(graph, 0, graph.n, 1010);
+    Matching expected;
+    expected.edge_b = {4, 7, 1, 3};
+    expected.edge_e = {6, 8, 2, 5};
+    ASSERT_EQ(expected.edge_b, matching.edge_b);
+    ASSERT_EQ(expected.edge_e, matching.edge_e);
+}
+
+TEST(random_matching_fixed_test, basic_zadeh_test_csr_5) {
+    CSR<int> graph = zadeh_test<int>(2);
+    Matching matching = random_matching(graph, 0, graph.n, 1011);
+    Matching expected;
+    expected.edge_b = {5, 6, 7, 3, 8, 0};
+    expected.edge_e = {9, 4, 2, 11, 10, 1};
+    ASSERT_EQ(expected.edge_b, matching.edge_b);
+    ASSERT_EQ(expected.edge_e, matching.edge_e);
+}
+
+TEST(random_matching_fixed_test, basic_zadeh_test_al_5) {
+    AL<int> graph = zadeh_test<int>(2);
+    Matching matching = random_matching(graph, 0, graph.n, 1011);
+    Matching expected;
+    expected.edge_b = {5, 6, 7, 3, 8, 0};
+    expected.edge_e = {9, 4, 2, 11, 10, 1};
+    ASSERT_EQ(expected.edge_b, matching.edge_b);
+    ASSERT_EQ(expected.edge_e, matching.edge_e);
+}
+
+TEST(random_matching_fixed_test, basic_cube_test_csr_5) {
+    CSR<int> graph = cube_test<int>(2);
+    Matching matching = random_matching(graph, 0, graph.n, 1012);
+    Matching expected;
+    expected.edge_b = {2, 4, 5};
+    expected.edge_e = {3, 0, 7};
+    ASSERT_EQ(expected.edge_b, matching.edge_b);
+    ASSERT_EQ(expected.edge_e, matching.edge_e);
+}
+
+TEST(random_matching_fixed_test, basic_cube_test_al_5) {
+    AL<int> graph = cube_test<int>(2);
+    Matching matching = random_matching(graph, 0, graph.n, 1012);
+    Matching expected;
+    expected.edge_b = {2, 4, 5};
+    expected.edge_e = {3, 0, 7};
+    ASSERT_EQ(expected.edge_b, matching.edge_b);
+    ASSERT_EQ(expected.edge_e, matching.edge_e);
+}
+
+#endif  // __APPLE__
