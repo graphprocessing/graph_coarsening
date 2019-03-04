@@ -46,6 +46,8 @@
 #include "modules/algorithms/include/graph_distances.h"
 #include "modules/algorithms/include/minimal_spanning_tree.h"
 #include "modules/algorithms/include/strongly_connected_components.h"
+#include "modules/algorithms/include/edmonds.h"
+
 // Import/export
 #include "modules/common/include/import.h"
 #include "modules/common/include/export.h"
