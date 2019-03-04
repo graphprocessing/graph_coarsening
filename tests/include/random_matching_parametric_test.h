@@ -25,8 +25,11 @@ class random_matching_washington_test : public testing::TestWithParam<int> {
             ASSERT_TRUE((used[i] == 0) || (used[i] == 1));
         for (int i = 0; i < csr.n; ++i) {
             if (!used[i]) {
-                for (int j = csr.offset[i]; j < csr.offset[i+1]; ++j)
-                    ASSERT_NE(0, used[csr.edges[j]]);
+                for (int j = csr.offset[i]; j < csr.offset[i+1]; ++j) {
+                    if (csr.edges[j] != i) {
+                        ASSERT_NE(0, used[csr.edges[j]]);
+                    }
+                }
             }
         }
     }
@@ -43,8 +46,11 @@ class random_matching_washington_test : public testing::TestWithParam<int> {
             ASSERT_TRUE((used[i] == 0) || (used[i] == 1));
         for (int i = 0; i < al.n; ++i) {
             if (!used[i]) {
-                for (unsigned j = 0; j < al.edges[i].size(); ++j)
-                    ASSERT_NE(0, used[al.edges[i][j]]);
+                for (unsigned j = 0; j < al.edges[i].size(); ++j) {
+                    if (al.edges[i][j] != i) {
+                        ASSERT_NE(0, used[al.edges[i][j]]);
+                    }
+                }
             }
         }
     }
@@ -101,8 +107,11 @@ class random_matching_zadeh_test : public testing::TestWithParam<int> {
             ASSERT_TRUE((used[i] == 0) || (used[i] == 1));
         for (int i = 0; i < csr.n; ++i) {
             if (!used[i]) {
-                for (int j = csr.offset[i]; j < csr.offset[i+1]; ++j)
-                    ASSERT_NE(0, used[csr.edges[j]]);
+                for (int j = csr.offset[i]; j < csr.offset[i+1]; ++j) {
+                    if (csr.edges[j] != i) {
+                        ASSERT_NE(0, used[csr.edges[j]]);
+                    }
+                }
             }
         }
     }
@@ -119,8 +128,11 @@ class random_matching_zadeh_test : public testing::TestWithParam<int> {
             ASSERT_TRUE((used[i] == 0) || (used[i] == 1));
         for (int i = 0; i < al.n; ++i) {
             if (!used[i]) {
-                for (unsigned j = 0; j < al.edges[i].size(); ++j)
-                    ASSERT_NE(0, used[al.edges[i][j]]);
+                for (unsigned j = 0; j < al.edges[i].size(); ++j) {
+                    if (al.edges[i][j] != i) {
+                        ASSERT_NE(0, used[al.edges[i][j]]);
+                    }
+                }
             }
         }
     }
@@ -177,8 +189,11 @@ class random_matching_cube_test : public testing::TestWithParam<int> {
             ASSERT_TRUE((used[i] == 0) || (used[i] == 1));
         for (int i = 0; i < csr.n; ++i) {
             if (!used[i]) {
-                for (int j = csr.offset[i]; j < csr.offset[i+1]; ++j)
-                    ASSERT_NE(0, used[csr.edges[j]]);
+                for (int j = csr.offset[i]; j < csr.offset[i+1]; ++j) {
+                    if (csr.edges[j] != i) {
+                        ASSERT_NE(0, used[csr.edges[j]]);
+                    }
+                }
             }
         }
     }
@@ -195,8 +210,11 @@ class random_matching_cube_test : public testing::TestWithParam<int> {
             ASSERT_TRUE((used[i] == 0) || (used[i] == 1));
         for (int i = 0; i < al.n; ++i) {
             if (!used[i]) {
-                for (unsigned j = 0; j < al.edges[i].size(); ++j)
-                    ASSERT_NE(0, used[al.edges[i][j]]);
+                for (unsigned j = 0; j < al.edges[i].size(); ++j) {
+                    if (al.edges[i][j] != i) {
+                        ASSERT_NE(0, used[al.edges[i][j]]);
+                    }
+                }
             }
         }
     }
@@ -253,8 +271,11 @@ class random_matching_cycle_generator : public testing::TestWithParam<int> {
             ASSERT_TRUE((used[i] == 0) || (used[i] == 1));
         for (int i = 0; i < csr.n; ++i) {
             if (!used[i]) {
-                for (int j = csr.offset[i]; j < csr.offset[i+1]; ++j)
-                    ASSERT_NE(0, used[csr.edges[j]]);
+                for (int j = csr.offset[i]; j < csr.offset[i+1]; ++j) {
+                    if (csr.edges[j] != i) {
+                        ASSERT_NE(0, used[csr.edges[j]]);
+                    }
+                }
             }
         }
     }
@@ -271,8 +292,11 @@ class random_matching_cycle_generator : public testing::TestWithParam<int> {
             ASSERT_TRUE((used[i] == 0) || (used[i] == 1));
         for (int i = 0; i < al.n; ++i) {
             if (!used[i]) {
-                for (unsigned j = 0; j < al.edges[i].size(); ++j)
-                    ASSERT_NE(0, used[al.edges[i][j]]);
+                for (unsigned j = 0; j < al.edges[i].size(); ++j) {
+                    if (al.edges[i][j] != i) {
+                        ASSERT_NE(0, used[al.edges[i][j]]);
+                    }
+                }
             }
         }
     }
@@ -329,8 +353,11 @@ class random_matching_stars_generator : public testing::TestWithParam<int> {
             ASSERT_TRUE((used[i] == 0) || (used[i] == 1));
         for (int i = 0; i < csr.n; ++i) {
             if (!used[i]) {
-                for (int j = csr.offset[i]; j < csr.offset[i+1]; ++j)
-                    ASSERT_NE(0, used[csr.edges[j]]);
+                for (int j = csr.offset[i]; j < csr.offset[i+1]; ++j) {
+                    if (csr.edges[j] != i) {
+                        ASSERT_NE(0, used[csr.edges[j]]);
+                    }
+                }
             }
         }
     }
@@ -347,8 +374,11 @@ class random_matching_stars_generator : public testing::TestWithParam<int> {
             ASSERT_TRUE((used[i] == 0) || (used[i] == 1));
         for (int i = 0; i < al.n; ++i) {
             if (!used[i]) {
-                for (unsigned j = 0; j < al.edges[i].size(); ++j)
-                    ASSERT_NE(0, used[al.edges[i][j]]);
+                for (unsigned j = 0; j < al.edges[i].size(); ++j) {
+                    if (al.edges[i][j] != i) {
+                        ASSERT_NE(0, used[al.edges[i][j]]);
+                    }
+                }
             }
         }
     }
@@ -406,8 +436,11 @@ class random_matching_chain_generator :
             ASSERT_TRUE((used[i] == 0) || (used[i] == 1));
         for (int i = 0; i < csr.n; ++i) {
             if (!used[i]) {
-                for (int j = csr.offset[i]; j < csr.offset[i+1]; ++j)
-                    ASSERT_NE(0, used[csr.edges[j]]);
+                for (int j = csr.offset[i]; j < csr.offset[i+1]; ++j) {
+                    if (csr.edges[j] != i) {
+                        ASSERT_NE(0, used[csr.edges[j]]);
+                    }
+                }
             }
         }
     }
@@ -424,8 +457,11 @@ class random_matching_chain_generator :
             ASSERT_TRUE((used[i] == 0) || (used[i] == 1));
         for (int i = 0; i < al.n; ++i) {
             if (!used[i]) {
-                for (unsigned j = 0; j < al.edges[i].size(); ++j)
-                    ASSERT_NE(0, used[al.edges[i][j]]);
+                for (unsigned j = 0; j < al.edges[i].size(); ++j) {
+                    if (al.edges[i][j] != i) {
+                        ASSERT_NE(0, used[al.edges[i][j]]);
+                    }
+                }
             }
         }
     }
@@ -474,8 +510,8 @@ std::vector <int> generate_samples(int from, int to, int n = 20) {
 
 std::vector <std::pair <int, int>>
             generate_pair_samples(int from, int to, int n = 20) {
-    std::vector <int> r1 = generate_samples(0, 50, 3);
-    std::vector <int> r2 = generate_samples(0, 50, 3);
+    std::vector <int> r1 = generate_samples(from, to, 3);
+    std::vector <int> r2 = generate_samples(from, to, 3);
     std::vector <std::pair <int, int>> result;
     for (int i = 0; i < n; ++i)
         result.emplace_back(r1[i], r2[i]);

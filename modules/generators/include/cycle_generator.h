@@ -7,6 +7,8 @@ template <typename WeightType>
 AL<WeightType> cycle_generator(int n, bool weighted = false) {
     const int max_weight = 100000;
     AL <WeightType> graph;
+    if (n <= 0)
+        return graph;
     try {
         std::random_device rd;
         std::mt19937 generator(rd());

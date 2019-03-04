@@ -25,7 +25,8 @@ Matching random_matching(const AL<WeightType>& graph, int distribution = 0,
                 continue;
             int next = -2;
             for (int i = 0; i < sz; ++i) {
-                if (!used[graph.edges[vertex][i]]) {
+                if (!used[graph.edges[vertex][i]] &&
+                                    graph.edges[vertex][i] != vertex) {
                     next = -1;
                     break;
                 }
@@ -41,7 +42,8 @@ Matching random_matching(const AL<WeightType>& graph, int distribution = 0,
                     std::mt19937 fixed_generator(seed++);
                     res = dist(fixed_generator);
                 }
-                if (!used[graph.edges[vertex][res]]) {
+                if (!used[graph.edges[vertex][res]] &&
+                                    graph.edges[vertex][res] != vertex) {
                     next = graph.edges[vertex][res];
                 }
             }
@@ -81,7 +83,7 @@ Matching random_matching(const CSR<WeightType>& graph, int distribution = 0,
             if (begin == end)
                 continue;
             for (int i = begin; i < end; ++i) {
-                if (!used[graph.edges[i]]) {
+                if (!used[graph.edges[i]] && graph.edges[i] != vertex) {
                     next = -1;
                     break;
                 }
@@ -97,7 +99,8 @@ Matching random_matching(const CSR<WeightType>& graph, int distribution = 0,
                     std::mt19937 fixed_generator(seed++);
                     res = dist(fixed_generator);
                 }
-                if (!used[graph.edges[begin + res]]) {
+                if (!used[graph.edges[begin + res]] &&
+                                    graph.edges[begin + res] != vertex) {
                     next = graph.edges[begin + res];
                 }
             }
