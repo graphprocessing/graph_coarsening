@@ -41,5 +41,5 @@ matrix:
       script:
         - python build.py build clang
         - python build.py test clang
-        # - python build.py benchmark clang
+        - python build.py benchmark clang
     #######################################################
