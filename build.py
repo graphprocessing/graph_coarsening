@@ -10,7 +10,6 @@ compiler = {
     "icc" : ("icc", "icpc")
 }
 build_directories = dict()
-pipelines = False
 
 def create_folders():
     global data_directory, build_directoriess
@@ -64,36 +63,6 @@ def lint():
     return_code += lint_walk("samples")
     return return_code
 
-def setup_pipelines():
-    global pipelines
-    if not os.path.exists("modules/pipelines/pipeline_management.h"):
-        return -1
-    os.chdir("modules/pipelines")
-    f = open("pipeline_management.h", "r")
-    file_lines = []
-    found_mark = False
-    for index, line in enumerate(f):
-        if line.startswith("// <build.py> Pipelines declarations"):
-            found_mark = True
-        elif not found_mark:
-            file_lines.append(line)
-        elif line.startswith("// <build.py> End of pipelines declarations"):
-            found_mark = False
-    f.close()
-    f = open("pipeline_management.h", "w")
-    if not pipelines:
-        for path, _, files in os.walk(os.getcwd()):
-            file_lines.insert(-1, "// <build.py> Pipelines declarations\n")
-            for file in files:
-                file_lines.insert(-1, '#include "../pipelines/' + file + '"\n')
-            file_lines.insert(-1, "// <build.py> End of pipelines declarations\n")
-        pipelines = True
-    for line in file_lines:
-        f.write(line)
-    f.close()
-    os.chdir(project_directory)
-    return 0
-
 def build():
     if ((os.name == "posix" and compiler_name == "msvc") or
         (os.name == "nt" and compiler_name == "clang")):
@@ -101,7 +70,6 @@ def build():
         exit(1)
     return_code = 0
     subprocess.call('git submodule update --init --recursive', shell=True)
-    setup_pipelines() # add pipeline includes
     if not os.path.exists(build_directories[compiler_name]):
         os.mkdir(build_directories[compiler_name])
     os.chdir(build_directories[compiler_name])
@@ -122,8 +90,6 @@ def build():
         subprocess.call("cppcheck --project=compile_commands.json > log_cppcheck", shell=True)
     subprocess.call("python " + os.path.join(project_directory, "scripts/static_analysis.py") + " log_cppcheck", shell=True)
     return_code = subprocess.call("cmake --build . ", shell=True)
-    os.chdir(project_directory)
-    setup_pipelines() # remove pipeline includes
     os.chdir(project_directory)
     return return_code
 
@@ -191,18 +157,7 @@ def cmake_graph():
     return return_code
 
 def run_pipelines(args):
-    try:
-        return_code = run_example(args[0], args[1:-1])
-        if return_code != 0:
-            return return_code
-        if os.name == "posix":
-            return_code = subprocess.call("python3 scripts/pipelines_table.py " + data_directory + " " + args[-1], shell=True)
-        elif os.name == "nt":
-            return_code = subprocess.call("python scripts/pipelines_table.py " + data_directory + " " + args[-1], shell=True)
-        return return_code
-    except IndexError:
-        print("Invalid args format. Expected: <compiler> <example_name> <input_files> <output_file>")
-        return -1
+    return run_example("pipelines", args)
 
 def visualize(data_file = None):
     if os.name == "posix":

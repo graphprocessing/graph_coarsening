@@ -1,7 +1,9 @@
 import sys
 import matplotlib.pyplot as plt
+from datetime import datetime
 
 file = sys.argv[1]
+system_time = datetime.now().strftime("%Y-%m-%d %H-%M-%S")
 
 if __name__ == "__main__":
     f = open(file)
@@ -15,4 +17,4 @@ if __name__ == "__main__":
     plt.hist(x, bins=num_bins)
     print("min: ", min(*x))
     print("max: ", max(*x))
-    plt.show()
+    plt.savefig(system_time + "_graph.png", format="png", dpi=500)

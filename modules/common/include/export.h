@@ -9,7 +9,7 @@ bool export_for_visualization(const Graph<WeightType>& graph,
     std::ofstream out(file);
     if (!out.is_open())
         return false;
-    out << std::fixed;
+    // out << std::fixed;
     std::vector <std::pair <int, WeightType>> neighbours;
     for (int i = 0; i < graph.n; ++i) {
         neighbours.clear();

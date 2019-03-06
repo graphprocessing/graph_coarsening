@@ -4,3 +4,6 @@
 [submodule "3rdparty/benchmark"]
 	path = 3rdparty/benchmark
 	url = https://github.com/google/benchmark
+[submodule "3rdparty/libyaml"]
+	path = 3rdparty/libyaml
+	url = https://github.com/yaml/libyaml

@@ -19,6 +19,7 @@
 #include <set>
 #include <map>
 #include <queue>
+#include <sstream>
 // Graph common
 #include "modules/common/include/timer.h"
 #include "modules/common/include/randomize.h"
@@ -51,5 +52,8 @@
 // Import/export
 #include "modules/common/include/import.h"
 #include "modules/common/include/export.h"
+// yaml
+#include "3rdparty/libyaml/include/yaml.h"
+#include "modules/pipelines/include/parser.h"
 
 #endif  // MODULES_PCH_INCLUDE_PRECOMP_H_

@@ -1,0 +1,18 @@
+test_pipeline:
+  - graph_generate: cube_test
+    n: 25
+    weighted: 1
+  - graph_export_edges: ../graph_data/cube_01.txt
+  - coarsening: matching
+    type: random
+    count: 5
+  - coarsening: matching
+    type: hard
+    count: 5
+  - evaluate: pipeline_time
+  - evaluate: vertexes
+  - evaluate: edges
+  - graph_output: ../graph_data/cube_test_compressed.bin
+  - table_output: ../graph_data/table.txt
+    append: 0
+  - graph_export_edges: ../graph_data/cube_02.txt

@@ -1,6 +1,5 @@
 // Copyright [year] <Copyright Owner>
 #include "modules/pch/include/precomp.h"
-#include "modules/pipelines/pipeline_management.h"
 
 int main(int argc, char** argv) {
     for (int i = 1; i < argc; ++i) {
@@ -12,7 +11,6 @@ int main(int argc, char** argv) {
             graph.weights[i] = 1;
         // std::cout << AL<double>(graph);
         graph.write("../graph_data/bio2.bin");
-        Pipeline::launch("../graph_data/bio2.bin");
         std::cout << "Pipeline is done" << std::endl;
         CSR <double> result;
         result.read("../graph_data/pipeline_coarsening_random.bin");
