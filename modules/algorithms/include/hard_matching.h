@@ -63,7 +63,8 @@ Matching hard_matching(const CSR<WeightType>& graph) {
     }
     for (int i = 0; i < size; i++) {
         int v = ed[i];
-        int max_len = 0, e = -1;
+        WeightType max_len = 0;
+        int e = -1;
         if (al_id[v] > 0) {
             for (int j = graph.offset[v]; j < graph.offset[v + 1]; ++j) {
                 int to = graph.edges[j],
