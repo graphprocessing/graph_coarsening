@@ -124,7 +124,7 @@ void PipelineParser::Pipeline::launch() {
                                 std::string param) -> std::string {
         if (command.find(param) != command.end())
             return command[param];
-        return "";
+        return "_no_parameter";
     };
     std::cout << "Commands count: " << commands.size() << std::endl;
     for (auto& command : commands) {
@@ -159,7 +159,12 @@ void PipelineParser::Pipeline::launch() {
             std::cout << "Started coarsening command" << std::endl;
             std::string coarsening_type = get_param(command, "coarsening");
             std::string type = get_param(command, "type");
-            int count = std::stoi(get_param_no_throw(command, "count"));
+            std::string count_str = get_param_no_throw(command, "count");
+            int count = 0;
+            if (count_str == "_no_parameter")
+                count = 1;
+            else
+                count = std::stoi(count_str);
             if (coarsening_type == "matching") {
                 if (type == "random") {
                     for (int i = 0; i < count; ++i) {
@@ -250,6 +255,7 @@ void PipelineParser::Pipeline::launch() {
                 std::cout << "Failed evaluate command" << std::endl;
             }
         } else if (command.find("table_output") != command.end()) {
+            std::cout << "Started table_output command" << std::endl;
             std::string file_name = get_param(command, "table_output");
             int append = std::stoi(get_param(command, "append"));
             std::ofstream f;
@@ -261,6 +267,17 @@ void PipelineParser::Pipeline::launch() {
                 f << table[i] << " ";
             f << std::endl;
             f.close();
+            std::cout << "Finished table_output command" << std::endl;
+        } else if (command.find("convert") != command.end()) {
+            std::cout << "Started convert command" << std::endl;
+            std::string convert_type = get_param(command, "convert");
+            if (convert_type == "undirected") {
+                graph = convert_to_undirected_graph<double>(graph);
+            } else {
+                throw std::runtime_error("Unknown conversion"
+                                         " type: " + convert_type);
+            }
+            std::cout << "Finished convert command" << std::endl;
         } else {
             std::stringstream s;
             s << std::endl;
