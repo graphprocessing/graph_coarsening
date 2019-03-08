@@ -179,6 +179,14 @@ void PipelineParser::Pipeline::launch() {
                         std::cout << "iteration: " << i << " n: " << graph.n
                                 << " m: " << graph.edges.size() << std::endl;
                     }
+                } else if (type == "edmonds") {
+                    for (int i = 0; i < count; ++i) {
+                        graph = graph_coarsening(graph, edmonds(graph));
+                        std::cout << "iteration: " << i << " n: " << graph.n
+                                << " m: " << graph.edges.size() << std::endl;
+                    }
+                } else {
+                    throw std::runtime_error("Unknown matching: " + type);
                 }
             } else {
                 throw std::runtime_error("Unknown coarsening: "
@@ -273,6 +281,9 @@ void PipelineParser::Pipeline::launch() {
             std::string convert_type = get_param(command, "convert");
             if (convert_type == "undirected") {
                 graph = convert_to_undirected_graph<double>(graph);
+            } else if (convert_type == "unweighted") {
+                for (unsigned i = 0; i < graph.weights.size(); ++i)
+                    graph.weights[i] = 1;
             } else {
                 throw std::runtime_error("Unknown conversion"
                                          " type: " + convert_type);
