@@ -9,7 +9,7 @@ CSR<WeightType> graph_coarsening(const CSR<WeightType>& graph,
     CSR <WeightType> g;
     std::map <int, int> Map;
     int sz = static_cast<int>(graph.n);
-    std::vector <int> new_vertex(sz, 0);
+    std::vector <WeightType> new_vertex(sz, 0);
     for (int i = 0; i < match.n; i++) {
         Map[match.edge_b[i]] = i;
         Map[match.edge_e[i]] = i;
