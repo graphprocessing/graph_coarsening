@@ -18,8 +18,7 @@ void random_matching_on_washington_test_al(benchmark::State& state) {
     }
     int m = 0;
     for (unsigned i = 0; i < graph.edges.size(); ++i)
-        for (unsigned j = 0; j < graph.edges[i].size(); ++j)
-            ++m;
+        m += graph.edges[i].size();
     state.SetComplexityN(m);
 }
 
@@ -39,8 +38,7 @@ void random_matching_on_zadeh_test_al(benchmark::State& state) {
     }
     int m = 0;
     for (unsigned i = 0; i < graph.edges.size(); ++i)
-        for (unsigned j = 0; j < graph.edges[i].size(); ++j)
-            ++m;
+        m += graph.edges[i].size();
     state.SetComplexityN(m);
 }
 
@@ -60,7 +58,6 @@ void random_matching_on_cube_test_al(benchmark::State& state) {
     }
     int m = 0;
     for (unsigned i = 0; i < graph.edges.size(); ++i)
-        for (unsigned j = 0; j < graph.edges[i].size(); ++j)
-            ++m;
+        m += graph.edges[i].size();
     state.SetComplexityN(m);
 }

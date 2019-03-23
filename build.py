@@ -1,5 +1,5 @@
 from __future__ import print_function
-import os, sys, subprocess
+import os, sys, subprocess, multiprocessing
 
 project_directory = os.getcwd()
 data_directory = None
@@ -85,11 +85,14 @@ def build():
             subprocess.call('cmake -D CMAKE_C_COMPILER=icl -D CMAKE_CXX_COMPILER=icl'
         + ' CMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ' + project_directory, shell=True)
     if os.name == "posix":
-        subprocess.call("cppcheck -j4 --project=compile_commands.json > log_cppcheck", shell=True)
+        subprocess.call("cppcheck -j" + str(multiprocessing.cpu_count()) + " --project=compile_commands.json > log_cppcheck", shell=True)
     elif os.name == "nt":
         subprocess.call("cppcheck --project=compile_commands.json > log_cppcheck", shell=True)
     subprocess.call("python " + os.path.join(project_directory, "scripts/static_analysis.py") + " log_cppcheck", shell=True)
-    return_code = subprocess.call("cmake --build . ", shell=True)
+    if os.name == "posix":
+        return_code = subprocess.call("cmake --build . -- -j" + str(multiprocessing.cpu_count()), shell=True)
+    elif os.name == "nt":
+        return_code = subprocess.call("cmake --build .", shell=True)
     os.chdir(project_directory)
     return return_code
 
