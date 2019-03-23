@@ -75,24 +75,24 @@ def build():
     os.chdir(build_directories[compiler_name])
     if os.name == "posix":
         subprocess.call('cmake -D CMAKE_C_COMPILER=' + compiler[compiler_name][0] + ' -D CMAKE_CXX_COMPILER=' + compiler[compiler_name][1]
-        + ' CMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ' + project_directory, shell=True)
+        + ' -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ' + project_directory, shell=True)
     elif os.name == "nt":
         if compiler_name == "msvc":
-            subprocess.call('cmake -D CMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ' + project_directory, shell=True)
+            subprocess.call('cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ' + project_directory, shell=True)
         elif compiler_name == "g++":
-            subprocess.call('cmake -G "MinGW Makefiles" -D CMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ' + project_directory, shell=True)
+            subprocess.call('cmake -G "MinGW Makefiles" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ' + project_directory, shell=True)
         elif compiler_name == "icc":
             subprocess.call('cmake -D CMAKE_C_COMPILER=icl -D CMAKE_CXX_COMPILER=icl'
-        + ' CMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ' + project_directory, shell=True)
+        + ' -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ' + project_directory, shell=True)
     if os.name == "posix":
         subprocess.call("cppcheck -j" + str(multiprocessing.cpu_count()) + " --project=compile_commands.json > log_cppcheck", shell=True)
     elif os.name == "nt":
         subprocess.call("cppcheck --project=compile_commands.json > log_cppcheck", shell=True)
     subprocess.call("python " + os.path.join(project_directory, "scripts/static_analysis.py") + " log_cppcheck", shell=True)
     if os.name == "posix":
-        return_code = subprocess.call("cmake --build . -- -j" + str(multiprocessing.cpu_count()), shell=True)
+        return_code = subprocess.call("cmake --build . --config Release -- -j" + str(multiprocessing.cpu_count()), shell=True)
     elif os.name == "nt":
-        return_code = subprocess.call("cmake --build .", shell=True)
+        return_code = subprocess.call("cmake --build . --config Release ", shell=True)
     os.chdir(project_directory)
     return return_code
 
@@ -101,9 +101,9 @@ def run_example(example_name = "main", args = []):
         return -1
     os.chdir(build_directories[compiler_name])
     if os.name == "posix":
-        command = "./samples/example_" + example_name + "/example_" + example_name
+        command = "./bin/example_" + example_name
     elif os.name == "nt":
-        command = "samples\\example_" + example_name + "\\example_" + example_name + ".exe"
+        command = "bin\\example_" + example_name + ".exe"
     for arg in args:
         command += " " + arg
     print(command)
@@ -116,9 +116,9 @@ def run_tests():
         return -1
     os.chdir(build_directories[compiler_name])
     if os.name == "posix":
-        return_code = subprocess.call("./tests/Test_Target", shell=True)
+        return_code = subprocess.call("./bin/test_target", shell=True)
     elif os.name == "nt":
-        return_code = subprocess.call("tests\\Debug\\Test_Target.exe", shell=True)
+        return_code = subprocess.call("bin\\test_target.exe", shell=True)
     if (os.path.isfile("test.bin")):
         os.remove("test.bin")
     if (os.path.isfile("test.txt")):
@@ -131,9 +131,9 @@ def benchmark():
         return -1
     os.chdir(build_directories[compiler_name])
     if os.name == "posix":
-        return_code = subprocess.call("./benchmark/Benchmark_Target", shell=True)
+        return_code = subprocess.call("./bin/benchmark_target", shell=True)
     elif os.name == "nt":
-        return_code = subprocess.call("benchmark\\Debug\\Benchmark_Target.exe", shell=True)
+        return_code = subprocess.call("bin\\benchmark_target.exe", shell=True)
     os.chdir(project_directory)
     return return_code
 

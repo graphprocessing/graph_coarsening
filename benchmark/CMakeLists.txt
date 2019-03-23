@@ -2,7 +2,7 @@ message( STATUS "Benchmark module" )
 
 file( GLOB_RECURSE source_files "*.cpp" )
 
-project( Benchmark_Target )
+project( benchmark_target )
 
 add_executable( ${PROJECT_NAME} ${source_files} )
 if ( CMAKE_COMPILER_IS_GNUCXX )

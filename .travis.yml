@@ -5,6 +5,15 @@ matrix:
     #######################################################
     - os: linux
       dist: xenial
+      install:
+        - sudo apt-get install python3-pip
+        - sudo pip install --upgrade pip
+        - sudo pip install setuptools cpplint
+      script:
+        - python build.py lint
+    #######################################################
+    - os: linux
+      dist: xenial
       compiler: gcc
       addons:
         apt:
@@ -15,14 +24,15 @@ matrix:
             - gcc-7
       install:
         - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 100 --slave /usr/bin/g++ g++ /usr/bin/g++-7
-        - sudo apt-get install libomp* python3-pip
-        - sudo pip install --upgrade pip
-        - sudo pip install setuptools cpplint
+        - sudo apt-get install libomp*
       script:
-        - python build.py lint
-        - python build.py build g++
-        - python build.py test g++
-        - python build.py benchmark g++
+        - git submodule update --init --recursive
+        - mkdir build
+        - cd build
+        - cmake ..
+        - cmake --build . --config Release -- -j2
+        - ./bin/test_target
+        - ./bin/benchmark_target
     #######################################################
     - os: linux
       dist: xenial
