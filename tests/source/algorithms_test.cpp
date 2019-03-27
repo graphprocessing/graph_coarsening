@@ -1,6 +1,6 @@
 // Copyright [year] <Copyright Owner>
-#include <gtest/gtest.h>
 #include "../../modules/pch/include/precomp.h"
+#include "gtest/gtest.h"
 
 TEST(graph_distances_test, basic_cube_test_eccentricity) {
     CSR <int> graph = cube_test<int>(2);

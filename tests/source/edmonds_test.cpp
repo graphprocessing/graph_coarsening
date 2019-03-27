@@ -1,6 +1,6 @@
 // Copyright [year] <Copyright Owner>
-#include <gtest/gtest.h>
 #include "../../modules/pch/include/precomp.h"
+#include "gtest/gtest.h"
 
 TEST(edmonds_test, personal_test_csr_1) {
     CSR<int> graph;

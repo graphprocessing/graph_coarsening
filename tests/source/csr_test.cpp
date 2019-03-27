@@ -1,6 +1,6 @@
 // Copyright [year] <Copyright Owner>
-#include <gtest/gtest.h>
 #include "../../modules/pch/include/precomp.h"
+#include "gtest/gtest.h"
 
 static std::random_device rd;
 static std::mt19937 generator(rd());

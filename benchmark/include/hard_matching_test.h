@@ -1,9 +1,8 @@
 // Copyright [year] <Copyright Owner>
 #ifndef BENCHMARK_INCLUDE_HARD_MATCHING_TEST_H_
 #define BENCHMARK_INCLUDE_HARD_MATCHING_TEST_H_
-
-#include <benchmark/benchmark.h>
 #include "../../modules/pch/include/precomp.h"
+#include "benchmark/benchmark.h"
 
 void hard_matching_on_washington_test_csr(benchmark::State& state);
 void hard_matching_on_zadeh_test_csr(benchmark::State& state);

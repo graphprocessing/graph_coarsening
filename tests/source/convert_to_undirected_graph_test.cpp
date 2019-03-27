@@ -1,6 +1,6 @@
 // Copyright [year] <Copyright Owner>
-#include <gtest/gtest.h>
 #include "../../modules/pch/include/precomp.h"
+#include "gtest/gtest.h"
 
 TEST(convert_to_undirected_graph_test, simple_graph_with_random_matching) {
     AL <int> graph1;

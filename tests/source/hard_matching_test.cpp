@@ -1,7 +1,6 @@
 // Copyright [year] <Copyright Owner>
-#include <gtest/gtest.h>
 #include "../../modules/pch/include/precomp.h"
-
+#include "gtest/gtest.h"
 
 TEST(hard_matching_test, basic_washington_test_csr_2_int) {
     CSR<int> graph = washington_test<int>(2, true);
