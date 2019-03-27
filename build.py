@@ -99,16 +99,14 @@ def build():
 def run_example(example_name = "main", args = []):
     if not os.path.exists(build_directories[compiler_name]):
         return -1
-    os.chdir(build_directories[compiler_name])
     if os.name == "posix":
-        command = "./bin/example_" + example_name
+        command = os.path.join(build_directories[compiler_name], "./bin/example_" + example_name)
     elif os.name == "nt":
-        command = "bin\\example_" + example_name + ".exe"
+        command = os.path.join(build_directories[compiler_name], "bin\\example_" + example_name + ".exe")
     for arg in args:
         command += " " + arg
     print(command)
     return_code = subprocess.call(command, shell=True)
-    os.chdir(project_directory)
     return return_code
 
 def run_tests():

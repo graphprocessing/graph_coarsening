@@ -16,3 +16,4 @@ build_script:
   - cmd: cmake --build . --config Release
   - cmd: bin\test_target.exe
   # - cmd: bin\benchmark_target.exe
+  - cmd: bin\example_pipelines.exe ..\samples\example_pipelines\pipeline.yaml

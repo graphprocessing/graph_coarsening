@@ -5,6 +5,7 @@ matrix:
     #######################################################
     - os: linux
       dist: xenial
+      name: cpplint (code style)
       install:
         - sudo apt-get install python3-pip
         - sudo pip install --upgrade pip
@@ -33,6 +34,7 @@ matrix:
         - cmake --build . --config Release -- -j2
         - ./bin/test_target
         - ./bin/benchmark_target
+        - ./bin/example_pipelines ../samples/example_pipelines/pipeline.yaml
     #######################################################
     - os: linux
       dist: xenial
@@ -43,6 +45,7 @@ matrix:
         - python build.py build clang
         - python build.py test clang
         - python build.py benchmark clang
+        - python build.py pipelines clang samples/example_pipelines/pipeline.yaml
     #######################################################
     - os: osx
       osx_image: xcode10.1
@@ -52,4 +55,5 @@ matrix:
         - python build.py build clang
         - python build.py test clang
         - python build.py benchmark clang
+        - python build.py pipelines clang samples/example_pipelines/pipeline.yaml
     #######################################################
