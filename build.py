@@ -109,19 +109,24 @@ def run_example(example_name = "main", args = []):
     return_code = subprocess.call(command, shell=True)
     return return_code
 
-def run_tests():
+def run_tests(parallel = False, args = []):
     if not os.path.exists(build_directories[compiler_name]):
         return -1
-    os.chdir(build_directories[compiler_name])
-    if os.name == "posix":
-        return_code = subprocess.call("./bin/test_target", shell=True)
-    elif os.name == "nt":
-        return_code = subprocess.call("bin\\test_target.exe", shell=True)
-    if (os.path.isfile("test.bin")):
-        os.remove("test.bin")
-    if (os.path.isfile("test.txt")):
-        os.remove("test.txt")
-    os.chdir(project_directory)
+    if not parallel:
+        os.chdir(build_directories[compiler_name])
+        if os.name == "posix":
+            return_code = subprocess.call("./bin/test_target", shell=True)
+        elif os.name == "nt":
+            return_code = subprocess.call("bin\\test_target.exe", shell=True)
+        os.chdir(project_directory)
+    else:
+        gtest_args = ""
+        for arg in args:
+            gtest_args += " " + arg
+        if os.name == "posix":
+            return_code = subprocess.call("./3rdparty/gtest-parallel/gtest-parallel " + os.path.join(build_directories[compiler_name], "bin/test_target " + gtest_args), shell=True)
+        elif os.name == "nt":
+            return_code = subprocess.call("python 3rdparty\\gtest-parallel\\gtest-parallel"  + os.path.join(build_directories[compiler_name], "bin/test_target" + gtest_args), shell=True)
     return return_code
 
 def benchmark():
@@ -225,7 +230,19 @@ if __name__ == "__main__":
     elif (sys.argv[1] == "benchmark"):
         return_code = benchmark()
     elif (sys.argv[1] == "test"):
-        return_code = run_tests()
+        if len(sys.argv) > 3:
+            additional_args = []
+            for i in range(4, len(sys.argv)):
+                additional_args.append(sys.argv[i])
+            if sys.argv[3] == "parallel" or sys.argv[3] == "par" or sys.argv[3] == "p":
+                return_code = run_tests(True, additional_args)
+            elif sys.argv[3] == "sequental" or sys.argv[3] == "seq" or sys.argv[3] == "s":
+                return_code = run_tests()
+            else:
+                print("Undefined parameter")
+                return_code = 1
+        else:
+            return_code = run_tests()
     elif (sys.argv[1] == "pipelines"):
         additional_args = []
         for i in range(3, len(sys.argv)):

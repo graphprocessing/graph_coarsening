@@ -103,12 +103,14 @@ TEST(dsu_test, unite_odd_and_even_test) {
 
 TEST(export_for_visualization_test, basic_washington_test) {
     CSR <int> graph = washington_test<int>(2);
-    export_for_visualization(graph, "test.txt");
-    std::ifstream file("test.txt");
-    ASSERT_EQ(true, file.is_open());
+    char file[L_tmpnam];
+    get_temp_filename(file);
+    export_for_visualization(graph, file);
+    std::ifstream f(file);
+    EXPECT_EQ(true, f.is_open());
     std::stringstream ss;
-    ss << file.rdbuf();
-    ASSERT_EQ("0 1 1\n"
+    ss << f.rdbuf();
+    EXPECT_EQ("0 1 1\n"
               "1 2 1\n"
               "1 3 1\n"
               "2 4 1\n"
@@ -118,16 +120,19 @@ TEST(export_for_visualization_test, basic_washington_test) {
               "6 7 1\n"
               "7 8 1\n",
               ss.str());
+    remove(file);
 }
 
 TEST(export_for_visualization_test, basic_zadeh_test) {
     CSR <int> graph = zadeh_test<int>(2);
-    export_for_visualization(graph, "test.txt");
-    std::ifstream file("test.txt");
-    ASSERT_EQ(true, file.is_open());
+    char file[L_tmpnam];
+    get_temp_filename(file);
+    export_for_visualization(graph, file);
+    std::ifstream f(file);
+    EXPECT_EQ(true, f.is_open());
     std::stringstream ss;
-    ss << file.rdbuf();
-    ASSERT_EQ("0 2 1\n"
+    ss << f.rdbuf();
+    EXPECT_EQ("0 2 1\n"
               "0 3 1\n"
               "0 4 1\n"
               "0 5 1\n"
@@ -191,16 +196,19 @@ TEST(export_for_visualization_test, basic_zadeh_test) {
               "9 8 1\n"
               "10 11 1\n",
               ss.str());
+    remove(file);
 }
 
 TEST(export_for_visualization_test, basic_cube_test) {
     CSR <int> graph = cube_test<int>(2);
-    export_for_visualization(graph, "test.txt");
-    std::ifstream file("test.txt");
-    ASSERT_EQ(true, file.is_open());
+    char file[L_tmpnam];
+    get_temp_filename(file);
+    export_for_visualization(graph, file);
+    std::ifstream f(file);
+    EXPECT_EQ(true, f.is_open());
     std::stringstream ss;
-    ss << file.rdbuf();
-    ASSERT_EQ("0 4 1\n"
+    ss << f.rdbuf();
+    EXPECT_EQ("0 4 1\n"
               "0 2 1\n"
               "0 1 1\n"
               "1 5 1\n"
@@ -225,4 +233,5 @@ TEST(export_for_visualization_test, basic_cube_test) {
               "7 5 1\n"
               "7 6 1\n",
               ss.str());
+    remove(file);
 }

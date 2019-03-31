@@ -25,8 +25,11 @@ TEST(al_test, random_zadeh_test_generates) {
 
 TEST(al_test, graph_file_operations) {
     AL<int> graph = washington_test<int>(20);
-    ASSERT_NO_THROW(ASSERT_EQ(true, graph.write("test.bin")));
-    ASSERT_NO_THROW(ASSERT_EQ(true, graph.read("test.bin")));
+    char file[L_tmpnam];
+    get_temp_filename(file);
+    EXPECT_NO_THROW(EXPECT_EQ(true, graph.write(file)));
+    EXPECT_NO_THROW(EXPECT_EQ(true, graph.read(file)));
+    remove(file);
 }
 
 TEST(al_test, run_bfs_on_basic_washington_test) {
@@ -78,12 +81,18 @@ TEST(al_test, basic_washington_test_generates_double) {
 
 TEST(al_test, graph_file_operations_float) {
     AL<float> graph = washington_test<float>(20, true);
-    ASSERT_NO_THROW(ASSERT_EQ(true, graph.write("test.bin")));
-    ASSERT_NO_THROW(ASSERT_EQ(true, graph.read("test.bin")));
+    char file[L_tmpnam];
+    get_temp_filename(file);
+    EXPECT_NO_THROW(EXPECT_EQ(true, graph.write(file)));
+    EXPECT_NO_THROW(EXPECT_EQ(true, graph.read(file)));
+    remove(file);
 }
 
 TEST(al_test, graph_file_operations_double) {
     AL<double> graph = washington_test<double>(20, true);
-    ASSERT_NO_THROW(ASSERT_EQ(true, graph.write("test.bin")));
-    ASSERT_NO_THROW(ASSERT_EQ(true, graph.read("test.bin")));
+    char file[L_tmpnam];
+    get_temp_filename(file);
+    EXPECT_NO_THROW(EXPECT_EQ(true, graph.write(file)));
+    EXPECT_NO_THROW(EXPECT_EQ(true, graph.read(file)));
+    remove(file);
 }

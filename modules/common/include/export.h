@@ -22,4 +22,6 @@ bool export_for_visualization(const Graph<WeightType>& graph,
     return true;
 }
 
+void get_temp_filename(char *buffer);
+
 #endif  // MODULES_COMMON_INCLUDE_EXPORT_H_

@@ -43,7 +43,7 @@ matrix:
         - sudo apt-get install libiomp*
       script:
         - python build.py build clang
-        - python build.py test clang
+        - python build.py test clang parallel
         - python build.py benchmark clang
         - python build.py pipelines clang samples/example_pipelines/pipeline.yaml
     #######################################################
@@ -53,7 +53,7 @@ matrix:
         - HOMEBREW_NO_AUTO_UPDATE=1 brew install libomp
       script:
         - python build.py build clang
-        - python build.py test clang
+        - python build.py test clang parallel
         - python build.py benchmark clang
         - python build.py pipelines clang samples/example_pipelines/pipeline.yaml
     #######################################################
