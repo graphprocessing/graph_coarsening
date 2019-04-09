@@ -160,6 +160,7 @@ void PipelineParser::Pipeline::launch() {
             std::string coarsening_type = get_param(command, "coarsening");
             std::string type = get_param(command, "type");
             std::string count_str = get_param_no_throw(command, "count");
+            std::string subtype = get_param_no_throw(command, "subtype");
             int count = 0;
             if (count_str == "_no_parameter")
                 count = 1;
@@ -184,6 +185,42 @@ void PipelineParser::Pipeline::launch() {
                         graph = graph_coarsening(graph, edmonds(graph));
                         std::cout << "iteration: " << i << " n: " << graph.n
                                 << " m: " << graph.edges.size() << std::endl;
+                    }
+                } else if (type == "gpa") {
+                    if (subtype == "random") {
+                        for (int i = 0; i < count; ++i) {
+                            graph = graph_coarsening(graph, GPA(graph,
+                                [](const CSR<double>& graph) -> Matching {
+                                    return random_matching(graph);
+                                }));
+                            std::cout << "iteration: " << i << " n: "
+                                << graph.n << " m: " << graph.edges.size()
+                                << std::endl;
+                        }
+                    } else if (subtype == "hard") {
+                        for (int i = 0; i < count; ++i) {
+                            graph = graph_coarsening(graph, GPA(graph,
+                                [](const CSR<double>& graph) -> Matching {
+                                    return hard_matching(graph);
+                                }));
+                            std::cout << "iteration: " << i << " n: "
+                                << graph.n << " m: " << graph.edges.size()
+                                << std::endl;
+                        }
+                    } else if (subtype == "edmonds") {
+                        for (int i = 0; i < count; ++i) {
+                            graph = graph_coarsening(graph, GPA(graph,
+                                [](const CSR<double>& graph) -> Matching {
+                                    return edmonds(graph);
+                                }));
+                            std::cout << "iteration: " << i << " n: "
+                                << graph.n << " m: " << graph.edges.size()
+                                << std::endl;
+                        }
+                    } else if (subtype == "_no_parameter") {
+                        throw std::runtime_error("Missing subtype for " + type);
+                    } else {
+                        throw std::runtime_error("Unknown subtype: " + type);
                     }
                 } else {
                     throw std::runtime_error("Unknown matching: " + type);
