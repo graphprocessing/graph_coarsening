@@ -126,7 +126,7 @@ def run_tests(parallel = False, args = []):
         if os.name == "posix":
             return_code = subprocess.call("./3rdparty/gtest-parallel/gtest-parallel " + os.path.join(build_directories[compiler_name], "bin/test_target " + gtest_args), shell=True)
         elif os.name == "nt":
-            return_code = subprocess.call("python 3rdparty\\gtest-parallel\\gtest-parallel"  + os.path.join(build_directories[compiler_name], "bin/test_target" + gtest_args), shell=True)
+            return_code = subprocess.call("python 3rdparty\\gtest-parallel\\gtest-parallel " + os.path.join(build_directories[compiler_name], "bin/test_target" + gtest_args), shell=True)
     return return_code
 
 def benchmark():

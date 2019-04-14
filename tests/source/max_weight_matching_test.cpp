@@ -1,6 +1,6 @@
 // Copyright [year] <Copyright Owner>
-#include <gtest/gtest.h>
 #include "../../modules/pch/include/precomp.h"
+#include "gtest/gtest.h"
 
 TEST(max_weight_matching_fixed_test, odd_cycle_test) {
     AL <int> graph = cycle_generator<int>(11);
