@@ -33,7 +33,7 @@ Matching hard_matching(const AL<WeightType>& graph) {
                     e = to;
                 }
             }
-            if (e != -1) {
+            if (e != -1 && v != e) {
                 al_id[v] = 0, al_id[e] = 0;
                 matching.edge_b.push_back(e);
                 matching.edge_e.push_back(v);
@@ -74,7 +74,7 @@ Matching hard_matching(const CSR<WeightType>& graph) {
                     e = to;
                 }
             }
-            if (e != -1) {
+            if (e != -1 && v != e) {
                 al_id[v] = 0, al_id[e] = 0;
                 matching.edge_b.push_back(e);
                 matching.edge_e.push_back(v);
