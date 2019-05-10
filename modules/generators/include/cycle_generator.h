@@ -29,7 +29,7 @@ AL<WeightType> cycle_generator(int n, bool weighted = false) {
         graph.edges[0].push_back(n - 1);
         graph.weights[0].push_back(weight(generator));
     }
-    catch (std::bad_alloc ba) {
+    catch (std::bad_alloc& ba) {
         std::cerr << ba.what() << std::endl;
     }
     return graph;

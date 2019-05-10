@@ -40,7 +40,7 @@ AL<WeightType> chain_generator(int chain_length, int cycle_vertexes,
             }
         }
     }
-    catch (std::bad_alloc ba) {
+    catch (std::bad_alloc& ba) {
         std::cerr << ba.what() << std::endl;
     }
     return graph;

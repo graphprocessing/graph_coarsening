@@ -35,7 +35,7 @@ AL<WeightType> washington_test(int n, bool weighted = false) {
             graph.weights[i - 1].push_back(weight(generator));
         }
     }
-    catch (std::bad_alloc ba) {
+    catch (std::bad_alloc& ba) {
         std::cerr << ba.what() << std::endl;
     }
     return graph;

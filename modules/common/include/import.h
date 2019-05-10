@@ -20,7 +20,7 @@ AL <WeightType> convert_to_undirected_graph(const AL <WeightType>& graph) {
         }
         return out;
     }
-    catch (std::bad_alloc ba) {
+    catch (std::bad_alloc& ba) {
         std::cerr << ba.what() << std::endl;
         return graph;
     }

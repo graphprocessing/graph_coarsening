@@ -309,7 +309,7 @@ void PipelineParser::Pipeline::launch() {
                         "for evaluation: " + chars);
                 }
                 std::cout << "Finished evaluate command" << std::endl;
-            } catch (std::bad_alloc ba) {
+            } catch (std::bad_alloc& ba) {
                 std::cerr << ba.what() << std::endl;
                 std::cout << "Failed evaluate command" << std::endl;
             }

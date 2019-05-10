@@ -48,7 +48,7 @@ AL<WeightType> cube_test(int n, bool weighted = false) {
             }
         }
     }
-    catch (std::bad_alloc ba) {
+    catch (std::bad_alloc& ba) {
         std::cerr << ba.what() << std::endl;
     }
     return graph;
