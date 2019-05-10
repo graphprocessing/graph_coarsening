@@ -15,6 +15,7 @@ AL<WeightType> zadeh_test(int n, bool weighted = false) {
         graph.n = 6*n;
         graph.edges.resize(6*n);
         graph.weights.resize(6*n);
+        graph.weight_vertex.resize(6*n, 1);
         for (int i = 0; i < n; i++) {
             if (i % 2 == 0) {
                 for (int j = 0; j < 2*n; j++) {

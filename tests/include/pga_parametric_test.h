@@ -15,9 +15,11 @@ class pga_washington_test : public testing::TestWithParam<int> {
 
     void pga_on_csr_random() {
         CSR<int> csr = washington_test<int>(value);
+        std::cout << 1 << std::endl;
         Matching matching = PGA(csr, [](const CSR<int>& graph) -> Matching {
             return random_matching<int>(graph);
         });
+        std::cout << 2 << std::endl;
         std::vector <int> ed(csr.n, 0);
         int k = 1;
         for (int i = 0; i < matching.n; i++) {

@@ -170,49 +170,63 @@ void PipelineParser::Pipeline::launch() {
                 if (type == "random") {
                     for (int i = 0; i < count; ++i) {
                         graph = graph_coarsening(graph,
-                                random_matching(graph));
+                                    [](const CSR<double>& graph) -> Matching {
+                            return random_matching<double>(graph);
+                        });
                         std::cout << "iteration: " << i << " n: " << graph.n
                                 << " m: " << graph.edges.size() << std::endl;
                     }
                 } else if (type == "hard") {
                     for (int i = 0; i < count; ++i) {
-                        graph = graph_coarsening(graph, hard_matching(graph));
+                        graph = graph_coarsening(graph,
+                                [](const CSR<double>& graph) -> Matching {
+                            return hard_matching<double>(graph);
+                            });
                         std::cout << "iteration: " << i << " n: " << graph.n
                                 << " m: " << graph.edges.size() << std::endl;
                     }
                 } else if (type == "edmonds") {
                     for (int i = 0; i < count; ++i) {
-                        graph = graph_coarsening(graph, edmonds(graph));
+                        graph = graph_coarsening(graph,
+                                    [](const CSR<double>& graph) -> Matching {
+                            return edmonds<double>(graph);
+                            });
                         std::cout << "iteration: " << i << " n: " << graph.n
                                 << " m: " << graph.edges.size() << std::endl;
                     }
                 } else if (type == "gpa") {
                     if (subtype == "random") {
                         for (int i = 0; i < count; ++i) {
-                            graph = graph_coarsening(graph, GPA(graph,
+                            graph = graph_coarsening(graph,
+                                [](const CSR<double>& graph)
+                                -> Matching { return GPA(graph,
                                 [](const CSR<double>& graph) -> Matching {
-                                    return random_matching(graph);
-                                }));
+                                return random_matching(graph);
+                                });});
                             std::cout << "iteration: " << i << " n: "
                                 << graph.n << " m: " << graph.edges.size()
                                 << std::endl;
                         }
                     } else if (subtype == "hard") {
                         for (int i = 0; i < count; ++i) {
-                            graph = graph_coarsening(graph, GPA(graph,
+                            graph = graph_coarsening(graph,
+                                [](const CSR<double>& graph)
+                                -> Matching { return GPA(graph,
                                 [](const CSR<double>& graph) -> Matching {
                                     return hard_matching(graph);
-                                }));
+                                });});
                             std::cout << "iteration: " << i << " n: "
                                 << graph.n << " m: " << graph.edges.size()
                                 << std::endl;
                         }
                     } else if (subtype == "edmonds") {
                         for (int i = 0; i < count; ++i) {
-                            graph = graph_coarsening(graph, GPA(graph,
+                            graph = graph_coarsening(graph,
                                 [](const CSR<double>& graph) -> Matching {
+                                return  GPA(graph,
+                                    [](const CSR<double>& graph) -> Matching {
                                     return edmonds(graph);
-                                }));
+                                });});
                             std::cout << "iteration: " << i << " n: "
                                 << graph.n << " m: " << graph.edges.size()
                                 << std::endl;

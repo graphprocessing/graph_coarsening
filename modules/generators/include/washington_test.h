@@ -14,6 +14,7 @@ AL<WeightType> washington_test(int n, bool weighted = false) {
                     weight(1, weighted ? max_weight : 1);
         graph.n = 3 * n + 3;
         graph.edges.resize(graph.n);
+        graph.weight_vertex.resize(graph.n, 1);
         graph.weights.resize(graph.n);
         graph.edges[0].push_back(1);
         graph.weights[0].push_back(weight(generator));

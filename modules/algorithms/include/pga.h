@@ -49,6 +49,7 @@ Matching PGA(const CSR<WeightType> &graph, MatchingFunction match) {
         P.n = size;
         P.edges.resize(size);
         P.weights.resize(size);
+        P.weight_vertex.resize(size);
         int v = -1;
         for (unsigned i = 0; i < ed.size(); i++) {
             if (deg(ed[i]) && !used1[ed[i]]) {

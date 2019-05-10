@@ -15,6 +15,7 @@ AL<WeightType> cube_test(int n, bool weighted = false) {
         graph.n = n * n * n;
         graph.edges.resize(graph.n);
         graph.weights.resize(graph.n);
+        graph.weight_vertex.resize(graph.n, 1);
         for (int i = 0; i < n; ++i) {
             for (int j = 0; j < n; ++j) {
                 for (int k = 0; k < n; ++k) {

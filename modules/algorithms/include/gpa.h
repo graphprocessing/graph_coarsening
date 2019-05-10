@@ -17,6 +17,7 @@ Matching GPA(const CSR<WeightType> &graph, MatchingFunction get_matching) {
     e1.n = n;
     e1.edges.resize(n);
     e1.weights.resize(n);
+    e1.weight_vertex.resize(n);
     auto is_applicable = [&](int edge_index) {
         // closes odd len cycle
         int v = e[edge_index].b, len = 0;
@@ -84,6 +85,7 @@ Matching GPA(const CSR<WeightType> &graph, MatchingFunction get_matching) {
         t_graph.n = n;
         t_graph.edges.resize(n);
         t_graph.weights.resize(n);
+        t_graph.weight_vertex.resize(n);
         std::vector <int> w = e1.dfs(v);
         for (int i = 0; i < n; ++i) {
             if (w[i]) {

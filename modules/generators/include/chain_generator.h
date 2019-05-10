@@ -16,6 +16,7 @@ AL<WeightType> chain_generator(int chain_length, int cycle_vertexes,
         graph.n = cycle_vertexes * chain_length;
         graph.edges.resize(graph.n);
         graph.weights.resize(graph.n);
+        graph.weight_vertex.resize(graph.n, 1);
         for (int i = 0, chains = 0; chains < chain_length;
                                     i += cycle_vertexes, ++chains) {
             for (int j = 0; j < cycle_vertexes - 1; ++j) {
