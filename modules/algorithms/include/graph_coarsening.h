@@ -302,29 +302,7 @@ template <typename WeightType, typename MatchingFunction>
 CSR<WeightType> graph_coarsening(const CSR<WeightType>& graph,
                                   MatchingFunction get_matching) {
     AL <WeightType> new_graph;
-    std::vector <int> parent(graph.n);
-    std::vector <int> rank(graph.n);
-    auto make_set = [&] (int v) {
-        parent[v] = v;
-        rank[v] = 0;
-    };
-    std::function<int(int)> finds_set = [&] (int v) {
-        if (v == parent[v])
-            return v;
-        return parent[v] = finds_set (parent[v]);
-    };
-    auto union_set = [&] (int a, int b) {
-        a = finds_set(a);
-        b = finds_set(b);
-        if (a != b) {
-            if (rank[a] < rank[b])
-                std::swap(a, b);
-            parent[b] = a;
-            if (rank[a] == rank[b]) {
-                ++rank[a];
-            }
-        }
-    };
+    DSU dsu(graph.n);
     AL <WeightType> new_graphs = graph;
     std::vector <int> hash(graph.n);
     for (int i = 0; i < graph.n; i++) {
@@ -334,9 +312,6 @@ CSR<WeightType> graph_coarsening(const CSR<WeightType>& graph,
             hash_i += to;
         }
         hash[i] = hash_i;
-    }
-    for (int i = 0; i < graph.n; i++) {
-        make_set(i);
     }
     std::vector <char> used(graph.n);
     for (int i = 0; i < graph.n; i++) {
@@ -356,9 +331,9 @@ CSR<WeightType> graph_coarsening(const CSR<WeightType>& graph,
                 if (size_check != static_cast<int>(check.size())) {
                     continue;
                 } else {
-                    union_set(i, to);
+                    dsu.unite(i, to);
                     used[to] = true;
-                    new_graphs.weight_vertex[finds_set(i)] =
+                    new_graphs.weight_vertex[dsu.get(i)] =
                     new_graphs.weight_vertex[i] + new_graph.weight_vertex[to];
                 }
             }
@@ -374,8 +349,8 @@ CSR<WeightType> graph_coarsening(const CSR<WeightType>& graph,
         for (unsigned j = 0; j < new_graphs.edges[i].size(); j++) {
             int to = new_graphs.edges[i][j];
             WeightType w = new_graphs.weights[i][j];
-            int a = finds_set(i);
-            int b = finds_set(to);
+            int a = dsu.get(i);
+            int b = dsu.get(to);
             if (a != b) {
                 if (used1.find(std::make_pair(a, b)) == used1.end()) {
                     used1.insert(std::make_pair(a, b));
@@ -385,22 +360,14 @@ CSR<WeightType> graph_coarsening(const CSR<WeightType>& graph,
             }
         }
     }
-    for (int i = 0; i < graph.n; i++) {
-        parent[i] = 0;
-    }
-    for (int i = 0; i < graph.n; i++) {
-        rank[i] = 0;
-    }
     std::map <int, WeightType> m1;
-    for (int i = 0; i < graph.n; i++) {
-        make_set(i);
-    }
+    dsu = DSU(graph.n);
     Matching match = get_matching(new_graph_1);
     std::map <int, int> new_graph_weight;
     new_graph.weight_vertex.resize(graph.n, 1);
     for (int i = 0; i < match.n; i++) {
-        union_set(match.edge_e[i], match.edge_b[i]);
-        new_graph.weight_vertex[finds_set(match.edge_e[i])]
+        dsu.unite(match.edge_e[i], match.edge_b[i]);
+        new_graph.weight_vertex[dsu.get(match.edge_e[i])]
         = new_graph_1.weight_vertex[match.edge_e[i]] +
             new_graph_1.weight_vertex[match.edge_b[i]];
     }
@@ -415,8 +382,8 @@ CSR<WeightType> graph_coarsening(const CSR<WeightType>& graph,
         for (unsigned j = 0; j < new_graph_1.edges[i].size(); j++) {
             int to = new_graph_1.edges[i][j];
             WeightType weight = new_graph_1.weights[i][j];
-            int a = finds_set(i);
-            int b = finds_set(to);
+            int a = dsu.get(i);
+            int b = dsu.get(to);
             if (a == b) {
                 continue;
             } else {

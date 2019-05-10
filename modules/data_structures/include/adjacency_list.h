@@ -8,7 +8,6 @@ struct AL : public Graph<WeightType> {
  public:
     std::vector <std::vector <int>> edges;
     std::vector <std::vector <WeightType>> weights;
-    std::vector <int> weight_vertex;
     AL<WeightType>(const CSR<WeightType>& csr, ...);
     AL<WeightType>() = default;
     bool get_neighbours(std::vector <std::pair<int, WeightType>>* neighbours,
@@ -30,9 +29,9 @@ AL<WeightType>::AL(const CSR<WeightType>& csr, ...) {
             weights[i].push_back(csr.weights[j]);
         }
     }
-    weight_vertex.resize(csr.n);
+    this->weight_vertex.resize(csr.n);
     for (int i = 0; i < csr.n; i++) {
-        weight_vertex[i] = csr.weight_vertex[i];
+        this->weight_vertex[i] = csr.weight_vertex[i];
     }
 }
 

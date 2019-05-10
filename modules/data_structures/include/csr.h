@@ -9,7 +9,6 @@ struct CSR : public Graph<WeightType> {
     std::vector <int> edges;
     std::vector <WeightType> weights;
     std::vector <int> offset;
-    std::vector <int> weight_vertex;
     CSR() = default;
     CSR(const AL<WeightType>& al, ...);
     CSR(const JDS<WeightType>& jds, ...);
@@ -31,9 +30,9 @@ CSR<WeightType>::CSR(const AL<WeightType>& al, ...) {
         }
         offset.push_back(edges.size());
     }
-    weight_vertex.resize(al.n);
+    this->weight_vertex.resize(al.n);
     for (int i = 0; i < al.n; i++) {
-        weight_vertex[i] = al.weight_vertex[i];
+        this->weight_vertex[i] = al.weight_vertex[i];
     }
 }
 

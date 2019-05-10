@@ -16,6 +16,7 @@ template <typename WeightType>
 struct Graph {
  public:
     int n = 0;
+    std::vector <int> weight_vertex;
     int bfs(int from, int to);
     std::vector <int> dfs(int root);
     int Dijkstra(int from, int to);
