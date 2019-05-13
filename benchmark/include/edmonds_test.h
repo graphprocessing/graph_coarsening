@@ -8,8 +8,8 @@ void edmonds_on_washington_test_csr(benchmark::State& state);
 void edmonds_on_zadeh_test_csr(benchmark::State& state);
 void edmonds_on_cube_test_csr(benchmark::State& state);
 
-BENCHMARK(edmonds_on_washington_test_csr)->Range(2, 1e4)->Complexity();
-BENCHMARK(edmonds_on_zadeh_test_csr)->Range(2, 1e3)->Complexity();
-BENCHMARK(edmonds_on_cube_test_csr)->Range(2, 50)->Complexity();
+BENCHMARK(edmonds_on_washington_test_csr)->Range(2, 5e3)->Complexity();
+BENCHMARK(edmonds_on_zadeh_test_csr)->Range(2, 5e2)->Complexity();
+BENCHMARK(edmonds_on_cube_test_csr)->Range(2, 32)->Complexity();
 
 #endif  // BENCHMARK_INCLUDE_EDMONDS_TEST_H_
