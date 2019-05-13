@@ -3,4 +3,4 @@
 
 ## Open Source Graph Coarsening Library
 
-More information about the library can be found [here](https://github.com/graphprocessing/graph_coarsening/wiki).
+More information about the library can be found [here](https://github.com/graphprocessing/graph_coarsening/blob/master/docs/Home.md).
