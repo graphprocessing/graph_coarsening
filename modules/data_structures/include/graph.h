@@ -4,9 +4,6 @@
 #include "../../pch/include/precomp.h"
 
 template <typename WeightType>
-struct JDS;
-
-template <typename WeightType>
 struct CSR;
 
 template <typename WeightType>

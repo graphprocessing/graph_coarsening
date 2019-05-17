@@ -28,7 +28,6 @@
 #include "modules/data_structures/include/graph.h"
 #include "modules/data_structures/include/adjacency_list.h"
 #include "modules/data_structures/include/csr.h"
-#include "modules/data_structures/include/jds.h"
 #include "modules/data_structures/include/matching.h"
 // Graph generators
 #include "modules/generators/include/washington_test.h"
