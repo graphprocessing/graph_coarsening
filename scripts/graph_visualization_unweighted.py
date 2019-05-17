@@ -13,6 +13,8 @@ if __name__ == "__main__":
         used = []
         for index, line in enumerate(f):
             data = line.split()
+            if len(data) == 0:
+                continue
             if data[1] < data[0]:
                 data[0], data[1] = data[1], data[0]
             if (data[0], data[1]) not in used:

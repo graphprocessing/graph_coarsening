@@ -11,6 +11,8 @@ if __name__ == "__main__":
     num_bins = 500
     for index, line in enumerate(f):
         data = line.split()
+        if len(data) == 0:
+            continue
         x.append(float(data[-1]))
         if (index < 50):
             print(float(data[-1]))

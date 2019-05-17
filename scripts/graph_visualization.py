@@ -11,6 +11,8 @@ if __name__ == "__main__":
         f = open(file, "r")
         for index, line in enumerate(f):
             data = line.split()
+            if len(data) == 0:
+                continue
             dot.edge(data[0], data[1], weight=data[2])
         f.close()
         src = Source(dot.source)
