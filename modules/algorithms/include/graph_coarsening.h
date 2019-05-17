@@ -76,6 +76,16 @@ CSR<WeightType> graph_coarsening(const CSR<WeightType>& graph,
         = new_graph_1.weight_vertex[match.edge_e[i]] +
             new_graph_1.weight_vertex[match.edge_b[i]];
     }
+    std::map <std::pair<int, int>, WeightType> new_weights;
+    for (int i = 0; i < new_graph_1.n; i++) {
+        for (unsigned j = 0; j < new_graph_1.edges[i].size(); j++) {
+            int to = new_graph_1.edges[i][j];
+            WeightType weight = new_graph_1.weights[i][j];
+            int a = dsu.get(i);
+            int b = dsu.get(to);
+            new_weights[std::make_pair(a, b)] += weight;
+        }
+    }
     int new_size = graph.n;
     new_graph.edges.resize(new_size);
     new_graph.weights.resize(new_size);
@@ -83,19 +93,23 @@ CSR<WeightType> graph_coarsening(const CSR<WeightType>& graph,
     new_graph.n = new_size;
     std::set <int> a1;
     int new_size1 = 0;
+    std::set <std::pair<int, int>> is_here;
     for (int i = 0; i < new_graph_1.n; i++) {
         for (unsigned j = 0; j < new_graph_1.edges[i].size(); j++) {
             int to = new_graph_1.edges[i][j];
-            WeightType weight = new_graph_1.weights[i][j];
             int a = dsu.get(i);
             int b = dsu.get(to);
+            WeightType weight = new_weights[std::make_pair(a, b)];
             if (a == b) {
                 continue;
             } else {
                 a1.insert(a);
                 a1.insert(b);
-                new_graph.edges[a].push_back(b);
-                new_graph.weights[a].push_back(weight);
+                if (is_here.find(std::make_pair(a, b)) == is_here.end()) {
+                    is_here.insert(std::make_pair(a, b));
+                            new_graph.edges[a].push_back(b);
+                            new_graph.weights[a].push_back(weight);
+                }
             }
         }
     }
@@ -130,4 +144,3 @@ CSR<WeightType> graph_coarsening(const CSR<WeightType>& graph,
 }
 
 #endif  // MODULES_ALGORITHMS_INCLUDE_GRAPH_COARSENING_H_
-

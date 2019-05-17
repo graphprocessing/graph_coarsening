@@ -8,6 +8,7 @@ struct AL : public Graph<WeightType> {
  public:
     std::vector <std::vector <int>> edges;
     std::vector <std::vector <WeightType>> weights;
+    std::vector <int> weight_vertex;
     AL<WeightType>(const CSR<WeightType>& csr, ...);
     AL<WeightType>() = default;
     bool get_neighbours(std::vector <std::pair<int, WeightType>>* neighbours,
@@ -52,6 +53,7 @@ bool AL<WeightType>::read(const std::string &file) {
     if (file_to_open.is_open()) {
         file_to_open.read(reinterpret_cast<char *>(&this->n), sizeof(int));
         edges.resize(this->n);
+        weight_vertex.resize(this->n);
         int k;
         file_to_open.read(reinterpret_cast<char *>(&k), sizeof(int));
         int value;

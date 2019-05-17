@@ -9,6 +9,7 @@ struct CSR : public Graph<WeightType> {
     std::vector <int> edges;
     std::vector <WeightType> weights;
     std::vector <int> offset;
+    std::vector <int> weight_vertex;
     CSR() = default;
     CSR(const AL<WeightType>& al, ...);
     bool get_neighbours(
@@ -55,6 +56,7 @@ bool CSR<WeightType>::read(const std::string& path) {
     offset.resize(this->n + 1);
     edges.resize(m);
     weights.resize(m);
+    weight_vertex.resize(m);
     for (int i = 0; i < m; ++i)
         in.read(reinterpret_cast<char*>(&edges[i]), sizeof(int));
     for (int i = 0; i <= this->n; ++i)
