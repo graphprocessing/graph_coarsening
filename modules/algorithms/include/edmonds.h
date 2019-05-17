@@ -7,6 +7,7 @@ template <typename WeightType>
 
 Matching edmonds(const CSR<WeightType> & graph) {
     int n = graph.n;
+    static int times = 0;
     Matching ans;
     std::vector<bool> isthere(n + 1);
     std::vector<int> base(n + 1), was(n + 1);
@@ -15,7 +16,6 @@ Matching edmonds(const CSR<WeightType> & graph) {
 
     std::function<int(int, int)>
     LCA = [&](int x, int y) {
-        static int times = 0;
         times++;
         x = base[x], y = base[y];
         while (was[x] != times) {
