@@ -62,7 +62,7 @@ endif( UNIX )
 if ( MSVC )
     set ( CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /MDd" )
     if(CMAKE_BUILD_TYPE STREQUAL "RELEASE")
-        set(CMAKE_CXX_FLAGS_RELEASE "/O3")
+        set(CMAKE_CXX_FLAGS_RELEASE "/O2")
     endif()
 endif( MSVC )
 
