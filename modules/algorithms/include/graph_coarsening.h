@@ -129,16 +129,18 @@ CSR<WeightType> graph_coarsening(const CSR<WeightType>& graph,
     nr.edges.resize(new_size1);
     nr.weights.resize(new_size1);
     nr.weight_vertex.resize(new_size1, 1);
-    for (int i = 0; i < new_graph.n; i++) {
-        for (unsigned j = 0; j < new_graph.edges[i].size(); j++) {
-            int to = new_graph.edges[i][j];
-            WeightType weight = new_graph.weights[i][j];
-            nr.edges[ng[i]].push_back(ng[to]);
-            nr.weights[ng[i]].push_back(weight);
+    if (new_size1 > 0) {
+        for (int i = 0; i < new_graph.n; i++) {
+            for (unsigned j = 0; j < new_graph.edges[i].size(); j++) {
+                int to = new_graph.edges[i][j];
+                WeightType weight = new_graph.weights[i][j];
+                nr.edges[ng[i]].push_back(ng[to]);
+                nr.weights[ng[i]].push_back(weight);
+            }
         }
-    }
-    for (int i = 0; i < new_graph_1.n; i++) {
-        nr.weight_vertex[ng[i]] = new_graph.weight_vertex[i];
+        for (int i = 0; i < new_graph_1.n; i++) {
+            nr.weight_vertex[ng[i]] = new_graph.weight_vertex[i];
+        }
     }
     return nr;
 }
