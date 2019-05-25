@@ -7,6 +7,6 @@ int main(int argc, char** argv) {
         return 1;
     }
     PipelineParser p(argv[1]);
-    p.launch();
+    p.launch(PipelineParser::Mode::Sequential);
     return 0;
 }

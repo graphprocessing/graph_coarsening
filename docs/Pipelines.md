@@ -8,7 +8,7 @@ In order to run pipeline, you need to create file in .yaml format. This sequence
 First of all, you need to specify the name of pipeline followed by colon:
 
 ```yaml
-my_pipeline:
+- my_pipeline:
 ```
 
 Note: you can define multiple pipelines in one file.
@@ -16,7 +16,7 @@ Note: you can define multiple pipelines in one file.
 After that you can write combination of supported functions (cf. Functions section). Each function should be written after two spaces and dash. Parameters of the function should not have dash.
 
 ```yaml
-my_pipeline:
+- my_pipeline:
   - graph_generate: washington_test
   - graph_output: graph.bin
 ```
@@ -27,9 +27,11 @@ Class 'PipelineParser' provides pipelines interface. First of all you need to co
 ```cpp
 PipelineParser pipeline("file.yaml");
 ```
-After that you should launch this by calling this function.
+After that you should launch this by calling this function in sequential or parallel mode.
 ```cpp
-pipeline.launch();
+pipeline.launch(PipelineParser::Mode::Sequential);
+// or
+pipeline.launch(PipelineParser::Mode::Parallel);
 ```
 
 ## Functions ##
@@ -52,8 +54,9 @@ pipeline.launch();
   Does graph coarsening.
   Types of coarsening:
   1. matching:  
-     random, hard, edmonds
+     random, hard, edmonds, gpa, pga, lam
   
+  Subtype (required for PGA, GPA): provides additional algorithm for these algorithms which need that  
   Count (optional): how many times you want to perform coarsening, default = 1.  
   Example:
   ```yaml
@@ -118,7 +121,7 @@ pipeline.launch();
 ## Pipeline sample ##
 
 ```yaml
-sample_pipeline:
+- sample_pipeline:
   - graph_generate: cube_test
     n: 25
     weighted: 1

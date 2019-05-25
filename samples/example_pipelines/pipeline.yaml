@@ -1,4 +1,4 @@
-test_pipeline:
+- test_pipeline:
   - graph_generate: cube_test
     n: 25
     weighted: 1

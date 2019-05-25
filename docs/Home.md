@@ -11,7 +11,7 @@
 | generators      | Graph structure generators module |
 | tests           | Google test module |
 | benchmark       | Google benchmark module |
-| pipelines       | Pipelines module (cf. Pipelines page in wiki) |
+| pipelines       | Pipelines module (cf. Pipelines.md) |
 
 ### Build and run instructions
 

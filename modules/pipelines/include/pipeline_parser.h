@@ -1,19 +1,20 @@
 // Copyright [year] <Copyright Owner>
-#ifndef MODULES_PIPELINES_INCLUDE_PARSER_H_
-#define MODULES_PIPELINES_INCLUDE_PARSER_H_
+#ifndef MODULES_PIPELINES_INCLUDE_PIPELINE_PARSER_H_
+#define MODULES_PIPELINES_INCLUDE_PIPELINE_PARSER_H_
 #include "../../pch/include/precomp.h"
 
 class PipelineParser {
  public:
     PipelineParser() = delete;
-    explicit PipelineParser(const std::string& config_file);
-    ~PipelineParser();
-    void launch();
+    explicit PipelineParser(const std::string& file_name);
+    ~PipelineParser() = default;
+    enum class Mode {
+        Sequential, Parallel
+    };
+    void launch(Mode mode = Mode::Sequential);
  private:
     void parse();
-    std::string file_name;
-    FILE* file;
-    yaml_parser_t parser;
+    YAMLParser::Value yaml_pipeline;
     struct Pipeline {
         static const int charactreistics_count = 13;
         std::string name;
@@ -24,8 +25,7 @@ class PipelineParser {
         void launch();
         Pipeline();
     };
-    Pipeline parse_pipeline(yaml_parser_t* parser);
     std::vector <Pipeline> pipelines;
 };
 
-#endif  // MODULES_PIPELINES_INCLUDE_PARSER_H_
+#endif  // MODULES_PIPELINES_INCLUDE_PIPELINE_PARSER_H_

@@ -9,6 +9,7 @@
 #include <random>
 #include <climits>
 #include <exception>
+#include <memory>
 // STL
 #include <algorithm>
 #include <numeric>
@@ -56,6 +57,7 @@
 #include "modules/common/include/export.h"
 // yaml
 #include "3rdparty/libyaml/include/yaml.h"
-#include "modules/pipelines/include/parser.h"
+#include "modules/pipelines/include/yaml_parser.h"
+#include "modules/pipelines/include/pipeline_parser.h"
 
 #endif  // MODULES_PCH_INCLUDE_PRECOMP_H_

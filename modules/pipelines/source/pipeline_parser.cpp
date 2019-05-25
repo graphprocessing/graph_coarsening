@@ -1,119 +1,62 @@
 // Copyright [year] <Copyright Owner>
 #include "../../pch/include/precomp.h"
 
-PipelineParser::PipelineParser(const std::string& config_file) {
-    file_name = config_file;
-    file = fopen(file_name.c_str(), "r");
-    if (!file)
-        throw std::runtime_error("File is not found");
-    yaml_parser_initialize(&parser);
-    yaml_parser_set_input_file(&parser, file);
-}
+PipelineParser::PipelineParser(const std::string& file_name) :
+                yaml_pipeline(YAMLParser(file_name).parse()) {}
 
 PipelineParser::Pipeline::Pipeline() {
     table.resize(charactreistics_count);
     for (int i = 0; i < charactreistics_count; ++i)
         table[i] = "-";
-    start_time = omp_get_wtime();
-}
-
-PipelineParser::Pipeline
-        PipelineParser::parse_pipeline(yaml_parser_t* parser) {
-    yaml_event_t event;
-    Pipeline pipeline;
-    std::string attr, val;
-    std::map <std::string, std::string> command;
-    do {
-        if (!yaml_parser_parse(parser, &event)) {
-            printf("Parser error %d\n", parser->error);
-            throw std::runtime_error("Parser error: " +
-                std::to_string(parser->error));
-        }
-        switch (event.type) {
-        case YAML_MAPPING_START_EVENT:
-            command = std::map <std::string, std::string>();
-            break;
-        case YAML_MAPPING_END_EVENT:
-            pipeline.commands.push_back(command);
-            break;
-        case YAML_SCALAR_EVENT:
-            if (attr == "")
-                attr = (const char*)event.data.scalar.value;
-            else
-                val = (const char*)event.data.scalar.value;
-            break;
-        case YAML_NO_EVENT:
-        case YAML_SEQUENCE_END_EVENT:
-        case YAML_DOCUMENT_START_EVENT:
-        case YAML_DOCUMENT_END_EVENT:
-            break;
-        default:
-            throw std::runtime_error("Error while parsing");
-        }
-        if (attr != "" && val != "") {
-            std::cout << "command: attr: " << attr
-                        << " --- val: " << val << std::endl;
-            command[attr] = val;
-            attr = val = "";
-        }
-    } while (event.type != YAML_SEQUENCE_END_EVENT);
-    return pipeline;
 }
 
 void PipelineParser::parse() {
-    yaml_event_t event;
-    std::string str;
-    do {
-        if (!yaml_parser_parse(&parser, &event)) {
-            printf("Parser error %d\n", parser.error);
-            throw std::runtime_error("Parser error: " +
-                std::to_string(parser.error));
-        }
-        switch (event.type) {
-        case YAML_NO_EVENT:
-        case YAML_MAPPING_START_EVENT:
-        case YAML_MAPPING_END_EVENT:
-        case YAML_SEQUENCE_END_EVENT:
-        case YAML_DOCUMENT_START_EVENT:
-        case YAML_DOCUMENT_END_EVENT:
-        case YAML_STREAM_START_EVENT:
-        case YAML_STREAM_END_EVENT:
-            break;
-        case YAML_SEQUENCE_START_EVENT:
-            {
-                std::cout << "started func" << std::endl;
-                Pipeline pipeline = parse_pipeline(&parser);
-                pipeline.table[0] = pipeline.name = str;
-                pipelines.emplace_back(pipeline);
-                std::cout << "pushed pipeline " <<
-                            pipeline.name << std::endl;
-                std::cout << "ended func" << std::endl;
-                break;
+    YAMLParser::Sequence raw_pipelines = yaml_pipeline.get_sequence();
+    for (YAMLParser::Value &raw_pipeline : raw_pipelines) {
+        Pipeline result_pipeline;
+        result_pipeline.name = raw_pipeline.get_mapping().
+                            get_map().begin()->first;
+        YAMLParser::Sequence raw_commands = raw_pipeline.get_mapping().
+                            get_map().begin()->second.get_sequence();
+        for (YAMLParser::Value raw_command : raw_commands) {
+            std::map <std::string, std::string> command;
+            for (const std::pair <std::string, YAMLParser::Value> &attr :
+                                raw_command.get_mapping().get_map()) {
+                command.emplace(attr.first, attr.second.get_string());
             }
-        case YAML_SCALAR_EVENT:
-            str = (const char*)event.data.scalar.value;
-            break;
-        default:
-            throw std::runtime_error("Error while parsing");
+            result_pipeline.commands.emplace_back(command);
         }
-    } while (event.type != YAML_STREAM_END_EVENT
-            || event.type == YAML_NO_EVENT);
-    yaml_event_delete(&event);
+        pipelines.emplace_back(result_pipeline);
+    }
 }
 
-void PipelineParser::launch() {
+void PipelineParser::launch(Mode mode) {
     parse();
     std::cout << "Pipelines count: " << pipelines.size() << std::endl;
-    for (auto& p : pipelines) {
-        std::cout << "Starting execution of pipeline \""
-                    << p.name << "\"" << std::endl;
-        p.launch();
-        std::cout << "Finished execution of pipeline \""
-                    << p.name << "\"" << std::endl;
+    if (mode == Mode::Sequential) {
+        for (unsigned i = 0; i < pipelines.size(); ++i) {
+            std::cout << "Starting execution of pipeline \""
+                        << pipelines[i].name << "\"" << std::endl;
+            pipelines[i].launch();
+            std::cout << "Finished execution of pipeline \""
+                        << pipelines[i].name << "\"" << std::endl;
+        }
+    } else if (mode == Mode::Parallel) {
+        #pragma omp parallel for
+        for (int i = 0; i < static_cast<int>(pipelines.size()); ++i) {
+            std::cout << "Starting execution of pipeline \""
+                        << pipelines[i].name << "\"" << std::endl;
+            pipelines[i].launch();
+            std::cout << "Finished execution of pipeline \""
+                        << pipelines[i].name << "\"" << std::endl;
+        }
+    } else {
+        throw std::runtime_error("Unknown mode of pipeline running");
     }
 }
 
 void PipelineParser::Pipeline::launch() {
+    start_time = omp_get_wtime();
     auto get_param = [](std::map <std::string, std::string>& command,
                                 std::string param) -> std::string {
         if (command.find(param) != command.end())
@@ -423,9 +366,4 @@ void PipelineParser::Pipeline::launch() {
             throw std::runtime_error("Unknown command" + s.str());
         }
     }
-}
-
-PipelineParser::~PipelineParser() {
-    yaml_parser_delete(&parser);
-    fclose(file);
 }
