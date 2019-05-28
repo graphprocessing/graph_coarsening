@@ -1,6 +1,10 @@
 // Copyright [year] <Copyright Owner>
 #ifndef MODULES_PCH_INCLUDE_PRECOMP_H_
 #define MODULES_PCH_INCLUDE_PRECOMP_H_
+
+// Defines
+#define NOMINMAX
+
 // OpenMP
 #include <omp.h>
 // C++
@@ -59,5 +63,7 @@
 #include "3rdparty/libyaml/include/yaml.h"
 #include "modules/pipelines/include/yaml_parser.h"
 #include "modules/pipelines/include/pipeline_parser.h"
+// Filesystem
+#include "ghc/filesystem.hpp"
 
 #endif  // MODULES_PCH_INCLUDE_PRECOMP_H_

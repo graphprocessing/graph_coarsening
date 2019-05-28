@@ -27,6 +27,9 @@ endif()
 
 set(MAIN_DIR ${CMAKE_SOURCE_DIR})
 
+include_directories(${MAIN_DIR})
+include_directories("${MAIN_DIR}/3rdparty/filesystem/include")
+
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     add_definitions(-DCOMPILER_NAME="g++")
 endif()
