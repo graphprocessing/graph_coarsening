@@ -22,9 +22,6 @@ struct Graph {
         int vertex, int anc) const = 0;
     virtual bool read(const std::string& path) = 0;
     virtual bool write(const std::string& path) = 0;
- private:
-    void dfs_recursion(std::vector <int>* pd,
-        std::vector <char>* pwas, int x, int anc);
 };
 
 template <typename WeightType>
@@ -49,25 +46,26 @@ int Graph<WeightType>::bfs(int from, int to) {
 }
 
 template <typename WeightType>
-void Graph<WeightType>::dfs_recursion(std::vector <int>* pd,
-                          std::vector <char>* pwas, int x, int anc) {
-    std::vector <int>& d = *pd;
-    std::vector <char>& was = *pwas;
-    was[x] = 1;
-    d[x] = d[anc] + 1;
-    std::vector <std::pair <int, WeightType>> neighbours;
-    get_neighbours(&neighbours, x, anc);
-    for (auto y : neighbours) {
-        if (!was[y.first])
-            dfs_recursion(&d, &was, y.first, x);
-    }
-}
-
-template <typename WeightType>
 std::vector <int> Graph<WeightType>::dfs(int root) {
     std::vector <int> d(n, 0);
     std::vector <char> was(n, 0);
-    dfs_recursion(&d, &was, root, root);
+    std::stack <std::pair <int, int>, std::vector <std::pair <int, int>>> st;
+    was[root] = true;
+    st.push({root, root});
+    while (st.size()) {
+        int v = st.top().first;
+        int anc = st.top().second;
+        st.pop();
+        was[v] = true;
+        d[v] = d[anc] + 1;
+        std::vector <std::pair <int, WeightType>> neighbours;
+        get_neighbours(&neighbours, v, anc);
+        for (auto y : neighbours) {
+            if (!was[y.first]) {
+                st.push({y.first, v});
+            }
+        }
+    }
     return d;
 }
 
