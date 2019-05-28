@@ -1,8 +1,8 @@
 // Copyright [year] <Copyright Owner>
 #ifndef TESTS_INCLUDE_GPA_PARAMETRIC_TEST_H_
 #define TESTS_INCLUDE_GPA_PARAMETRIC_TEST_H_
-#include <gtest/gtest.h>
 #include "../../modules/pch/include/precomp.h"
+#include "gtest/gtest.h"
 
 class GPA_washington_test : public testing::TestWithParam<int> {
  public:
@@ -401,31 +401,13 @@ class GPA_chain_generator :
     std::pair <int, int> value;
 };
 
-std::vector <int> gpa_generate_samples(int from, int to, int n = 20) {
-    std::vector <int> result;
-    for (int i = 0; i < n; ++i)
-        result.push_back(std::uniform_int_distribution<int>(from, to)
-                                (generator));
-    return result;
-}
-
-std::vector <std::pair <int, int>>
-            gpa_generate_pair_samples(int from, int to, int n = 20) {
-    std::vector <int> r1 = gpa_generate_samples(from, to, 3);
-    std::vector <int> r2 = gpa_generate_samples(from, to, 3);
-    std::vector <std::pair <int, int>> result;
-    for (int i = 0; i < n; ++i)
-        result.emplace_back(r1[i], r2[i]);
-    return result;
-}
-
-std::vector <int> gpa_washington_samples = gpa_generate_samples(0, 100, 3);
-std::vector <int> gpa_zadeh_samples = gpa_generate_samples(0, 50, 3);
-std::vector <int> gpa_cube_samples = gpa_generate_samples(0, 10, 3);
-std::vector <int> gpa_cycle_samples = gpa_generate_samples(0, 1000, 3);
-std::vector <int> gpa_stars_samples = gpa_generate_samples(0, 200, 3);
+std::vector <int> gpa_washington_samples = generate_samples(0, 100, 5);
+std::vector <int> gpa_zadeh_samples = generate_samples(0, 50, 5);
+std::vector <int> gpa_cube_samples = generate_samples(0, 10, 5);
+std::vector <int> gpa_cycle_samples = generate_samples(0, 1000, 5);
+std::vector <int> gpa_stars_samples = generate_samples(0, 200, 5);
 std::vector <std::pair <int, int>> gpa_chain_samples =
-                                            gpa_generate_pair_samples(0, 50, 3);
+                                            generate_pair_samples(0, 50, 5);
 
 TEST_P(GPA_washington_test, hard_matching) {
     correct_GPA_hard_matching();

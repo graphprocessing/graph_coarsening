@@ -4,9 +4,6 @@
 #include "../../modules/pch/include/precomp.h"
 #include "gtest/gtest.h"
 
-static std::random_device rd1;
-static std::mt19937 generator1(rd1());
-
 class hard_matching_washington_test : public testing::TestWithParam<int> {
  public:
     hard_matching_washington_test() {
@@ -273,18 +270,10 @@ class hard_matching_cube_test : public testing::TestWithParam<int> {
  private:
     int value;
 };
-std::vector <int> generate(int start, int end) {
-    std::vector <int> res;
-    for (int i = 0; i < 3; i++) {  // upper bound was equal to 10
-        res.push_back(std::uniform_int_distribution<int>(start, end)
-                            (generator1));
-    }
-    return res;
-}
 
-std::vector <int> wash = generate(0, 50);  // was 1000
-std::vector <int> zadeh = generate(0, 50);  // was 1000
-std::vector <int> cube = generate(0, 10);  // was 100
+std::vector <int> hard_washington_samples = generate_samples(0, 50, 5);
+std::vector <int> hard_zadeh_samples = generate_samples(0, 50, 5);
+std::vector <int> hard_cube_samples = generate_samples(0, 10, 5);
 
 TEST_P(hard_matching_washington_test, al) {
     hard_matching_on_al();
@@ -335,11 +324,11 @@ TEST_P(hard_matching_cube_test, csr1) {
 }
 
 INSTANTIATE_TEST_SUITE_P(hard_matching_test, hard_matching_washington_test,
-                    testing::ValuesIn(wash));
+                    testing::ValuesIn(hard_washington_samples));
 
 INSTANTIATE_TEST_SUITE_P(hard_matching_test, hard_matching_zadeh_test,
-                    testing::ValuesIn(zadeh));
+                    testing::ValuesIn(hard_zadeh_samples));
 
 INSTANTIATE_TEST_SUITE_P(hard_matching_test, hard_matching_cube_test,
-                    testing::ValuesIn(cube));
+                    testing::ValuesIn(hard_cube_samples));
 #endif  // TESTS_INCLUDE_HARD_MATCHING_PARAMETRIC_TEST_H_

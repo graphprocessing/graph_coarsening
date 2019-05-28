@@ -250,28 +250,9 @@ class GC_cube_test: public testing::TestWithParam<int> {
     int value;
 };
 
-
-std::vector <int> gs_generate_samples(int from, int to, int n = 20) {
-    std::vector <int> result;
-    for (int i = 0; i < n; ++i)
-        result.push_back(std::uniform_int_distribution<int>(from, to)
-                         (generator));
-    return result;
-}
-
-std::vector <std::pair <int, int>>
-gs_generate_pair_samples(int from, int to, int n = 20) {
-    std::vector <int> r1 = gs_generate_samples(from, to, 3);
-    std::vector <int> r2 = gs_generate_samples(from, to, 3);
-    std::vector <std::pair <int, int>> result;
-    for (int i = 0; i < n; ++i)
-        result.emplace_back(r1[i], r2[i]);
-    return result;
-}
-
-std::vector <int> gs_washington_samples = gs_generate_samples(1, 100, 3);
-std::vector <int> gs_zadeh_samples = gs_generate_samples(1, 50, 3);
-std::vector <int> gs_cube_samples = gs_generate_samples(2, 10, 3);
+std::vector <int> gc_washington_samples = generate_samples(1, 100, 5);
+std::vector <int> gc_zadeh_samples = generate_samples(1, 50, 5);
+std::vector <int> gc_cube_samples = generate_samples(2, 10, 5);
 
 TEST_P(GC_washington_test, hard_matching) {
     correct_GC_hard_matching();
@@ -346,12 +327,12 @@ TEST_P(GC_cube_test, LAM) {
 }
 
 INSTANTIATE_TEST_SUITE_P(GC_test1, GC_washington_test,
-                         testing::ValuesIn(gs_washington_samples));
+                         testing::ValuesIn(gc_washington_samples));
 
 INSTANTIATE_TEST_SUITE_P(GC_test2, GC_zadeh_test,
-                         testing::ValuesIn(gs_zadeh_samples));
+                         testing::ValuesIn(gc_zadeh_samples));
 
 INSTANTIATE_TEST_SUITE_P(GC_test3, GC_cube_test,
-                         testing::ValuesIn(gs_cube_samples));
+                         testing::ValuesIn(gc_cube_samples));
 
 #endif  // TESTS_INCLUDE_GRAPH_COARSERING_PARAMETRIC_TEST_H_

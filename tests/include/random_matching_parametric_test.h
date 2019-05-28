@@ -4,9 +4,6 @@
 #include "../../modules/pch/include/precomp.h"
 #include "gtest/gtest.h"
 
-static std::random_device rd;
-static std::mt19937 generator(rd());
-
 class random_matching_washington_test : public testing::TestWithParam<int> {
  public:
     random_matching_washington_test() {
@@ -500,31 +497,13 @@ class random_matching_chain_generator :
     std::pair <int, int> value;
 };
 
-std::vector <int> generate_samples(int from, int to, int n = 20) {
-    std::vector <int> result;
-    for (int i = 0; i < n; ++i)
-        result.push_back(std::uniform_int_distribution<int>(from, to)
-                                (generator));
-    return result;
-}
-
-std::vector <std::pair <int, int>>
-            generate_pair_samples(int from, int to, int n = 20) {
-    std::vector <int> r1 = generate_samples(from, to, 3);
-    std::vector <int> r2 = generate_samples(from, to, 3);
-    std::vector <std::pair <int, int>> result;
-    for (int i = 0; i < n; ++i)
-        result.emplace_back(r1[i], r2[i]);
-    return result;
-}
-
-std::vector <int> washington_samples = generate_samples(0, 100, 3);  // was 1e5
-std::vector <int> zadeh_samples = generate_samples(0, 50, 3);  // was 1000
-std::vector <int> cube_samples = generate_samples(0, 10, 3);  // was 100
-std::vector <int> cycle_samples = generate_samples(0, 1000, 3);
-std::vector <int> stars_samples = generate_samples(0, 200, 3);
-std::vector <std::pair <int, int>> chain_samples =
-                                            generate_pair_samples(0, 50, 3);
+std::vector <int> random_washington_samples = generate_samples(0, 100, 5);
+std::vector <int> random_zadeh_samples = generate_samples(0, 50, 5);
+std::vector <int> random_cube_samples = generate_samples(0, 10, 5);
+std::vector <int> random_cycle_samples = generate_samples(0, 1000, 5);
+std::vector <int> random_stars_samples = generate_samples(0, 200, 5);
+std::vector <std::pair <int, int>> random_chain_samples =
+                                            generate_pair_samples(0, 50, 5);
 
 TEST_P(random_matching_washington_test, max_size_on_csr) {
     correct_random_matching_on_csr_max_size();
@@ -623,21 +602,21 @@ TEST_P(random_matching_chain_generator, variable_size_on_al) {
 }
 
 INSTANTIATE_TEST_SUITE_P(random_matching_test1, random_matching_washington_test,
-                    testing::ValuesIn(washington_samples));
+                    testing::ValuesIn(random_washington_samples));
 
 INSTANTIATE_TEST_SUITE_P(random_matching_test2, random_matching_zadeh_test,
-                    testing::ValuesIn(zadeh_samples));
+                    testing::ValuesIn(random_zadeh_samples));
 
 INSTANTIATE_TEST_SUITE_P(random_matching_test3, random_matching_cube_test,
-                    testing::ValuesIn(cube_samples));
+                    testing::ValuesIn(random_cube_samples));
 
 INSTANTIATE_TEST_SUITE_P(random_matching_test4, random_matching_cycle_generator,
-                    testing::ValuesIn(cycle_samples));
+                    testing::ValuesIn(random_cycle_samples));
 
 INSTANTIATE_TEST_SUITE_P(random_matching_test5, random_matching_stars_generator,
-                    testing::ValuesIn(stars_samples));
+                    testing::ValuesIn(random_stars_samples));
 
 INSTANTIATE_TEST_SUITE_P(random_matching_test6, random_matching_chain_generator,
-                    testing::ValuesIn(chain_samples));
+                    testing::ValuesIn(random_chain_samples));
 
 #endif  // TESTS_INCLUDE_RANDOM_MATCHING_PARAMETRIC_TEST_H_
