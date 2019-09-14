@@ -43,3 +43,11 @@ TEST(LAM_test, personal_test_csr_3) {
     ASSERT_EQ(expected.edge_b, ans.edge_b);
     ASSERT_EQ(expected.edge_e, ans.edge_e);
 }
+
+TEST(LAM_test, small_cycle_test) {
+    CSR<int> graph = cycle_generator<int>(1);
+    Matching expected;
+    Matching ans = LAM(graph);
+    ASSERT_EQ(expected.edge_b, ans.edge_b);
+    ASSERT_EQ(expected.edge_e, ans.edge_e);
+}

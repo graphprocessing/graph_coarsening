@@ -14,9 +14,11 @@ Matching LAM(const CSR<WeightType> & graph) {
     std::vector<bool> isFree(n);
     for (int i = 0; i < n; i++) {
         for (int j = graph.offset[i]; j < graph.offset[i + 1]; j++) {
-            edge.push_back(std::make_pair(i, graph.edges[j]));
-            u.insert(j);
-            w.push_back(graph.weights[j]);
+            if (i != graph.edges[j]) {
+                edge.push_back(std::make_pair(i, graph.edges[j]));
+                u.insert(j);
+                w.push_back(graph.weights[j]);
+            }
         }
         isFree[i] = true;
     }
