@@ -49,8 +49,13 @@ matrix:
     #######################################################
     - os: osx
       osx_image: xcode10.1
+      addons:
+        homebrew:
+          packages:
+            - libomp
       install:
-        - HOMEBREW_NO_AUTO_UPDATE=1 brew install libomp
+        - export LDFLAGS="-L/usr/local/opt/libomp/lib"
+        - export CPPFLAGS="-Xpreprocessor -I/usr/local/opt/libomp/include"
       script:
         - python build.py build clang
         - python build.py test clang parallel
