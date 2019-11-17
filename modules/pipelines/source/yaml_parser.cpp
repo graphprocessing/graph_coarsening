@@ -45,7 +45,7 @@ const YAMLParser::Sequence &YAMLParser::Value::get_sequence() const {
     return sequence;
 }
 
-const YAMLParser::Value::Type YAMLParser::Value::get_type() const {
+YAMLParser::Value::Type YAMLParser::Value::get_type() const {
     return type;
 }
 

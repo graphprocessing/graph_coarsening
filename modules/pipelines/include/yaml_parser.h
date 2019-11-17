@@ -38,7 +38,7 @@ class YAMLParser {
         const std::string &get_string() const;
         const Mapping &get_mapping() const;
         const Sequence &get_sequence() const;
-        const Type get_type() const;
+        Type get_type() const;
     };
 
  private:
