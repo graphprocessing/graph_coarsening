@@ -25,7 +25,7 @@ matrix:
             - gcc-8
       install:
         - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 100 --slave /usr/bin/g++ g++ /usr/bin/g++-8
-        - sudo apt-get install libomp*
+        - sudo apt-get install libomp-dev
       script:
         - git submodule update --init --recursive
         - mkdir build
@@ -49,13 +49,11 @@ matrix:
     #######################################################
     - os: osx
       osx_image: xcode10.1
-      addons:
-        homebrew:
-          packages:
-            - libomp
       install:
-        - export LDFLAGS="-L/usr/local/opt/libomp/lib"
-        - export CPPFLAGS="-Xpreprocessor -I/usr/local/opt/libomp/include"
+        - brew install libomp
+        - export LDFLAGS="-L$(brew --prefix libomp)/lib"
+        - export CFLAGS="-I$(brew --prefix libomp)/include"
+        - export CXXFLAGS="-I$(brew --prefix libomp)/include"
       script:
         - python build.py build clang
         - python build.py test clang parallel
