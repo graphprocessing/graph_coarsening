@@ -1,0 +1,109 @@
+name: Build application
+
+on: [push, pull_request]
+
+jobs:
+  cpplint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup environment
+      run: |
+        sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+        sudo apt-get update
+        sudo apt-get install python3-pip
+        sudo pip install --upgrade pip
+        sudo pip install setuptools cpplint
+    - name: Run linter
+      run: python build.py lint
+  ubuntu-gcc:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup environment
+      run: |
+        sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+        sudo apt-get update
+        sudo apt-get install g++-9 libomp-9-dev
+    - name: Update submodules
+      run: git submodule update --init --recursive
+    - name: Build
+      run: |
+        mkdir build
+        cd build
+        cmake ..
+        cmake --build . --config Release -- -j2
+      env:
+        CC: gcc-9
+        CXX: g++-9
+    - name: Run tests
+      run: ./build/bin/test_target
+    - name: Run benchmark
+      run: ./build/bin/benchmark_target
+    - name: Run example
+      run: ./build/bin/example_pipelines samples/example_pipelines/pipeline.yaml
+  ubuntu-clang:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup environment
+      run: |
+        sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+        sudo apt-get update
+        sudo apt-get install clang-8 libomp-9-dev
+    - name: Update submodules
+      run: git submodule update --init --recursive
+    - name: Build
+      run: |
+        mkdir build
+        cd build
+        cmake ..
+        cmake --build . --config Release -- -j2
+      env:
+        CC: clang-8
+        CXX: clang++-8
+    - name: Run tests
+      run: ./build/bin/test_target
+    - name: Run benchmark
+      run: ./build/bin/benchmark_target
+    - name: Run example
+      run: ./build/bin/example_pipelines samples/example_pipelines/pipeline.yaml
+  macos-clang:
+    runs-on: macOS-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup environment
+      run: |
+        brew install libomp
+    - name: Update submodules
+      run: git submodule update --init --recursive
+    - name: Build
+      run: |
+        export LDFLAGS="-L$(brew --prefix libomp)/lib"
+        export CFLAGS="-I$(brew --prefix libomp)/include"
+        export CXXFLAGS="-I$(brew --prefix libomp)/include"
+        python build.py build clang
+    - name: Run tests
+      run: python build.py test clang parallel
+    - name: Run benchmark
+      run: python build.py benchmark clang
+    - name: Run example
+      run: python build.py pipelines clang samples/example_pipelines/pipeline.yaml
+  windows-msvc:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Update submodules
+      run: git submodule update --init --recursive
+    - name: Build
+      run: |
+        mkdir build
+        cd build
+        cmake -G "Visual Studio 16 2019" -A Win32 ..
+        cmake --build . --config Release
+    - name: Run tests
+      run: build\bin\test_target.exe
+    - name: Run benchmark
+      run: build\bin\benchmark_target.exe
+    - name: Run example
+      run: build\bin\example_pipelines.exe samples\example_pipelines\pipeline.yaml
