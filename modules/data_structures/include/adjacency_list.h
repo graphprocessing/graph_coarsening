@@ -41,8 +41,9 @@ bool AL<WeightType>::get_neighbours(
         std::vector <std::pair<int, WeightType>>* neighbours,
         int vertex, int anc) const {
     for (unsigned i = 0; i < edges[vertex].size(); i++) {
-        std::pair<int, WeightType> to = {edges[vertex][i], weights[vertex][i]};
-        neighbours->push_back(to);
+        if (edges[vertex][i] != anc) {
+            neighbours->emplace_back(edges[vertex][i], weights[vertex][i]);
+        }
     }
     return true;
 }

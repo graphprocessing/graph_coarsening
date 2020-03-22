@@ -2,6 +2,7 @@
 #include "modules/pch/include/precomp.h"
 
 int main(int argc, char** argv) {
+    (void) argc; (void) argv;
     std::cout << "main" << std::endl;
     // Timer sample
     std::cout << std::fixed;

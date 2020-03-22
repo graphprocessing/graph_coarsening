@@ -40,8 +40,11 @@ template <typename WeightType>
 bool CSR<WeightType>::get_neighbours(
     std::vector <std::pair <int, WeightType>>* neighbours,
     int vertex, int anc) const {
-    for (int i = offset[vertex]; i < offset[vertex+1]; ++i)
-        neighbours->push_back({edges[i], weights[i]});
+    for (int i = offset[vertex]; i < offset[vertex+1]; ++i) {
+        if (edges[i] != anc) {
+            neighbours->push_back({edges[i], weights[i]});
+        }
+    }
     return true;
 }
 
