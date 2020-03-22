@@ -54,6 +54,7 @@ bool AL<WeightType>::read(const std::string &file) {
     if (file_to_open.is_open()) {
         file_to_open.read(reinterpret_cast<char *>(&this->n), sizeof(int));
         edges.resize(this->n);
+        weights.resize(this->n);
         weight_vertex.resize(this->n);
         int k;
         file_to_open.read(reinterpret_cast<char *>(&k), sizeof(int));
