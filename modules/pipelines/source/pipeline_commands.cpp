@@ -240,7 +240,7 @@ void PipelineParser::Pipeline::perform_commands() {
         } else if (command.find("evaluate") != command.end()) {
             std::cout << "Started evaluate command" << std::endl;
             std::string characteristic = get_param(command, "evaluate");
-            evaluate_characteristic(characteristic);
+            set_characteristic(characteristic);
             std::cout << "Finished evaluate command" << std::endl;
         } else if (command.find("table_output") != command.end()) {
             std::cout << "Started table_output command" << std::endl;
