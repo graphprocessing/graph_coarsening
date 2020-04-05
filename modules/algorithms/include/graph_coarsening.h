@@ -39,7 +39,7 @@ CSR<WeightType> graph_coarsening(const CSR<WeightType>& graph,
                     dsu.unite(i, to);
                     used[to] = true;
                     new_graphs.weight_vertex[dsu.get(i)] =
-                    new_graphs.weight_vertex[i] + new_graph.weight_vertex[to];
+                    new_graphs.weight_vertex[i] + new_graphs.weight_vertex[to];
                 }
             }
         }
