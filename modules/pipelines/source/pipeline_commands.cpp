@@ -152,10 +152,22 @@ void PipelineParser::Pipeline::perform_commands() {
                                 << graph.n << " m: " << graph.edges.size()
                                 << std::endl;
                         }
+                    } else if (subtype == "lam") {
+                        for (int i = 0; check(); --count, ++i) {
+                            graph = graph_coarsening(graph,
+                                [](const CSR<double>& graph) -> Matching {
+                                    return GPA(graph,
+                                    [](const CSR<double>& graph) -> Matching {
+                                        return LAM(graph);
+                                    });});
+                            std::cout << "iteration: " << i << " n: "
+                                << graph.n << " m: " << graph.edges.size()
+                                << std::endl;
+                        }
                     } else if (subtype == "_no_parameter") {
                         throw std::runtime_error("Missing subtype for " + type);
                     } else {
-                        throw std::runtime_error("Unknown subtype: " + type);
+                        throw std::runtime_error("Unknown subtype: " + subtype);
                     }
                 } else if (type == "pga") {
                     if (subtype == "random") {
@@ -206,10 +218,22 @@ void PipelineParser::Pipeline::perform_commands() {
                                 << graph.n << " m: " << graph.edges.size()
                                 << std::endl;
                         }
+                    } else if (subtype == "lam") {
+                        for (int i = 0; check(); --count, ++i) {
+                            graph = graph_coarsening(graph,
+                                [](const CSR<double>& graph) -> Matching {
+                                    return GPA(graph,
+                                    [](const CSR<double>& graph) -> Matching {
+                                        return LAM(graph);
+                                    });});
+                            std::cout << "iteration: " << i << " n: "
+                                << graph.n << " m: " << graph.edges.size()
+                                << std::endl;
+                        }
                     } else if (subtype == "_no_parameter") {
                         throw std::runtime_error("Missing subtype for " + type);
                     } else {
-                        throw std::runtime_error("Unknown subtype: " + type);
+                        throw std::runtime_error("Unknown subtype: " + subtype);
                     }
                 } else if (type == "lam") {
                     for (int i = 0; check(); --count, ++i) {
