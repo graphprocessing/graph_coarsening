@@ -5,8 +5,6 @@
 // Defines
 #define NOMINMAX
 
-// OpenMP
-#include <omp.h>
 // C++
 #include <iostream>
 #include <fstream>
@@ -26,6 +24,8 @@
 #include <stack>
 #include <queue>
 #include <sstream>
+// OpenMP
+#include <omp.h>
 // Graph common
 #include "modules/common/include/timer.h"
 #include "modules/common/include/randomize.h"
